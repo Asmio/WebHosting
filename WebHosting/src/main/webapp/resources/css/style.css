@@ -1,0 +1,85 @@
+body{
+	background-color: #e3e0de;
+
+}
+
+a{
+	color: #f8f8f8;
+}
+
+img{
+	max-width: 100%;
+	height: auto;
+}
+
+.menu{
+	background-color: #436665;
+	padding: 0px;
+}
+
+a.navbar-brand{
+	padding-top: 0px;
+}
+
+.navbar-form .form-control{
+	width: 400px;
+}
+
+.btn{
+	padding: 4px 9px !important;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #f8f8f8;
+    font-weight: bold;
+}
+ .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:visited{
+ 	color: #f8f8f8;
+ 	text-decoration: underline;
+}
+
+#myModal{ 
+	display: none;
+	top: 20%;
+	height: 50%;
+	background-color: #f8f8f8;
+	width: 750px; 
+	box-shadow: 0px 0px 110px 5px #9DA2A2;
+} 
+
+.nav-tabs > li > a {
+    color: #555 !important;
+}
+
+#myModal .tab-pane .row { 
+	margin: 3px 0; 
+	width: 100%; 
+	float: none; 
+	padding: 0; 
+	float: none; 
+	clear: both; 
+	display: block; 
+} 
+
+#myModal .tab-pane .row label { 
+	display: block; 
+	float: left; 
+	cursor: pointer; 
+	width: 200px; 
+}
+
+@media only screen and (min-width: 1200px){
+
+}
+
+@media only screen and (min-width: 992px){
+
+}
+
+@media only screen and (min-width: 768px){
+
+}
+
+@media only screen and (min-width: 480px){
+
+}

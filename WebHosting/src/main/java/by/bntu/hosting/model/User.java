@@ -1,9 +1,37 @@
 package by.bntu.hosting.model;
 
-public class User extends Entity {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "user")
+public class User extends EntityModel {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue
+    private Integer id;
+
+    @Column(name = "login")
     private String login;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "confirmpassword")
+    private String confirmPassword;
+
+    public User() {
+
+    }
+
+    public User(String login, String password) {
+	this.login = login;
+	this.password = password;
+    }
 
     public String getLogin() {
 	return login;
@@ -19,6 +47,14 @@ public class User extends Entity {
 
     public void setPassword(String password) {
 	this.password = password;
+    }
+
+    public String getConfirmPassword() {
+	return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+	this.confirmPassword = confirmPassword;
     }
 
 }

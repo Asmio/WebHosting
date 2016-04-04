@@ -54,9 +54,9 @@
 		</nav>
 	</header>
 	<div class="container formregistr">
-		<form:form method="POST" commandName="user" class="form-horizontal" role="form">
-			<h3><spring:message code="logAndReg.login.logo" /></h3>
-			<p><spring:message code="logAndReg.login.logo2" /></p>
+		<form:form method="POST" action="user-registration" commandName="user" class="form-horizontal" role="form">
+			<h3><spring:message code="logAndReg.registr.logo" /></h3>
+			<p><spring:message code="logAndReg.registr.logo2" /></p>
 			<div class="form-group">
 				<form:label path="login" for="user_login" class="col-sm-2 control-label"><spring:message code="logAndReg.login" /></form:label>
 				<div class="col-sm-10">
@@ -72,19 +72,15 @@
 			  	<form:errors path="password"></form:errors> 
 			</div>
 			<div class="form-group">
-				<div class="col-sm-6">
-			    	<div class="checkbox">
-			      		<label><input type="checkbox"><spring:message code="logAndReg.login.remember" /></label>
-			    	</div>
-			 	</div>
-			 	<div class="col-sm-6">
-			 		<a href="signup" class="link-registr"><spring:message code="logAndReg.registr" /></a>
-			 	</div>
-			 	
-			  </div>
+				<form:label path="confirmPassword" for="repeat_password" class="col-sm-2 control-label"><spring:message code="logAndReg.registr.repeatpassword" /></form:label>
+			    <div class="col-sm-10">
+			    	<form:input type="password" path="confirmPassword" class="form-control" id="repeat_password" placeholder="Repeat password"/>
+			  	</div>
+			  	<form:errors path="confirmPassword"></form:errors> 
+			</div>
 			<div class="form-group">
 				<div class="col-sm-12">
-			    	<button type="submit" class="btn btn-default"><spring:message code="logAndReg.login.button" /></button>
+			    	<button type="submit" class="btn btn-default"><spring:message code="logAndReg.registr.button" /></button>
 			  	</div>
 			</div>
 		</form:form>

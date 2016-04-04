@@ -21,6 +21,9 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<context:annotation-config></context:annotation-config>
+	<beans:import resource="../../database/db-config.xml"/>
+	
 	<context:component-scan base-package="by.bntu.hosting" />
 	
 	<beans:bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">

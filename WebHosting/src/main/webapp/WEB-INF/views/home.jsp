@@ -29,7 +29,7 @@
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
 		      </button>
-		      <a class="navbar-brand" href="#"><img src="resources/img/logo.png"></a>
+		      <a class="navbar-brand" href="/hosting/"><img src="resources/img/logo.png"></a>
 		    </div>
 		
 		    
@@ -46,13 +46,15 @@
 			    <form:form class="navbar-form navbar-left">
 			        <button type="submit" class="btn btn-default"><spring:message code="main.header.button.addVideo" /></button>
 				</form:form>
-		        <li><a href="#" data-toggle="modal" data-target="#myModal"><spring:message code="main.header.link.logIn" /></a></li>
-		      </ul>
+		        <%-- <li><a href="#" data-toggle="modal" data-target="#myModal"><spring:message code="main.header.link.logIn" /></a></li>
+		       --%>
+		       <li><a href="signin"><spring:message code="main.header.link.logIn" /></a></li>
+		       </ul>
 		    </div>
 		  </div>
 		</nav>
 	</header>
-		<!-- Modal --> 
+		<%-- <!-- Modal --> 
 		<div class="modal container" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
 			<div class="modal-body"> 
 				<ul class="nav nav-tabs" id="login-or-register"> 
@@ -79,10 +81,10 @@
 								<form:errors path="password"></form:errors> 
 							</div> 
 							<div class="row"> 
-								<label for="password_repeat"><spring:message code="logAndReg.registr.repeatpassword" /></label> 
-								<input id="password_repeat" name="password_repeat" value="" placeholder="Repeat password"/> 
+								<form:label path="confirmPassword" for="password_repeat"><spring:message code="logAndReg.registr.repeatpassword" /></form:label> 
+								<form:input path="confirmPassword" id="password_repeat" value="" placeholder="Repeat password"/> 
 								<span class="required">*</span>
-								<span id="comparepassword"></span> 
+								<form:errors path="confirmPassword"></form:errors> 
 							</div> 
 							<div class="row"> <spring:message code="logAndReg.markedfield" /> </div> 
 							<div class="row"> 
@@ -119,7 +121,7 @@
 			<div class="modal-footer"> 
 				<button class="btn" data-dismiss="modal" aria-hidden="true"><spring:message code="logAndReg.buttonClose" /></button> 
 			</div> 
-		</div>
+		</div> --%>
 	<script src="http://code.jquery.com/jquery.min.js"></script>
     <script src="resources/js/bootstrap.min.js"></script>
 </body>

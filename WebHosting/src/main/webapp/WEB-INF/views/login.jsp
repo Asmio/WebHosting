@@ -11,8 +11,8 @@
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="resources/css/bootstrap.min.css" rel="stylesheet">
-	<link href="resources/css/style.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
 	<!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -30,7 +30,7 @@
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
 		      </button>
-		      <a class="navbar-brand" href="/hosting/"><img src="resources/img/logo.png"></a>
+		      <a class="navbar-brand" href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/resources/img/logo.png"></a>
 		    </div>
 		
 		    
@@ -39,7 +39,7 @@
 		        <div class="form-group">
 		          <input type="text" class="form-control" placeholder="...">
 		        </div>
-		        <button type="submit" class="btn btn-default btn-search"><img alt="" src="resources/img/search.png"></button>
+		        <button type="submit" class="btn btn-default btn-search"><img alt="" src="${pageContext.request.contextPath}/resources/img/search.png"></button>
 		      </form:form>
 		      
 		        		      
@@ -47,29 +47,30 @@
 			    <form:form class="navbar-form navbar-left">
 			        <button type="submit" class="btn btn-default"><spring:message code="main.header.button.addVideo" /></button>
 				</form:form>
-		       <li><a href="signin"><spring:message code="main.header.link.logIn" /></a></li>
+		       <li><a href="login"><spring:message code="main.header.link.logIn" /></a></li>
 		       </ul>
 		    </div>
 		  </div>
 		</nav>
 	</header>
 	<div class="container formregistr">
-		<form:form method="POST" commandName="user" class="form-horizontal" role="form">
+		<form method="POST" action="<c:url value='j_spring_security_check' />" class="form-horizontal" role="form">
 			<h3><spring:message code="logAndReg.login.logo" /></h3>
 			<p><spring:message code="logAndReg.login.logo2" /></p>
 			<div class="form-group">
-				<form:label path="login" for="user_login" class="col-sm-2 control-label"><spring:message code="logAndReg.login" /></form:label>
+				<label for="user_login" class="col-sm-2 control-label"><spring:message code="logAndReg.login" /></label>
 				<div class="col-sm-10">
-					<form:input path="login" class="form-control" id="user_login" placeholder="Email" /> 
+					<input name="username"  class="form-control" id="user_login" placeholder="Email" /> 
 				</div>
-				<form:errors path="login"></form:errors>
 			</div>
 			<div class="form-group">
-				<form:label path="password" for="user_password" class="col-sm-2 control-label"><spring:message code="logAndReg.password" /></form:label>
+				<label for="user_password" class="col-sm-2 control-label"><spring:message code="logAndReg.password" /></label>
 			    <div class="col-sm-10">
-			    	<form:input type="password" path="password" class="form-control" id="user_password" placeholder="Password"/>
+			    	<input name="password" type="password" class="form-control" id="user_password" placeholder="Password"/>
 			  	</div>
-			  	<form:errors path="password"></form:errors> 
+			  	<c:if test="${not empty error}">
+			  		${error}
+			  	</c:if>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-6">
@@ -87,9 +88,10 @@
 			    	<button type="submit" class="btn btn-default"><spring:message code="logAndReg.login.button" /></button>
 			  	</div>
 			</div>
-		</form:form>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+		</form>
 	</div>
 	<script src="http://code.jquery.com/jquery.min.js"></script>
-    <script src="resources/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
 </html>

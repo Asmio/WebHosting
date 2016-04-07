@@ -75,7 +75,7 @@
 			<div class="form-group">
 				<div class="col-sm-6">
 			    	<div class="checkbox">
-			      		<label><input type="checkbox"><spring:message code="logAndReg.login.remember" /></label>
+			      		<label><input name="remember-me" type="checkbox"><spring:message code="logAndReg.login.remember" /></label>
 			    	</div>
 			 	</div>
 			 	<div class="col-sm-6">

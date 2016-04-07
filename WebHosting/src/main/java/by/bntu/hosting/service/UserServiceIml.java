@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import by.bntu.hosting.dao.UserDAO;
 import by.bntu.hosting.model.User;
+import by.bntu.hosting.utils.MDPasswordEncoder;
 
 @Service
 public class UserServiceIml implements UserService {
@@ -18,6 +19,9 @@ public class UserServiceIml implements UserService {
     @Override
     @Transactional
     public void addUser(User user) {
+	MDPasswordEncoder encoder = new MDPasswordEncoder();
+	user.setPassword(encoder.encodeMD5(user.getPassword()));
+	user.setConfirmPassword(encoder.encodeMD5(user.getConfirmPassword()));
 	userDAO.addUser(user);
     }
 

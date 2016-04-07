@@ -58,11 +58,11 @@
 			<h3><spring:message code="logAndReg.registr.logo" /></h3>
 			<p><spring:message code="logAndReg.registr.logo2" /></p>
 			<div class="form-group">
-				<form:label path="login" for="user_login" class="col-sm-2 control-label"><spring:message code="logAndReg.login" /></form:label>
+				<form:label path="username" for="user_login" class="col-sm-2 control-label"><spring:message code="logAndReg.login" /></form:label>
 				<div class="col-sm-10">
-					<form:input path="login" class="form-control" id="user_login" placeholder="Email" /> 
+					<form:input path="username" class="form-control" id="user_login" placeholder="Email" /> 
 				</div>
-				<form:errors path="login"></form:errors>
+				<form:errors path="username"></form:errors>
 			</div>
 			<div class="form-group">
 				<form:label path="password" for="user_password" class="col-sm-2 control-label"><spring:message code="logAndReg.password" /></form:label>

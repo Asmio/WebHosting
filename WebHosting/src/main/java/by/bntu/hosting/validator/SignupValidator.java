@@ -37,13 +37,13 @@ public class SignupValidator extends EntityValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
 	User user = (User) target;
-	if (userService.getUser(user.getLogin()) != null) {
-	    errors.rejectValue("login", "login.userExists",
+	if (userService.getUser(user.getUsername()) != null) {
+	    errors.rejectValue("username", "login.userExists",
 		    messageSource.getMessage("logAndReg.registr.errors.login.userExists", null, locale));
 	    return;
 	}
-	if (!EmailValidator.getInstance().isValid(user.getLogin())) {
-	    errors.rejectValue("login", "login.notValid",
+	if (!EmailValidator.getInstance().isValid(user.getUsername())) {
+	    errors.rejectValue("username", "login.notValid",
 		    messageSource.getMessage("logAndReg.registr.errors.login.notValid", null, locale));
 	    return;
 	}

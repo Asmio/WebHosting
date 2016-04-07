@@ -8,7 +8,7 @@
 	http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
 	
-	<http  use-expressions="true">
+	<http use-expressions="true">
 		
 		<access-denied-handler error-page="/accessDenied" />
 	
@@ -20,16 +20,22 @@
 	    	authentication-failure-url="/login?error=true"
 	    	login-processing-url="/j_spring_security_check" />
 	    	
-	    <logout  logout-url="/j_spring_security_logout" logout-success-url="/" />
+	    <logout  logout-url="/j_spring_security_logout" logout-success-url="/login?logout" delete-cookies="JSESSIONID"/>
+	    
+	    <remember-me />
 	</http>
   
 	  <authentication-manager>
 	        <authentication-provider>
-	            <user-service>
-	                 <user name="admin" password="admin" authorities="ROLE_ADMIN" />
-	                 <user name="user" password="user" authorities="ROLE_USER" />
-	            </user-service>
+	            <jdbc-user-service data-source-ref="dataSource" 
+	            	users-by-username-query="select username,password, enabled from users where username=?"
+	            	authorities-by-username-query="select username, role from user_roles where username =?"/>
+	            <password-encoder ref="passwordEncoder">
+	            </password-encoder>
+	            
 	        </authentication-provider>
 		</authentication-manager>
+		
+		<beans:bean id="passwordEncoder" class="by.bntu.hosting.utils.MDPasswordEncoder" />
   
 </beans:beans>

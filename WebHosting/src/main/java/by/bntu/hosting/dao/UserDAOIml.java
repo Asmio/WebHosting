@@ -42,9 +42,9 @@ public class UserDAOIml implements UserDAO {
     }
 
     @Override
-    public User getUser(String login) {
-	Query query = sessionFactory.getCurrentSession().createQuery("from User where login = :login");
-	query.setString("login", login);
+    public User getUser(String username) {
+	Query query = sessionFactory.getCurrentSession().createQuery("from User where username = :username");
+	query.setString("username", username);
 	return (User) query.uniqueResult();
     }
 

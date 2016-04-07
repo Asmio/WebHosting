@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ page session="false" %>
 <html>
 <head>
@@ -52,10 +53,25 @@
 		  </div>
 		</nav>
 	</header>
-	<form action="<c:url value='j_spring_security_logout' />" method="post">
-	    <input type="submit" value="Logout"/>
-	    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-	</form>
+
+	<sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
+		<!-- For login user -->
+			<form action="<c:url value='j_spring_security_logout' />" method="post" id="logoutForm">
+			    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			</form>
+		<script>
+			function formSubmit() {
+				document.getElementById("logoutForm").submit();
+			}
+		</script>
+
+		<c:if test="${pageContext.request.userPrincipal.name != null}">
+			<h2>
+				User : ${pageContext.request.userPrincipal.name} | <a
+					href="javascript:formSubmit()"> Logout</a>
+			</h2>
+		</c:if>
+	</sec:authorize>
 		
 	<script src="http://code.jquery.com/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>

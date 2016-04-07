@@ -14,9 +14,9 @@ import by.bntu.hosting.model.User;
 
 @Component
 public class SigninValidator extends EntityValidator implements Validator {
-    
+
     private Locale locale;
-    
+
     @Autowired
     MessageSource messageSource;
 
@@ -31,7 +31,7 @@ public class SigninValidator extends EntityValidator implements Validator {
 
 	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "login",
 		messageSource.getMessage("logAndReg.registr.errors.login.empty", null, locale));
-	if (!EmailValidator.getInstance().isValid(user.getLogin())) {
+	if (!EmailValidator.getInstance().isValid(user.getUsername())) {
 	    errors.rejectValue("login",
 		    messageSource.getMessage("logAndReg.registr.errors.login.notValid", null, locale));
 	}

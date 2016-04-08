@@ -20,7 +20,7 @@
     <![endif]-->
 </head>
 <body>
-<div class="container-fluid main">
+	<div class="container-fluid main">
 		<header>
 			<nav class="navbar navbar-default menu">
 			  <div class="container-fluid">
@@ -42,8 +42,7 @@
 			        </div>
 			        <button type="submit" class="btn btn-default btn-search"><img alt="" src="${pageContext.request.contextPath}/resources/img/search.png"></button>
 			      </form:form>
-			      
-			        		      
+	        		      
 			      <ul class="nav navbar-nav navbar-right">
 				    <form:form class="navbar-form navbar-left">
 				        <button type="submit" class="btn btn-default"><spring:message code="main.header.button.addVideo" /></button>
@@ -75,26 +74,41 @@
 						</li>
 					</sec:authorize>
 			       </ul>
+			       
 			    </div>
 			  </div>
 			</nav>
 		</header>
-		<h3><spring:message code="accessDenied.message" /></h3>
-		</div>
-		<footer>
-			<div class="container">
-				<ul class="nav navbar-nav navbar-left icons">
-					<li><a href="?lang=ru"><img src="${pageContext.request.contextPath}/resources/img/Russia.png"></a></li>
-					<li><a href="?lang=en"><img src="${pageContext.request.contextPath}/resources/img/United-Kingdom.png"></a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right icons">
-					<li><a href="https://plus.google.com/u/0/106938424992200410927" target="_blank"><img src="${pageContext.request.contextPath}/resources/img/google.png"></a></li>
-					<li><a href="http://vk.com/karlopap" target="_blank"><img src="${pageContext.request.contextPath}/resources/img/vkontakte.png"></a></li>
-					<li><a href="https://twitter.com/gon4arikvadim" target="_blank"><img src="${pageContext.request.contextPath}/resources/img/twitter.png"></a></li>
-					<li><a href="https://www.facebook.com/profile.php?id=100010436075953" target="_blank"><img src="${pageContext.request.contextPath}/resources/img/facebook.png"></a></li>
-				</ul>
+		<div class="content">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 user-logo">
+					<h3>${pageContext.request.userPrincipal.name}</h3>
+				</div>
+				<div class="col-md-8 col-md-offset-2 user-description">
+					<p class="user-description-content"><spring:message code="user.descriptionContent" /></p>
+				</div>
+				<div class="col-md-8 col-md-offset-2 video-list">
+					<p class="video-list-title"><spring:message code="user.video" />()</p>
+				</div>
 			</div>
-		</footer>
+		</div>
+	</div>
+	
+	<footer>
+		<div class="container">
+			<ul class="nav navbar-nav navbar-left icons">
+				<li><a href="?lang=ru"><img src="${pageContext.request.contextPath}/resources/img/Russia.png"></a></li>
+				<li><a href="?lang=en"><img src="${pageContext.request.contextPath}/resources/img/United-Kingdom.png"></a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right icons">
+				<li><a href="https://plus.google.com/u/0/106938424992200410927" target="_blank"><img src="${pageContext.request.contextPath}/resources/img/google.png"></a></li>
+				<li><a href="http://vk.com/karlopap" target="_blank"><img src="${pageContext.request.contextPath}/resources/img/vkontakte.png"></a></li>
+				<li><a href="https://twitter.com/gon4arikvadim" target="_blank"><img src="${pageContext.request.contextPath}/resources/img/twitter.png"></a></li>
+				<li><a href="https://www.facebook.com/profile.php?id=100010436075953" target="_blank"><img src="${pageContext.request.contextPath}/resources/img/facebook.png"></a></li>
+			</ul>
+		</div>
+	</footer>
+		
 	<script src="http://code.jquery.com/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 </body>

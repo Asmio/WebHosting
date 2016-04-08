@@ -15,6 +15,8 @@ img{
 .menu{
 	background-color: #436665;
 	padding: 0px;
+	border-radius: 10px;
+	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.55);
 }
 
 a.navbar-brand{
@@ -33,42 +35,20 @@ a.navbar-brand{
     color: #f8f8f8;
     font-weight: bold;
 }
- .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:visited{
+ .navbar-default .navbar-nav:not(.icons) > li > a:hover, .navbar-default .navbar-nav > li > a:visited{
  	color: #f8f8f8;
  	text-decoration: underline;
 }
 
-
-
-#myModal{ 
-	display: none;
-	top: 20%;
-	height: 50%;
-	background-color: #f8f8f8;
-	width: 750px; 
-	box-shadow: 0px 0px 110px 5px #9DA2A2;
-} 
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
+    color: #f8f8f8;
+    background-color: #436665;
+}
 
 .nav-tabs > li > a {
     color: #555 !important;
 }
 
-#myModal .tab-pane .row { 
-	margin: 3px 0; 
-	width: 100%; 
-	float: none; 
-	padding: 0; 
-	float: none; 
-	clear: both; 
-	display: block; 
-} 
-
-#myModal .tab-pane .row label { 
-	display: block; 
-	float: left; 
-	cursor: pointer; 
-	width: 200px; 
-}
 
 .formregistr{
 	max-width: 500px !important;
@@ -83,6 +63,66 @@ a.navbar-brand{
 	text-decoration: underline;
 	padding-top: 5px;
 	display: block;
+}
+
+.main{
+	height: 100%;
+	padding: 0px;
+}
+
+.user-logo{
+	background: rgb(206,220,231);
+	background: -moz-linear-gradient(top, rgba(89,106,114,1) 0%, rgb(121, 129, 135) 100%);
+	background: -webkit-linear-gradient(top, rgba(89,106,114,1) 0%, rgb(121, 129, 135) 100%); 
+	background: linear-gradient(to bottom, rgba(89,106,114,1) 0%, rgb(121, 129, 135) 100%); 
+	margin-top: 60px;
+	border-radius: 10px 10px 0px 0px;
+	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.55);
+}
+
+.user-logo > h3{
+	color: #fff;
+	font-weight: bold;	
+}
+
+.user-description{
+	background: #fff;
+	border-radius: 0px 0px 10px 10px;
+	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.55);
+}
+
+.video-list{
+	background: #fff;
+	border-radius: 10px;
+	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.55);
+	margin-top: 15px;
+}
+
+.video-list-title{
+	color: #000;
+	font-size: 24px;
+}
+
+.user-description-content{
+	color: rgb(155, 144, 144);
+	cursor: pointer;
+}
+
+.row{
+	margin-left:0px;
+	margin-right:0px;
+}
+
+footer{
+	margin-top: -62px;
+	height: 62px;
+	background-color: #f3f0ee;
+	border-radius: 10px;
+	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.55);
+}
+
+.icons li a{
+	padding: 15px 5px;
 }
 
 @media only screen and (min-width: 1200px){

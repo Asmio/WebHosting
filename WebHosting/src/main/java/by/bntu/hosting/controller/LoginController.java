@@ -1,5 +1,9 @@
 package by.bntu.hosting.controller;
 
+import java.util.Locale;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,11 +21,14 @@ public class LoginController {
 	return new User();
     }
 
+    @Autowired
+    MessageSource messageSource;
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView login(@RequestParam(value = "error", required = false) String error) {
+    public ModelAndView login(@RequestParam(value = "error", required = false) String error, Locale locale) {
 	ModelAndView model = new ModelAndView();
 	if (error != null) {
-	    model.addObject("error", "invalid");
+	    model.addObject("error", messageSource.getMessage("logAndReg.login.errors.incorrect", null, locale));
 	}
 	model.setViewName("login");
 

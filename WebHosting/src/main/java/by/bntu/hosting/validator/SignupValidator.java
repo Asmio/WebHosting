@@ -42,11 +42,13 @@ public class SignupValidator extends EntityValidator implements Validator {
 		    messageSource.getMessage("logAndReg.registr.errors.login.userExists", null, locale));
 	    return;
 	}
+
 	if (!EmailValidator.getInstance().isValid(user.getUsername())) {
 	    errors.rejectValue("username", "login.notValid",
 		    messageSource.getMessage("logAndReg.registr.errors.login.notValid", null, locale));
 	    return;
 	}
+
 	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "password.empty",
 		messageSource.getMessage("logAndReg.registr.errors.password.empty", null, locale));
 	if (!(user.getPassword()).equals(user.getConfirmPassword())) {

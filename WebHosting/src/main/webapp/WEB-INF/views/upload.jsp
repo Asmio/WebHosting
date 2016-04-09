@@ -11,9 +11,15 @@
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Home</title>
+	<title>Upload</title>
 	<link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/vendor/jquery.ui.widget.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery.iframe-transport.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery.fileupload.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/myuploadfunction.js"></script>	
 	<!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -80,7 +86,22 @@
 		</nav>
 	</header>
 	
-	
+	<div class="content">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3 upload-logo">
+					<p class="upload-logo-content"><spring:message code="upload.logo" /></p>
+					<div style="width:500px;padding:20px">
+					    <input id="fileupload" type="file" name="files[]" data-url="download?${_csrf.parameterName}=${_csrf.token}" multiple>
+					    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+					    <div id="dropzone">Drop files here</div>
+					    <div id="progress">
+					        <div id="progressbar"></div>
+					    </div>
+						<span id="strengthValue"></span>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	
 	<footer>
@@ -97,8 +118,6 @@
 			</ul>
 		</div>
 	</footer>
-		
-	<script src="http://code.jquery.com/jquery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+	
 </body>
 </html>

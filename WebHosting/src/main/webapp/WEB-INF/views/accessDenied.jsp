@@ -45,9 +45,9 @@
 			      
 			        		      
 			      <ul class="nav navbar-nav navbar-right">
-				    <form:form class="navbar-form navbar-left">
-				        <button type="submit" class="btn btn-default"><spring:message code="main.header.button.addVideo" /></button>
-					</form:form>
+				    <li>
+			      		<a href="uploadpage"><button type="button" class="btn btn-default navbar-left btn-add-video"><spring:message code="main.header.button.addVideo" /></button></a>
+				    </li>
 					<sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
 						<li class="dropdown">
 				          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${pageContext.request.userPrincipal.name}<span class="caret"></span></a>

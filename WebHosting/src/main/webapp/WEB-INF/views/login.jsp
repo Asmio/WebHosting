@@ -40,14 +40,11 @@
 			        <div class="form-group">
 			          <input type="text" class="form-control" placeholder="...">
 			        </div>
-			        <button type="submit" class="btn btn-default btn-search"><img alt="" src="${pageContext.request.contextPath}/resources/img/search.png"></button>
+			        <button type="submit" disabled="disabled" class="btn btn-default btn-search"><img alt="" src="${pageContext.request.contextPath}/resources/img/search.png"></button>
 			      </form:form>
 			      
 			        		      
 			      <ul class="nav navbar-nav navbar-right">
-				    <form:form class="navbar-form navbar-left">
-				        <button type="submit" class="btn btn-default"><spring:message code="main.header.button.addVideo" /></button>
-					</form:form>
 			       <li><a href="login"><spring:message code="main.header.link.logIn" /></a></li>
 			       </ul>
 			    </div>

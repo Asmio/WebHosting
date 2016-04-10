@@ -71,10 +71,10 @@ public class UploadController {
 	    } catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-		return String.format(result, "ERROR_CLASS",
-			messageSource.getMessage("upload.file.error", null, locale));
+		return String.format(result, ERROR_CLASS, messageSource.getMessage("upload.file.error", null, locale));
 	    }
 	}
-	return String.format(result, "SUCCESS_CLASS", messageSource.getMessage("upload.file.success", null, locale));
+	return String.format(result, SUCCESS_CLASS, messageSource.getMessage("upload.file", null, locale) + " '"
+		+ uploadedFile.getFileName() + "' " + messageSource.getMessage("upload.file.success", null, locale));
     }
 }

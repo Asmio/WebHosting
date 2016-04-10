@@ -90,19 +90,28 @@
 			<div class="row">
 				<div class="col-md-6 col-md-offset-3 upload-logo">
 					<p class="upload-logo-content"><spring:message code="upload.logo" /></p>
-					<div style="width:500px;padding:20px">
-					    <input id="fileupload" type="file" name="files[]" data-url="download?${_csrf.parameterName}=${_csrf.token}" multiple>
-					    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-					    <div id="dropzone">Drop files here</div>
-					    <div id="progress">
-					        <div id="progressbar"></div>
-					    </div>
-						<span id="strengthValue"></span>
-					</div>
+					<!-- <div class="col-md-12"> -->
+						<div id="dropzone" class="col-md-12">
+							<img class="img-drag" src="${pageContext.request.contextPath}/resources/img/icon-drag.png">
+							<p><spring:message code="upload.draganddrop" /></p>
+							<p><spring:message code="or" /></p>
+							<div class="file-upload col-md-6 col-md-offset-3">
+								<label>
+									<input id="fileupload" type="file" name="files[]" data-url="download?${_csrf.parameterName}=${_csrf.token}" multiple>
+          							<span><spring:message code="upload.btnComputer" /></span>
+								</label>
+							</div>
+						</div>
+						<div id="progress" class="blue stripes col-md-6 col-md-offset-3">
+							<div id="progressbar"></div>
+						</div>
+						<div id="status" class="col-md-6 col-md-offset-3">
+						</div>
+					<!-- </div> -->
 				</div>
 			</div>
 		</div>
-	</div>
+	
 	
 	<footer>
 		<div class="container">
@@ -118,6 +127,6 @@
 			</ul>
 		</div>
 	</footer>
-	
+	</div>
 </body>
 </html>

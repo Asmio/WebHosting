@@ -79,8 +79,11 @@
 			  </div>
 			</nav>
 		</header>
-		<h3><spring:message code="accessDenied.message" /></h3>
+		<div class="content">
+			<h3><spring:message code="accessDenied.message" /></h3>
 		</div>
+		
+		
 		<footer>
 			<div class="container">
 				<ul class="nav navbar-nav navbar-left icons">
@@ -95,6 +98,7 @@
 				</ul>
 			</div>
 		</footer>
+	</div>
 	<script src="http://code.jquery.com/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 </body>

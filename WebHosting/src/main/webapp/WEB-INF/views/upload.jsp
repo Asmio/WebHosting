@@ -90,7 +90,6 @@
 			<div class="row">
 				<div class="col-md-6 col-md-offset-3 upload-logo">
 					<p class="upload-logo-content"><spring:message code="upload.logo" /></p>
-					<!-- <div class="col-md-12"> -->
 						<div id="dropzone" class="col-md-12">
 							<img class="img-drag" src="${pageContext.request.contextPath}/resources/img/icon-drag.png">
 							<p><spring:message code="upload.draganddrop" /></p>
@@ -107,7 +106,15 @@
 						</div>
 						<div id="status" class="col-md-6 col-md-offset-3">
 						</div>
-					<!-- </div> -->
+						<div class="col-md-5 div-specif">
+							<div class="logo-specif"><spring:message code="upload.specifications" /></div>
+							<img src="${pageContext.request.contextPath}/resources/img/icon-specs.png">
+							<ul>
+								<li><spring:message code="upload.specifications.duration" /></li>
+								<li><spring:message code="upload.specifications.size" /></li>
+								<li><spring:message code="upload.specifications.format" /></li>
+							</ul>
+						</div>
 				</div>
 			</div>
 		</div>

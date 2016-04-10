@@ -24,8 +24,6 @@ import by.bntu.hosting.model.UploadedFile;
 public class UploadController {
 
     private static final String SERVERHOME_NAME = "catalina.home";
-    private static final String ERROR_CLASS = "file_error";
-    private static final String SUCCESS_CLASS = "file_success";
 
     @Autowired
     MessageSource messageSource;
@@ -41,11 +39,8 @@ public class UploadController {
     public @ResponseBody String upload(MultipartHttpServletRequest request, HttpServletResponse response,
 	    Locale locale) {
 
-	String result = "<span class=\"%s\">%s</span>";
-
 	Iterator<String> itr = request.getFileNames();
 	MultipartFile mpf = null;
-
 	while (itr.hasNext()) {
 
 	    mpf = request.getFile(itr.next());
@@ -54,7 +49,6 @@ public class UploadController {
 	    uploadedFile.setFileName(mpf.getOriginalFilename());
 	    uploadedFile.setFileSize(mpf.getSize() / 1024 + " Kb");
 	    uploadedFile.setFileType(mpf.getContentType());
-
 	    try {
 		uploadedFile.setBytes(mpf.getBytes());
 
@@ -71,10 +65,11 @@ public class UploadController {
 	    } catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-		return String.format(result, ERROR_CLASS, messageSource.getMessage("upload.file.error", null, locale));
+		return messageSource.getMessage("upload.file.error", null, locale);
 	    }
 	}
-	return String.format(result, SUCCESS_CLASS, messageSource.getMessage("upload.file", null, locale) + " '"
-		+ uploadedFile.getFileName() + "' " + messageSource.getMessage("upload.file.success", null, locale));
+	return messageSource.getMessage("upload.file", null, locale) + " '" + uploadedFile.getFileName() + "' "
+		+ messageSource.getMessage("upload.file.success", null, locale);
+
     }
 }

@@ -3,11 +3,27 @@ $(function () {
         dataType: 'text',
         
         done: function (e, data) {
-        	$("#status").append(data.result); 
+        	$("#status").text(data.result);
+        	if ($("#status").hasClass('file_error')){
+        		$("#status").removeClass('file_error');
+        		$("#status").addClass('file_success');
+        	} else {
+        		if (!$("#status").hasClass('file_success')){
+        			$("#status").addClass('file_success');
+            	}
+        	}	 
         },
         
         fail: function (e, data) {
-        	$("#status").append(data.result); 
+        	$("#status").text(data.result);
+        	if ($("#status").hasClass('file_success')){
+        		$("#status").removeClass('file_success');
+        		$("#status").addClass('file_error');
+        	} else {
+        		if (!$("#status").hasClass('file_error')){
+        			$("#status").addClass('file_error');
+            	}
+        	} 
         },
         
         send: function (e, data) {
@@ -23,7 +39,11 @@ $(function () {
             	
             });
             if(type == false){
-            	$("#status").text('только mp4');
+            	if ($("#status").hasClass('file_success')){
+            		$("#status").removeClass('file_success');
+            		$("#status").addClass('file_error');
+            	}
+            	$("#status").text("Только mp4!");
             	return false;
             }
         },

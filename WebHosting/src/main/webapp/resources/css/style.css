@@ -136,6 +136,7 @@ a.navbar-brand{
 	background: rgb(255, 255, 255) none repeat scroll 0% 0%;
 	border-radius: 10px;
 	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.55);
+	max-width: 780px;
 }
 
 .upload-logo-content{
@@ -210,6 +211,24 @@ a.navbar-brand{
 .file_success{
 	color: green;
 }
+
+.logo-specif{
+	font-size:18px;
+}
+
+.logo-specif ~ ul{
+	text-align: left;
+	margin-left: 40px;
+}
+
+.div-specif{
+	border: 1px solid rgb(224, 224, 224);
+	margin: 15px;
+	border-radius: 1px;
+	box-shadow: 0px 0px 0px 6px rgb(246, 246, 246), 0px 0px 0px 7px rgb(204, 204, 204);
+	padding: 10px;
+}
+
 
 #progress {
         background-color: #fbf9f9;

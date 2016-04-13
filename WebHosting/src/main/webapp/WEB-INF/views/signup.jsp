@@ -53,7 +53,7 @@
 		</header>
 		<div class="content">
 			<div class="container formregistr">
-				<form:form method="POST" action="user-registration" commandName="user" class="form-horizontal" role="form">
+				<form:form method="POST" action="registration" commandName="user" class="form-horizontal" role="form">
 					<h3><spring:message code="logAndReg.registr.logo" /></h3>
 					<p><spring:message code="logAndReg.registr.logo2" /></p>
 					<div class="form-group">

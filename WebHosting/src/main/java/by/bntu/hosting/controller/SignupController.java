@@ -37,7 +37,7 @@ public class SignupController {
 	return "signup";
     }
 
-    @RequestMapping(value = "/user-registration", method = RequestMethod.POST)
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String signup(@ModelAttribute("user") User user, BindingResult bindingResult, Locale locale,
 	    RedirectAttributes redirectAttributes) {
 	signupValidator.setLocale(locale);

@@ -88,7 +88,13 @@
 					<p class="user-description-content"><spring:message code="user.descriptionContent" /></p>
 				</div>
 				<div class="col-md-8 col-md-offset-2 video-list">
-					<p class="video-list-title"><spring:message code="user.video" />()</p>
+					<p class="video-list-title"><spring:message code="user.video" />(${videoListSize})</p>
+					<c:forEach items="${videoList}" var="video">
+		    			<div class="col-md-2">
+			    			<img src="${pageContext.request.contextPath}/resources/img/i.jpg">
+			    			<a href="#" title="${video.name}" class="linkvideo-name">${video.name}</a>
+		    			</div>  
+				    </c:forEach>
 				</div>
 			</div>
 		</div>

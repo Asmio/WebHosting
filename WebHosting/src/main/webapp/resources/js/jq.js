@@ -1,10 +1,9 @@
-function doAjax() {
-    $.ajax({
-        url: 'checkStrength',
-        data: ({password : $('#password').val()}),
-        success: function(data) {
-          $('#strengthValue').html(data);
-        }
-      });
-}
-
+$(function(){
+  $('.linkvideo-name').liTextLength({
+    length: 35,        //Видимое кол-во символов
+    afterLength: '...', //Текст после видимого содержания   
+    fullText:false,      //Добавить ссылку для отображения скрытого текста
+   // moreText: '<br>полный текст',  //Текст ссылки до показа скрытого содержания
+    //lessText: '<br>скрыть полный текст'   //Текст ссылки после показа скрытого содержания
+  });
+});

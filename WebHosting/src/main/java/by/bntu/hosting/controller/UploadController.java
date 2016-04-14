@@ -2,7 +2,7 @@ package by.bntu.hosting.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
+import java.security.Principal;
 import java.util.Iterator;
 import java.util.Locale;
 
@@ -19,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import by.bntu.hosting.model.UploadedFile;
+import by.bntu.hosting.model.Video;
+import by.bntu.hosting.service.VideoService;
 
 @Controller
 public class UploadController {
@@ -28,6 +30,9 @@ public class UploadController {
     @Autowired
     MessageSource messageSource;
 
+    @Autowired
+    VideoService videoService;
+
     UploadedFile uploadedFile = null;
 
     @RequestMapping(value = "/uploadpage", method = RequestMethod.GET)
@@ -36,8 +41,8 @@ public class UploadController {
     }
 
     @RequestMapping(value = "/download", method = RequestMethod.POST, produces = { "text/html; charset=UTF-8" })
-    public @ResponseBody String upload(MultipartHttpServletRequest request, HttpServletResponse response,
-	    Locale locale) {
+    public @ResponseBody String upload(MultipartHttpServletRequest request, HttpServletResponse response, Locale locale,
+	    Principal user) {
 
 	Iterator<String> itr = request.getFileNames();
 	MultipartFile mpf = null;
@@ -61,9 +66,8 @@ public class UploadController {
 
 		FileCopyUtils.copy(mpf.getBytes(),
 			new FileOutputStream(dir.getAbsolutePath() + File.separator + mpf.getOriginalFilename()));
-
-	    } catch (IOException e) {
-		// TODO Auto-generated catch block
+		addVideoDB(uploadedFile.getFileName(), user.getName());
+	    } catch (Exception e) {
 		e.printStackTrace();
 		return messageSource.getMessage("upload.file.error", null, locale);
 	    }
@@ -71,5 +75,10 @@ public class UploadController {
 	return messageSource.getMessage("upload.file", null, locale) + " '" + uploadedFile.getFileName() + "' "
 		+ messageSource.getMessage("upload.file.success", null, locale);
 
+    }
+
+    public void addVideoDB(String videoName, String userName) {
+	Video video = new Video(videoName, userName);
+	videoService.addVideo(video);
     }
 }

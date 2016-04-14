@@ -13,7 +13,7 @@ import by.bntu.hosting.controller.HomeController;
 import by.bntu.hosting.model.User;
 
 @Repository
-public class UserDAOIml implements UserDAO {
+public class UserDAOImpl implements UserDAO {
 
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
     @Autowired

@@ -11,7 +11,7 @@ import by.bntu.hosting.model.User;
 import by.bntu.hosting.utils.MDPasswordEncoder;
 
 @Service
-public class UserServiceIml implements UserService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
     UserDAO userDAO;

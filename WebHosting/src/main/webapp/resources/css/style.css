@@ -78,9 +78,29 @@ a.navbar-brand{
 	display: block;
 }
 
+.linkvideo-name{
+	color: #23527c !important;
+	display: block;
+	font-weight: bold;
+}
+
+.linkvideo-name ~ a{
+	color: #7c7d7d !important;
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.home-content{
+	background-color: white;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
 .main{
 	position: relative;
   	min-height: 100%;
+  	padding: 0px;
 }
 
 .content{

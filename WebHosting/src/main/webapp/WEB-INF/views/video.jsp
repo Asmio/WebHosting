@@ -11,12 +11,11 @@
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Home</title>
+	<title>Video</title>
 	<link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
 	<script src="http://code.jquery.com/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/jq.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/jquery.liTextLength.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/flashembed.min.js"></script>
 	<!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -83,26 +82,15 @@
 			</nav>
 		</header>
 		<div class="content">
-			<div class="container home-content">
-				<c:set var="count" value="0"></c:set>
-
-	    		<c:forEach items="${videoList}" var="video">
-	    			<c:if test="${count == 0}">
-					   	<div class="row home-content-row">
-					</c:if>
-					<c:set var="count" value="${count + 1}"></c:set>
-	    			<div class="col-md-2">
-		    			<img class="home-content-img" src="download/image?fileId=${video.id}">
-		    			<a href="getVideo?id=${video.id}" title="${video.name}" class="linkvideo-name">${video.name}</a>
-		    			<a href="#" title="${video.username}">${video.username}</a>	
-	    			</div>
-	    			<c:if test="${count == 6}">
-					   	</div>
-					   	<c:set var="count" value="0"></c:set>
-					</c:if>
-			    </c:forEach>
-			    
-	    	</div>
+			<div class="container">
+				<c:set var="video" value="${video}"></c:set>
+				<video class="videoplayer" controls >
+					<source src="download/video?fileId=${video.id}" type="video/mp4">
+					<source src="download/video?fileId=${video.id}" type="video/webm">	
+					<source src="download/video?fileId=${video.id}" type="video/ogg">
+				</video>
+				<div class=""><c:out value="${video.name}"></c:out></div>
+			</div>
 		</div>
 		<footer>
 			<div class="container">

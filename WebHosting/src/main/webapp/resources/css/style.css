@@ -97,6 +97,16 @@ a.navbar-brand{
 	box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
+.home-content-row{
+	padding-bottom: 10px;
+	padding-top: 20px;
+}
+
+.home-content-img{
+	width: 160px;
+	height: 100px;
+}
+
 .main{
 	position: relative;
   	min-height: 100%;
@@ -318,6 +328,11 @@ a.navbar-brand{
 
 @-moz-keyframes animate-stripes {
         0% {background-position: 0 0;} 100% {background-position: 60px 0;}
+}
+
+.videoplayer{
+	height: 360px;
+	width: 640px;
 }
 
 footer{

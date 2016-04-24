@@ -12,6 +12,8 @@ public interface VideoDAO {
 
     public Video getVideo(String name);
 
+    public Video getVideo(Long id);
+
     public List<Video> listVideo();
 
     public List<Video> listVideo(String userName);

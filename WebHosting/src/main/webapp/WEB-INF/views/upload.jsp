@@ -96,7 +96,7 @@
 							<p><spring:message code="or" /></p>
 							<div class="file-upload col-md-6 col-md-offset-3">
 								<label>
-									<input id="fileupload" type="file" name="files[]" data-url="download?${_csrf.parameterName}=${_csrf.token}" multiple>
+									<input id="fileupload" type="file" name="files[]" data-url="download?${_csrf.parameterName}=${_csrf.token}">
           							<span><spring:message code="upload.btnComputer" /></span>
 								</label>
 							</div>

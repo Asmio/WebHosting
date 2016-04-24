@@ -47,4 +47,11 @@ public class VideoDAOImpl implements VideoDAO {
 	return list;
     }
 
+    @Override
+    public Video getVideo(Long id) {
+	Query query = sessionFactory.getCurrentSession().createQuery("from Video where id = :id");
+	query.setLong("id", id);
+	return (Video) query.uniqueResult();
+    }
+
 }

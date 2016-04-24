@@ -46,4 +46,10 @@ public class VideoServiceImpl implements VideoService {
 	return videoDAO.listVideo(userName);
     }
 
+    @Override
+    @Transactional
+    public Video getVideo(Long id) {
+	return videoDAO.getVideo(id);
+    }
+
 }

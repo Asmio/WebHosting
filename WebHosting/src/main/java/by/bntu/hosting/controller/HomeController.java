@@ -1,6 +1,7 @@
 package by.bntu.hosting.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import by.bntu.hosting.model.Video;
 import by.bntu.hosting.service.VideoService;
+import by.bntu.hosting.utils.EditVideoName;
 
 /**
  * Handles requests for the application home page.
@@ -27,7 +30,11 @@ public class HomeController {
     public ModelAndView home() {
 	ModelAndView model = new ModelAndView();
 	model.setViewName("home");
-	model.addObject("videoList", videoService.listVideo());
+	List<Video> list = videoService.listVideo();
+	for (Video video : list) {
+	    video.setName(EditVideoName.editName(video.getName()));
+	}
+	model.addObject("videoList", list);
 	return model;
     }
 

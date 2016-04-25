@@ -80,6 +80,8 @@
 			</nav>
 		</header>
 		<div class="content">
+			<c:set var="user" value="${user}"></c:set>
+			<c:out value="${user.username}"></c:out>
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2 user-logo">
 					<h3>${pageContext.request.userPrincipal.name}</h3>
@@ -89,11 +91,20 @@
 				</div>
 				<div class="col-md-8 col-md-offset-2 video-list">
 					<p class="video-list-title"><spring:message code="user.video" />(${videoListSize})</p>
+					<c:set var="count" value="0"></c:set>
 					<c:forEach items="${videoList}" var="video">
+						<c:if test="${count == 0}">
+						   	<div class="row home-content-row">
+						</c:if>
+						<c:set var="count" value="${count + 1}"></c:set>
 		    			<div class="col-md-2">
-			    			<img src="${pageContext.request.contextPath}/resources/img/i.jpg">
+			    			<img class="home-content-img" src="${pageContext.request.contextPath}/download/image?fileId=${video.id}">
 			    			<a href="#" title="${video.name}" class="linkvideo-name">${video.name}</a>
-		    			</div>  
+		    			</div>
+		    			<c:if test="${count == 6}">
+						   	</div>
+						   	<c:set var="count" value="0"></c:set>
+						</c:if>  
 				    </c:forEach>
 				</div>
 			</div>

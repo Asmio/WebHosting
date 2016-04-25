@@ -102,6 +102,25 @@ a.navbar-brand{
 	padding-top: 20px;
 }
 
+.home-content-cell-a{
+	position: relative;
+}
+
+.hide-img{
+	position:absolute;
+	display:none;
+	top: -8px;
+	left: 59px;
+}
+
+.home-content-cell-a:hover .hide-img{
+	display:block;
+}
+
+.home-content-cell-a:hover .home-content-img{
+	opacity: 0.4;
+}
+
 .home-content-img{
 	width: 160px;
 	height: 100px;
@@ -139,6 +158,11 @@ a.navbar-brand{
 	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.55);
 }
 
+.user-description-content{
+	color: rgb(155, 144, 144);
+	cursor: pointer;
+}
+
 .video-list{
 	background: #fff;
 	border-radius: 10px;
@@ -151,10 +175,7 @@ a.navbar-brand{
 	font-size: 24px;
 }
 
-.user-description-content{
-	color: rgb(155, 144, 144);
-	cursor: pointer;
-}
+
 
 .row{
 	margin-left:0px;

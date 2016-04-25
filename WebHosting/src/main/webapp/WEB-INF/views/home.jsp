@@ -92,9 +92,12 @@
 					</c:if>
 					<c:set var="count" value="${count + 1}"></c:set>
 	    			<div class="col-md-2">
-		    			<img class="home-content-img" src="download/image?fileId=${video.id}">
+		    			<a class="home-content-cell-a" href="getVideo?id=${video.id}">
+		    				<img class="home-content-img" src="${pageContext.request.contextPath}/download/image?fileId=${video.id}">
+		    				<img class="hide-img" src="${pageContext.request.contextPath}/resources/img/play.png">
+		    			</a>
 		    			<a href="getVideo?id=${video.id}" title="${video.name}" class="linkvideo-name">${video.name}</a>
-		    			<a href="#" title="${video.username}">${video.username}</a>	
+		    			<a href="user/${video.username}" title="${video.username}">${video.username}</a>	
 	    			</div>
 	    			<c:if test="${count == 6}">
 					   	</div>

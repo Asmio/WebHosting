@@ -24,8 +24,8 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     @Transactional
-    public void removeVideo(Video video) {
-	videoDAO.removeVideo(video);
+    public Boolean removeVideo(Long id) {
+	return videoDAO.removeVideo(id);
     }
 
     @Override

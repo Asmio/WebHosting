@@ -45,7 +45,7 @@
 			      
 			        		      
 			      <ul class="nav navbar-nav navbar-right">
-			       <li><a href="login"><spring:message code="main.header.link.logIn" /></a></li>
+			       <li><a href="${pageContext.request.contextPath}/login"><spring:message code="main.header.link.logIn" /></a></li>
 			       </ul>
 			    </div>
 			  </div>
@@ -78,7 +78,7 @@
 					    	</div>
 					 	</div>
 					 	<div class="col-sm-6">
-					 		<a href="signup" class="link-registr"><spring:message code="logAndReg.registr" /></a>
+					 		<a href="${pageContext.request.contextPath}/signup" class="link-registr"><spring:message code="logAndReg.registr" /></a>
 					 	</div>
 					 	
 					  </div>

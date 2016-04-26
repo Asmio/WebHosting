@@ -51,17 +51,17 @@
         		      
 		      <ul class="nav navbar-nav navbar-right">
 		      	<li>
-		      		<a href="uploadpage"><button type="button" class="btn btn-default navbar-left btn-add-video"><spring:message code="main.header.button.addVideo" /></button></a>
+		      		<a href="${pageContext.request.contextPath}/uploadpage"><button type="button" class="btn btn-default navbar-left btn-add-video"><spring:message code="main.header.button.addVideo" /></button></a>
 			    </li>
 				<sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
 					<li class="dropdown">
 			          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${pageContext.request.userPrincipal.name}<span class="caret"></span></a>
 			          <ul class="dropdown-menu">
-			            <li><a href="user"><spring:message code="main.header.menu.mypage" /></a></li>
+			            <li><a href="${pageContext.request.contextPath}/user/${pageContext.request.userPrincipal.name}"><spring:message code="main.header.menu.mypage" /></a></li>
 			            <li><a href="#"><spring:message code="main.header.menu.settings" /></a></li>
 			            <li role="separator" class="divider"></li>
 			            <li>
-				            <form action="<c:url value='j_spring_security_logout' />" method="post" id="logoutForm">
+				            <form action="${pageContext.request.contextPath}/j_spring_security_logout" method="post" id="logoutForm">
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 							</form>
 							<script>
@@ -76,7 +76,7 @@
 				</sec:authorize>
 				<sec:authorize access="hasRole('ROLE_ANONYMOUS')">
 					<li>
-						<a href="login"><spring:message code="main.header.link.logIn" /></a>
+						<a href="${pageContext.request.contextPath}/login"><spring:message code="main.header.link.logIn" /></a>
 					</li>
 				</sec:authorize>
 		       </ul>

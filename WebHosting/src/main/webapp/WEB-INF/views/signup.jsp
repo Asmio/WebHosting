@@ -45,7 +45,7 @@
 			      
 			        		      
 			      <ul class="nav navbar-nav navbar-right">
-			       <li><a href="login"><spring:message code="main.header.link.logIn" /></a></li>
+			       <li><a href="${pageContext.request.contextPath}/login"><spring:message code="main.header.link.logIn" /></a></li>
 			       </ul>
 			    </div>
 			  </div>

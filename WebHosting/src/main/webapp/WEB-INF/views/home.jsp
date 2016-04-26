@@ -54,11 +54,11 @@
 						<li class="dropdown">
 				          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${pageContext.request.userPrincipal.name}<span class="caret"></span></a>
 				          <ul class="dropdown-menu">
-				            <li><a href="user"><spring:message code="main.header.menu.mypage" /></a></li>
+				            <li><a href="${pageContext.request.contextPath}/user/${pageContext.request.userPrincipal.name}"><spring:message code="main.header.menu.mypage" /></a></li>
 				            <li><a href="#"><spring:message code="main.header.menu.settings" /></a></li>
 				            <li role="separator" class="divider"></li>
 				            <li>
-					            <form action="<c:url value='j_spring_security_logout' />" method="post" id="logoutForm">
+					            <form action="${pageContext.request.contextPath}/j_spring_security_logout" method="post" id="logoutForm">
 									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 								</form>
 								<script>
@@ -73,7 +73,7 @@
 					</sec:authorize>
 					<sec:authorize access="hasRole('ROLE_ANONYMOUS')">
 						<li>
-							<a href="login"><spring:message code="main.header.link.logIn" /></a>
+							<a href="${pageContext.request.contextPath}/login"><spring:message code="main.header.link.logIn" /></a>
 						</li>
 					</sec:authorize>
 			       </ul>
@@ -84,27 +84,30 @@
 		</header>
 		<div class="content">
 			<div class="container home-content">
+				<p class="video-list-title"><spring:message code="main.content.title" /></p>
 				<c:set var="count" value="0"></c:set>
-
-	    		<c:forEach items="${videoList}" var="video">
-	    			<c:if test="${count == 0}">
-					   	<div class="row home-content-row">
-					</c:if>
-					<c:set var="count" value="${count + 1}"></c:set>
-	    			<div class="col-md-2">
-		    			<a class="home-content-cell-a" href="getVideo?id=${video.id}">
-		    				<img class="home-content-img" src="${pageContext.request.contextPath}/download/image?fileId=${video.id}">
-		    				<img class="hide-img" src="${pageContext.request.contextPath}/resources/img/play.png">
-		    			</a>
-		    			<a href="getVideo?id=${video.id}" title="${video.name}" class="linkvideo-name">${video.name}</a>
-		    			<a href="user/${video.username}" title="${video.username}">${video.username}</a>	
-	    			</div>
-	    			<c:if test="${count == 6}">
-					   	</div>
-					   	<c:set var="count" value="0"></c:set>
-					</c:if>
-			    </c:forEach>
-			    
+				<div class="row">
+					<c:forEach items="${videoList}" var="video">
+		    			<c:if test="${count == 0}">
+						   	<div class="clearfix home-content-row">
+						</c:if>
+						<c:set var="count" value="${count + 1}"></c:set>
+		    			<div class="col-md-2 col-sm-4 col-xs-4 cols-xs-offset-4 home-content-cell">
+		    				<div class="home-content-cell-a">
+			    				<a href="${pageContext.request.contextPath}/getVideo?id=${video.id}">
+			    					<img class="home-content-img" src="${pageContext.request.contextPath}/download/image?fileId=${video.id}">
+			    					<img class="hide-img" src="${pageContext.request.contextPath}/resources/img/play.png">
+			    				</a>
+			    			</div>
+			    			<a href="${pageContext.request.contextPath}/getVideo?id=${video.id}" title="${video.name}" class="linkvideo-name">${video.name}</a>
+			    			<a href="${pageContext.request.contextPath}/user/${video.username}" title="${video.username}">${video.username}</a>	
+		    			</div>
+		    			<c:if test="${count == 6}">
+						   	</div>
+						   	<c:set var="count" value="0"></c:set>
+						</c:if>
+				    </c:forEach>
+				</div>  
 	    	</div>
 		</div>
 		<footer>

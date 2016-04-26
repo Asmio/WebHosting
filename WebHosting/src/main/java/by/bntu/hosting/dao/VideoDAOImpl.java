@@ -21,8 +21,16 @@ public class VideoDAOImpl implements VideoDAO {
     }
 
     @Override
-    public void removeVideo(Video video) {
-	sessionFactory.getCurrentSession().delete(video);
+    public Boolean removeVideo(Long id) {
+	Video video = (Video) sessionFactory.getCurrentSession().load(Video.class, id);
+
+	if (null != video) {
+	    sessionFactory.getCurrentSession().delete(video);
+	    return true;
+	} else {
+	    return false;
+	}
+
     }
 
     @Override

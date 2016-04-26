@@ -49,17 +49,38 @@ public class VideoController {
 	return model;
     }
 
+    @RequestMapping(value = "user/deleteVideo", method = RequestMethod.GET, produces = { "text/html; charset=UTF-8" })
+    @ResponseBody
+    public String deleteVideo(@RequestParam Long idVideo, Locale locale) {
+	try {
+	    Video video = videoService.getVideo(idVideo);
+	    if (videoService.removeVideo(idVideo)) {
+		String pathFileVideo = getPathFile(DOWNLOAD_DIR_V, video.getName());
+		String pathFileImage = getPathFile(DOWNLOAD_DIR_I, EditVideoName.editName(video.getName()) + ".png");
+		File fileVideo = new File(pathFileVideo);
+		File fileImage = new File(pathFileImage);
+		fileVideo.delete();
+		fileImage.delete();
+		return "true";
+	    } else {
+		return messageSource.getMessage("user.video.delete.error", null, locale);
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	    return messageSource.getMessage("user.video.delete.error", null, locale);
+	}
+
+    }
+
     @RequestMapping(value = "/download/video", method = RequestMethod.GET)
     public ResponseEntity<byte[]> getVideo(@RequestParam("fileId") Long fileId) throws IOException {
 	Video video = videoService.getVideo(fileId);
-	String filename = video.getName();
-	String rootPath = System.getProperty(SERVERHOME_NAME) + File.separator + DOWNLOAD_DIR + File.separator
-		+ DOWNLOAD_DIR_V;
+	String pathFile = getPathFile(DOWNLOAD_DIR_V, video.getName());
 	ByteArrayOutputStream out = null;
 	InputStream input = null;
 	try {
 	    out = new ByteArrayOutputStream();
-	    input = new BufferedInputStream(new FileInputStream(rootPath + File.separator + filename));
+	    input = new BufferedInputStream(new FileInputStream(pathFile));
 	    int data = 0;
 	    while ((data = input.read()) != -1) {
 		out.write(data);
@@ -82,14 +103,12 @@ public class VideoController {
     @RequestMapping(value = "/download/image", method = RequestMethod.GET)
     public ResponseEntity<byte[]> getImage(@RequestParam("fileId") Long fileId) throws IOException {
 	Video video = videoService.getVideo(fileId);
-	String filename = EditVideoName.editName(video.getName()) + ".png";
-	String rootPath = System.getProperty(SERVERHOME_NAME) + File.separator + DOWNLOAD_DIR + File.separator
-		+ DOWNLOAD_DIR_I;
+	String pathFile = getPathFile(DOWNLOAD_DIR_I, EditVideoName.editName(video.getName()) + ".png");
 	ByteArrayOutputStream out = null;
 	InputStream input = null;
 	try {
 	    out = new ByteArrayOutputStream();
-	    input = new BufferedInputStream(new FileInputStream(rootPath + File.separator + filename));
+	    input = new BufferedInputStream(new FileInputStream(pathFile));
 	    int data = 0;
 	    while ((data = input.read()) != -1) {
 		out.write(data);
@@ -107,6 +126,12 @@ public class VideoController {
 	final HttpHeaders headers = new HttpHeaders();
 	headers.setContentType(MediaType.IMAGE_PNG);
 	return new ResponseEntity<byte[]>(bytes, headers, HttpStatus.CREATED);
+    }
+
+    public String getPathFile(String dir, String fileName) {
+	String rootPath = System.getProperty(SERVERHOME_NAME) + File.separator + DOWNLOAD_DIR + File.separator + dir
+		+ File.separator + fileName;
+	return rootPath;
     }
 
     @RequestMapping(value = "/checkVideo", method = RequestMethod.GET, produces = { "text/html; charset=UTF-8" })

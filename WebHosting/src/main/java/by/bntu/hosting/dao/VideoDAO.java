@@ -8,7 +8,7 @@ public interface VideoDAO {
 
     public void addVideo(Video video);
 
-    public void removeVideo(Video video);
+    public Boolean removeVideo(Long id);
 
     public Video getVideo(String name);
 

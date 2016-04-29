@@ -88,9 +88,27 @@
 					<h3><c:out value="${user.username}"></c:out></h3>
 				</div>
 				<div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 user-description">
-					<c:if test="${pageContext.request.userPrincipal.name == user.username}">
-						<p class="user-description-content"><spring:message code="user.descriptionContent" /></p>
-					</c:if>
+					<div class="col-md-6">
+						<c:if test="${pageContext.request.userPrincipal.name == user.username}">
+							<c:choose>
+								<c:when test="${user.description == null || user.description == ''}">
+									<p class="user-description-content"><spring:message code="user.descriptionContent" /></p>
+									<div class="user-description-cell">
+										<textarea class="user-description-area" rows="3" cols="62" placeholder="<spring:message code="user.descriptionContent" />"></textarea>
+										<button class="btn btn-default user-description-save" value=""><spring:message code="user.descriptionButton.save" /></button>
+										<button class="btn btn-default user-description-cancel" value=""><spring:message code="user.descriptionButton.cancel" /></button>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<p class="user-description-content2">${user.description}</p>
+								</c:otherwise>
+						    </c:choose>
+						</c:if>
+						<c:if test="${pageContext.request.userPrincipal.name != user.username}">
+							<p class="user-description-content2">${user.description}</p>
+						</c:if>
+						
+					</div>
 				</div>
 				<div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 video-list">
 					<c:if test="${pageContext.request.userPrincipal.name == user.username}">

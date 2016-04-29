@@ -15,7 +15,7 @@
 	    <intercept-url pattern="/test" access="hasRole('ROLE_ADMIN')" />
 	    <intercept-url pattern="/login*" access="hasRole('ROLE_ANONYMOUS')" />
 	    <intercept-url pattern="/signup*" access="hasRole('ROLE_ANONYMOUS')" />
-	    <intercept-url pattern="/user*" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
+	    <intercept-url pattern="/user/*" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
 	    <intercept-url pattern="/uploadpage*" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
 	    <intercept-url pattern="/download*" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
 	    <form-login 

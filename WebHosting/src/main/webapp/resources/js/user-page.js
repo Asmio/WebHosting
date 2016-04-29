@@ -24,6 +24,46 @@ function deleteVideo(){
 	});
 }
 
+function showArea(){
+	$(this).animate({height: 'hide'}, 500);
+	$(".user-description-cell").animate({height: 'show'}, 500);
+}
+
+function cancelArea(){
+	$(".user-description-cell").animate({height: 'hide'}, 500);
+	$(".user-description-content").animate({height: 'show'}, 500);
+	$(".user-description-area").val('');
+}
+
+function addDescription(){
+	var description = $(".user-description-area").val();
+	description = $.trim(description);
+	if (description == ""){
+		$(".user-description-cell").animate({height: 'hide'}, 500);
+		$(".user-description-area").val('');
+		$(".user-description-content").animate({height: 'show'}, 500);
+		return;
+	}
+	$.ajax({
+        url: 'addDescription',
+        data: ({description : encodeURIComponent(description)}),
+        success: function(data) {
+        	if (data == "true"){
+        		var content = $(".user-description-content").eq(0);
+            	$(content).removeClass('user-description-content');
+            	$(content).addClass('user-description-content2');
+            	$(content).text(description);
+            	$(".user-description-cell").animate({height: 'hide'}, 500);
+        		$(".user-description-area").val('');
+        		$(content).animate({height: 'show'}, 500);
+        	}
+        }
+	});
+}
+
 $(function() {
    $('.user-hide-img-delete').on('click', deleteVideo);
+   $('.user-description-content').on('click', showArea);
+   $('.user-description-cancel').on('click', cancelArea);
+   $('.user-description-save').on('click', addDescription);
 })

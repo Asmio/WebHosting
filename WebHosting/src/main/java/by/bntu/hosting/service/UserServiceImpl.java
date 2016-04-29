@@ -49,4 +49,12 @@ public class UserServiceImpl implements UserService {
 	return userDAO.getUser(id);
     }
 
+    @Override
+    @Transactional
+    public void addDescription(String description, String login) {
+	User user = userDAO.getUser(login);
+	user.setDescription(description);
+	userDAO.addDescription(user);
+    }
+
 }

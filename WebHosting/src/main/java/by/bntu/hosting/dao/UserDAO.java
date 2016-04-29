@@ -15,4 +15,6 @@ public interface UserDAO {
     public User getUser(String login);
 
     public User getUser(Integer id);
+
+    public void addDescription(User user);
 }

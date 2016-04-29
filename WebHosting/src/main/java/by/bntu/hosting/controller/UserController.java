@@ -1,5 +1,7 @@
 package by.bntu.hosting.controller;
 
+import java.net.URLDecoder;
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import by.bntu.hosting.model.User;
@@ -37,6 +41,20 @@ public class UserController {
 	model.addObject("videoListSize", list.size());
 	model.addObject("videoList", list);
 	return model;
+    }
+
+    @RequestMapping(value = "user/addDescription", method = RequestMethod.GET)
+    @ResponseBody
+    public String addDescription(@RequestParam String description, Principal user) {
+	try {
+	    description = URLDecoder.decode(description);
+	    description = description.trim();
+	    userService.addDescription(description, user.getName());
+	    return "true";
+	} catch (Exception e) {
+	    e.printStackTrace();
+	    return "false";
+	}
     }
 
 }

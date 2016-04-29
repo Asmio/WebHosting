@@ -138,6 +138,19 @@ a.navbar-brand{
  	-webkit-transition: all 1s ease-out;
 }
 
+.user-description-cell{
+	display: none;
+}
+
+.user-description-cell > .user-description-save, .user-description-cancel{
+	margin-bottom: 5px;
+}
+
+.user-description-area{
+	display: block;
+	margin: 5px 0px;
+}
+
 .user-content-cell{
     position:relative;
     margin: 10px 0;

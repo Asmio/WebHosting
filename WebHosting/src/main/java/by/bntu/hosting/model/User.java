@@ -19,6 +19,9 @@ public class User {
     @Column(name = "confirmpassword")
     private String confirmPassword;
 
+    @Column(name = "description")
+    private String description;
+
     public User() {
 
     }
@@ -50,6 +53,14 @@ public class User {
 
     public void setConfirmPassword(String confirmPassword) {
 	this.confirmPassword = confirmPassword;
+    }
+
+    public String getDescription() {
+	return description;
+    }
+
+    public void setDescription(String description) {
+	this.description = description;
     }
 
 }

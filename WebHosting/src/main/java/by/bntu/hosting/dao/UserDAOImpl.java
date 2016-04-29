@@ -54,4 +54,10 @@ public class UserDAOImpl implements UserDAO {
 	return (User) query.uniqueResult();
     }
 
+    @Override
+    public void addDescription(User user) {
+	sessionFactory.getCurrentSession().saveOrUpdate(user);
+
+    }
+
 }

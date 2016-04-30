@@ -52,4 +52,13 @@ public class VideoServiceImpl implements VideoService {
 	return videoDAO.getVideo(id);
     }
 
+    @Override
+    @Transactional
+    public void addDescription(String description, Long id) {
+	Video video = videoDAO.getVideo(id);
+	video.setDescription(description);
+	videoDAO.addDescription(video);
+
+    }
+
 }

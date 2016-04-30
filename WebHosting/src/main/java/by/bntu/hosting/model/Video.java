@@ -21,6 +21,9 @@ public class Video {
     @Column(name = "username")
     private String username;
 
+    @Column(name = "description")
+    private String description;
+
     public Video() {
 
     }
@@ -52,6 +55,14 @@ public class Video {
 
     public void setUsername(String username) {
 	this.username = username;
+    }
+
+    public String getDescription() {
+	return description;
+    }
+
+    public void setDescription(String description) {
+	this.description = description;
     }
 
 }

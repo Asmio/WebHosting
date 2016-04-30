@@ -17,4 +17,6 @@ public interface VideoDAO {
     public List<Video> listVideo();
 
     public List<Video> listVideo(String userName);
+
+    public void addDescription(Video video);
 }

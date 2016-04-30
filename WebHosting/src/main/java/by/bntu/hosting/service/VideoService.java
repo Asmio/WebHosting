@@ -17,4 +17,6 @@ public interface VideoService {
     public List<Video> listVideo();
 
     public List<Video> listVideo(String userName);
+
+    public void addDescription(String description, Long id);
 }

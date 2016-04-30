@@ -22,11 +22,12 @@ $(function () {
                 	} else if(arr[0] == 'ok') {
                 		processingMessage = arr[1];
                 		error = false;
+                		$('body').css({cursor:'wait'} );
                 	}
                 }
     		});
     		if (error == true){
-    			return false;
+    			return false;	
     		}
             /*if (data.files.length > 10) {
                 return false;
@@ -54,6 +55,7 @@ $(function () {
         },
         
         done: function (e, data) {
+        	$('body').css({cursor:'default'} );
         	$("#status").text(data.result);
         	if ($("#status").hasClass('file_error')){
         		$("#status").removeClass('file_error');
@@ -66,6 +68,7 @@ $(function () {
         },
         
         fail: function (e, data) {
+        	$('body').css({cursor:'default'} );
         	$("#status").text(data.result);
         	if ($("#status").hasClass('file_success')){
         		$("#status").removeClass('file_success');

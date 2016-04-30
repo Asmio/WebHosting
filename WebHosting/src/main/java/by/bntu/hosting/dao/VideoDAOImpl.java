@@ -62,4 +62,10 @@ public class VideoDAOImpl implements VideoDAO {
 	return (Video) query.uniqueResult();
     }
 
+    @Override
+    public void addDescription(Video video) {
+	sessionFactory.getCurrentSession().saveOrUpdate(video);
+
+    }
+
 }

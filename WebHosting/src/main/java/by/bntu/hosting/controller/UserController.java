@@ -20,6 +20,7 @@ import by.bntu.hosting.service.VideoService;
 import by.bntu.hosting.utils.EditVideoName;
 
 @Controller
+@RequestMapping(value = "user")
 public class UserController {
 
     @Autowired
@@ -28,7 +29,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/user/{userName:.+}", method = RequestMethod.GET)
+    @RequestMapping(value = "{userName:.+}", method = RequestMethod.GET)
     public ModelAndView accessDenied(@PathVariable String userName) {
 	ModelAndView model = new ModelAndView();
 	model.setViewName("user");
@@ -43,13 +44,27 @@ public class UserController {
 	return model;
     }
 
-    @RequestMapping(value = "user/addDescription", method = RequestMethod.GET)
+    @RequestMapping(value = "addUserDescription", method = RequestMethod.GET)
     @ResponseBody
-    public String addDescription(@RequestParam String description, Principal user) {
+    public String addUserDescription(@RequestParam String description, Principal user) {
 	try {
 	    description = URLDecoder.decode(description);
 	    description = description.trim();
 	    userService.addDescription(description, user.getName());
+	    return "true";
+	} catch (Exception e) {
+	    e.printStackTrace();
+	    return "false";
+	}
+    }
+
+    @RequestMapping(value = "addVideoDescription", method = RequestMethod.GET)
+    @ResponseBody
+    public String addVideoDescription(@RequestParam("description") String description, @RequestParam("id") Long id) {
+	try {
+	    description = URLDecoder.decode(description);
+	    description = description.trim();
+	    videoService.addDescription(description, id);
 	    return "true";
 	} catch (Exception e) {
 	    e.printStackTrace();

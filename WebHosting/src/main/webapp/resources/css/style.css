@@ -138,11 +138,36 @@ a.navbar-brand{
  	-webkit-transition: all 1s ease-out;
 }
 
-.user-description-cell{
+.user-videodescription-content{
+	color: rgb(155, 144, 144);
+	cursor: pointer;
+	display: block;
+	text-align: center;
+}
+
+.user-videodescription-content2{
+	display: block;
+	text-align: center;
+}
+
+.user-videodescription-cell > .user-videodescription-save, .user-videodescription-cancel {
+	margin-bottom: 5px;
+}
+
+.user-videodescription-cell{
+	text-align: center;
+}
+
+.user-videodescription-area{
+	display: block;
+	margin: 5px 0px;
+}
+
+.user-description-cell, .user-videodescription-cell{
 	display: none;
 }
 
-.user-description-cell > .user-description-save, .user-description-cancel{
+.user-description-cell > .user-description-save, .user-description-cancel, {
 	margin-bottom: 5px;
 }
 
@@ -215,6 +240,7 @@ a.navbar-brand{
 	position:absolute;
 	display:none;
 	right: 1%;
+	z-index: 1;
 }
 
 .user-hide-img{
@@ -273,6 +299,10 @@ a.navbar-brand{
 .user-description-content{
 	color: rgb(155, 144, 144);
 	cursor: pointer;
+}
+
+.user-description-content2{
+
 }
 
 .video-list{

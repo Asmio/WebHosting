@@ -20,6 +20,26 @@
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
+	
+	<beans:bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+	    <beans:property name="useNotAcceptableStatusCode" value="false" />
+	    <beans:property name="contentNegotiationManager">
+	        <beans:bean
+	            class="org.springframework.web.accept.ContentNegotiationManager">
+	            <beans:constructor-arg>
+	                <beans:bean
+	                    class="org.springframework.web.accept.PathExtensionContentNegotiationStrategy">
+	                    <beans:constructor-arg>
+	                        <beans:map>
+	                            <beans:entry key="html" value="text/html" />
+	                            <beans:entry key="json" value="application/json" />
+	                        </beans:map>
+	                    </beans:constructor-arg>
+	                </beans:bean>
+	            </beans:constructor-arg>
+	        </beans:bean>
+	    </beans:property>
+    </beans:bean>
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />

@@ -7,7 +7,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLDecoder;
+import java.nio.file.Files;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -16,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,11 +46,13 @@ public class VideoController {
     @Autowired
     MessageSource messageSource;
 
-    @RequestMapping(value = "/getVideo", method = RequestMethod.GET)
-    public ModelAndView getVideoPage(@RequestParam("id") Long id) {
+    @RequestMapping(value = "/video/{id}", method = RequestMethod.GET)
+    public ModelAndView getVideoPage(@PathVariable Long id) {
 	ModelAndView model = new ModelAndView();
 	model.setViewName("video");
-	model.addObject("video", videoService.getVideo(id));
+	Video video = videoService.getVideo(id);
+	video.setName(EditVideoName.editName(video.getName()));
+	model.addObject("video", video);
 	return model;
     }
 
@@ -72,32 +79,37 @@ public class VideoController {
 
     }
 
-    @RequestMapping(value = "/download/video", method = RequestMethod.GET)
-    public ResponseEntity<byte[]> getVideo(@RequestParam("fileId") Long fileId) throws IOException {
-	Video video = videoService.getVideo(fileId);
-	String pathFile = getPathFile(DOWNLOAD_DIR_V, video.getName());
-	ByteArrayOutputStream out = null;
-	InputStream input = null;
-	try {
-	    out = new ByteArrayOutputStream();
-	    input = new BufferedInputStream(new FileInputStream(pathFile));
-	    int data = 0;
-	    while ((data = input.read()) != -1) {
-		out.write(data);
-	    }
-	} finally {
-	    if (null != input) {
-		input.close();
-	    }
-	    if (null != out) {
-		out.close();
-	    }
-	}
-	byte[] bytes = out.toByteArray();
+    @RequestMapping(value = "/download/video/{id}", method = RequestMethod.GET)
+    public void getVideo(@PathVariable Long id, HttpServletRequest request, HttpServletResponse response)
+	    throws IOException {
 
-	final HttpHeaders headers = new HttpHeaders();
-	headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-	return new ResponseEntity<byte[]>(bytes, headers, HttpStatus.CREATED);
+	String videoPath = System.getProperty(SERVERHOME_NAME) + File.separator + DOWNLOAD_DIR + File.separator
+		+ DOWNLOAD_DIR_V;
+
+	if (id == null) {
+	    response.sendError(HttpServletResponse.SC_NOT_FOUND);
+	    return;
+	}
+
+	File file = new File(videoPath, videoService.getVideo(id).getName());
+
+	if (!file.exists()) {
+	    response.sendError(HttpServletResponse.SC_NOT_FOUND);
+	    return;
+	}
+
+	String contentType = "video/mp4";
+
+	if (contentType == null || !contentType.startsWith("video")) {
+	    response.sendError(HttpServletResponse.SC_NOT_FOUND);
+	    return;
+	}
+
+	response.reset();
+	response.setContentType(contentType);
+	response.setHeader("Content-Length", String.valueOf(file.length()));
+
+	Files.copy(file.toPath(), response.getOutputStream());
     }
 
     @RequestMapping(value = "/download/image", method = RequestMethod.GET)

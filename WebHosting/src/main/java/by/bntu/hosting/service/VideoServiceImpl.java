@@ -48,6 +48,12 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     @Transactional
+    public List<Video> listVideo(Integer firstResult, Integer maxResults) {
+	return videoDAO.listVideo(firstResult, maxResults);
+    }
+
+    @Override
+    @Transactional
     public Video getVideo(Long id) {
 	return videoDAO.getVideo(id);
     }

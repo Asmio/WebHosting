@@ -24,6 +24,9 @@ public class Video {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "datePublication")
+    private String datePublication;
+
     public Video() {
 
     }
@@ -63,6 +66,14 @@ public class Video {
 
     public void setDescription(String description) {
 	this.description = description;
+    }
+
+    public String getDatePublication() {
+	return datePublication;
+    }
+
+    public void setDatePublication(String datePublication) {
+	this.datePublication = datePublication;
     }
 
 }

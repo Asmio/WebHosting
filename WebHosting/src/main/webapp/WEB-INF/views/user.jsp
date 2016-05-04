@@ -122,7 +122,7 @@
 		    			<div class="col-md-12 col-sm-12 col-xs-12 user-content-cell row">
 		    				<div class="col-md-4 col-sm-4 col-xs-4">
 			    				<div class="user-content-cell-a">
-					    			<a href="${pageContext.request.contextPath}/getVideo?id=${video.id}">
+					    			<a href="${pageContext.request.contextPath}/video/${video.id}">
 					    				<img class="user-content-img" src="${pageContext.request.contextPath}/download/image?fileId=${video.id}">
 					    				<img class="user-hide-img" src="${pageContext.request.contextPath}/resources/img/play.png">
 					    			</a>
@@ -135,7 +135,7 @@
 								</span>
 		    				</c:if>
 		    				<div class="col-md-8 col-sm-8 col-xs-8">
-		    					<a class="user-linkvideo-name linkvideo-name" href="${pageContext.request.contextPath}/getVideo?id=${video.id}" title="${video.name}">${video.name}</a>
+		    					<a class="user-linkvideo-name linkvideo-name" href="${pageContext.request.contextPath}/video/${video.id}" title="${video.name}">${video.name}</a>
 			    				<c:if test="${pageContext.request.userPrincipal.name == user.username}">	
 			    					<c:choose>
 										<c:when test="${video.description == null || video.description == ''}">

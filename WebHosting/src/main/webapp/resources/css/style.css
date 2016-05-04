@@ -95,6 +95,7 @@ a.navbar-brand{
 .home-content{
 	background-color: white;
 	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	position: relative;
 }
 
 .home-content-row{
@@ -102,7 +103,18 @@ a.navbar-brand{
 	padding-top: 20px;
 }
 
+.home-button-addContent{
+	margin-left: 48.5%;
+	cursor: pointer;
+}
+
+.home-button-addContent img{
+	height: 25px;
+}
+
 .home-content-cell{
+	height: 160px;
+	margin-bottom: 10px;
 }
 
 .home-content-cell-a{
@@ -143,11 +155,13 @@ a.navbar-brand{
 	cursor: pointer;
 	display: block;
 	text-align: center;
+	font-family: comic sans ms;
 }
 
 .user-videodescription-content2{
 	display: block;
 	text-align: center;
+	font-family: comic sans ms;
 }
 
 .user-videodescription-cell > .user-videodescription-save, .user-videodescription-cancel {
@@ -288,6 +302,7 @@ a.navbar-brand{
 .user-logo > h3{
 	color: #0417a5;
 	font-weight: bold;	
+	font-family: comic sans ms;
 }
 
 .user-description{
@@ -299,10 +314,11 @@ a.navbar-brand{
 .user-description-content{
 	color: rgb(155, 144, 144);
 	cursor: pointer;
+	font-family: comic sans ms;
 }
 
 .user-description-content2{
-
+	font-family: comic sans ms;
 }
 
 .video-list{
@@ -495,8 +511,41 @@ a.navbar-brand{
 }
 
 .videoplayer{
-	height: 360px;
-	width: 640px;
+	background-color: black;
+	padding: 0px;
+}
+
+.videoplayer-description{
+	background-color: rgb(243, 240, 238);
+	box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.55);
+	margin-top: 5px;
+	border-radius: 5px;
+}
+
+.videoplayer-description-title{
+	font-family: candara;
+	padding: 0px;
+	font-weight: bold;
+}
+
+.videoplayer-description-username{
+	font-family: comic sans ms;
+	text-align: right;
+	color: #868686;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.videoplayer-description-username:hover{
+	text-decoration: none;
+}
+
+.videoplayer-description-datePublication{
+	text-align: right;
+}
+
+.videoplayer-description-text{
+	font-family: consolas;
 }
 
 footer{

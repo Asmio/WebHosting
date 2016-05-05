@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLDecoder;
 import java.nio.file.Files;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,6 +54,11 @@ public class VideoController {
 	Video video = videoService.getVideo(id);
 	video.setName(EditVideoName.editName(video.getName()));
 	model.addObject("video", video);
+	List<Video> list = videoService.listVideo(video.getUsername(), 0, 4);
+	for (Video video1 : list) {
+	    video1.setName(EditVideoName.editName(video1.getName()));
+	}
+	model.addObject("videoList", list);
 	return model;
     }
 

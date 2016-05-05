@@ -103,8 +103,23 @@
 								<div class="col-md-4 col-md-offset-8 col-sm-4 col-sm-offset-8 col-xs-4 col-xs-offset-8 videoplayer-description-datePublication"><spring:message code="video.description.datePublication" />${video.datePublication}</div>		
 						</div>
 					</div>
-					<div class="col-md-3 col-md-offset-1 col-sm-3 col-sm-offset-1 col-xs-3 col-xs-offset-1">
-						
+					<div class="col-md-4 col-sm-4 col-xs-4">
+						<div class="col-md-12 col-sm-12 col-xs-12 video-other-content">
+							<div><spring:message code="video.otherVideo" /></div>
+							<c:forEach items="${videoList}" var="video">
+				    			<div class="col-md-12 col-sm-12 col-xs-12 video-other-content-cell">
+				    				<div class="col-md-7 col-sm-7 col-xs-7 video-other-content-cell-a">
+					    				<a href="${pageContext.request.contextPath}/video/${video.id}">
+					    					<img class="video-other-content-img" src="${pageContext.request.contextPath}/download/image?fileId=${video.id}">
+					    					<img class="video-other-hide-img" src="${pageContext.request.contextPath}/resources/img/play.png">
+					    				</a>
+					    			</div>
+					    			<div class="col-md-5 col-sm-5 col-xs-5">
+					    				<a href="${pageContext.request.contextPath}/video/${video.id}" title="${video.name}" class="video-other-linkvideo-name">${video.name}</a>	
+					    			</div>
+					    		</div>			    			
+						    </c:forEach>
+						</div>
 					</div>	
 				</div>
 			</div>

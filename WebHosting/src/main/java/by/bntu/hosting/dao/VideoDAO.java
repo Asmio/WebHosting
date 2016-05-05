@@ -20,5 +20,7 @@ public interface VideoDAO {
 
     public List<Video> listVideo(Integer firstResult, Integer maxResults);
 
+    public List<Video> listVideo(String userName, Integer firstResult, Integer maxResults);
+
     public void addDescription(Video video);
 }

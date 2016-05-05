@@ -101,10 +101,9 @@
 		    			</div>
 		    			<c:set var="count" value="${count + 1}"></c:set>
 				    </c:forEach>
-				    <c:if test="${count == 18}">
+				    <c:if test="${count == 30}">
 				    	<a class="home-button-addContent"><img alt="" src="${pageContext.request.contextPath}/resources/img/arrow-down.png"></a>
-				    	<%-- <button class="home-button-addContent"><img alt="" src="${pageContext.request.contextPath}/resources/img/arrow-down.png"></button>
-				     --%></c:if>
+				    </c:if>
 				</div>  
 	    	</div>
 		</div>

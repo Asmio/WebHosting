@@ -78,4 +78,14 @@ public class VideoDAOImpl implements VideoDAO {
 
     }
 
+    @Override
+    public List<Video> listVideo(String userName, Integer firstResult, Integer maxResults) {
+	Query query = sessionFactory.getCurrentSession().createQuery("from Video where username = :username");
+	query.setString("username", userName);
+	query.setFirstResult(firstResult);
+	query.setMaxResults(maxResults);
+	List<Video> list = query.list();
+	return list;
+    }
+
 }

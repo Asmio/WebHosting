@@ -35,9 +35,4 @@ public class LoginController {
 	return model;
     }
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public String test() {
-	return "signup";
-    }
-
 }

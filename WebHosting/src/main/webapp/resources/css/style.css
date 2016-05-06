@@ -548,6 +548,40 @@ a.navbar-brand{
 	font-family: consolas;
 }
 
+.webcam-content{
+	background-color: rgb(243, 240, 238);
+	box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.55);
+	margin-top: 5px;
+	border-radius: 5px;
+}
+
+#recorder{
+	padding-left: 18px;
+	padding-top: 15px;
+	padding-bottom: 18px;
+}
+
+.webcam-player{
+	padding-left: 15px;
+	padding-top: 15px;
+	padding-bottom: 18px;
+	display: none;
+}
+
+.webcam-message{
+	text-align: center;
+}
+
+.webcam-a-save{
+	color: blue;
+}
+
+.webcam-content-title{
+	text-align: center;
+	font-weight: bold;
+	padding-bottom: 5px;
+}
+
 .video-other-content{
 	background-color: rgb(243, 240, 238);
 	box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.55);

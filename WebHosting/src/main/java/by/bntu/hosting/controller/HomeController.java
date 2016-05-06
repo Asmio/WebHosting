@@ -51,6 +51,11 @@ public class HomeController {
 	return list;
     }
 
+    @RequestMapping(value = "/webcam", method = RequestMethod.GET)
+    public String test() {
+	return "webcam";
+    }
+
     @RequestMapping(value = "/accessDenied", method = RequestMethod.GET)
     public String accessDenied(Principal user) {
 	return "accessDenied";

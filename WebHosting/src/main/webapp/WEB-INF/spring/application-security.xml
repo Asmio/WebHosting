@@ -18,6 +18,7 @@
 	    <intercept-url pattern="/user/*" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
 	    <intercept-url pattern="/uploadpage*" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
 	    <intercept-url pattern="/download*" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
+	    <intercept-url pattern="/webcam" access="hasAnyRole('ROLE_USER')" />
 	    <form-login 
 	    	login-page='/login'
 	    	default-target-url="/"

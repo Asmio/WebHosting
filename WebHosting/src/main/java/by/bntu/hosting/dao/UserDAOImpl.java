@@ -55,7 +55,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void addDescription(User user) {
+    public void updateUser(User user) {
 	sessionFactory.getCurrentSession().saveOrUpdate(user);
 
     }

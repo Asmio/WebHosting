@@ -16,6 +16,8 @@ public interface UserService {
 
     public User getUser(Integer id);
 
-    public void addDescription(String description, String login);
+    public void updateDescription(String description, String login);
+
+    public void updatePassword(String password, String login);
 
 }

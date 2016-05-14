@@ -1,8 +1,11 @@
 package by.bntu.hosting.controller;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URL;
 import java.security.Principal;
 import java.util.Iterator;
 import java.util.Locale;
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -32,14 +36,13 @@ import by.bntu.hosting.model.UploadedFile;
 import by.bntu.hosting.model.Video;
 import by.bntu.hosting.service.VideoService;
 import by.bntu.hosting.utils.EditVideoName;
+import by.bntu.hosting.utils.ManagementResourses;
 
 @Controller
 public class UploadController {
 
-    private static final String SERVERHOME_NAME = "catalina.home";
-    private static final String DOWNLOAD_DIR = "hostingDownload";
-    private static final String DOWNLOAD_DIR_V = "video";
-    private static final String DOWNLOAD_DIR_I = "image";
+    private static final String DIR_VIDEO_KEY = "download.dir.video";
+    private static final String DIR_IMAGE_KEY = "download.dir.image";
 
     @Autowired
     MessageSource messageSource;
@@ -71,11 +74,11 @@ public class UploadController {
 	    try {
 		uploadedFile.setBytes(mpf.getBytes());
 
-		File outdir = createDir(DOWNLOAD_DIR_V);
+		File outdir = createDir(DIR_VIDEO_KEY);
 
 		FileCopyUtils.copy(mpf.getBytes(),
 			new FileOutputStream(outdir.getAbsolutePath() + File.separator + mpf.getOriginalFilename()));
-		getImageFromVideo(outdir.getAbsolutePath());
+		getImageFromVideo(outdir.getAbsolutePath(), uploadedFile.getFileName());
 		addVideoDB(uploadedFile.getFileName(), user.getName());
 	    } catch (Exception e) {
 		e.printStackTrace();
@@ -87,14 +90,44 @@ public class UploadController {
 
     }
 
-    public void getImageFromVideo(String videoPath) throws Exception {
+    @RequestMapping(value = "webcam/downloadFromWebcam", method = RequestMethod.GET, produces = {
+	    "text/html; charset=UTF-8" })
+    @ResponseBody
+    public String uploadFromWebcam(@RequestParam String fileURL, Locale locale, Principal user) throws IOException {
+
+	File outdir = createDir(DIR_VIDEO_KEY);
+	String fileName = EditVideoName.getName(fileURL);
+	URL link = new URL(fileURL);
+
+	BufferedInputStream bis = new BufferedInputStream(link.openStream());
+	FileOutputStream fis = new FileOutputStream(outdir.getAbsolutePath() + File.separator + fileName);
+
+	try {
+	    byte[] buffer = new byte[1024];
+	    int count = 0;
+	    while ((count = bis.read(buffer, 0, 1024)) != -1) {
+		fis.write(buffer, 0, count);
+	    }
+	    fis.close();
+	    bis.close();
+
+	    getImageFromVideo(outdir.getAbsolutePath(), fileName);
+	    addVideoDB(fileName, user.getName());
+	} catch (Exception e) {
+	    e.printStackTrace();
+	    return messageSource.getMessage("webcam.upload.error", null, locale);
+	}
+	return messageSource.getMessage("webcam.upload.success", null, locale);
+    }
+
+    public void getImageFromVideo(String videoPath, String fileName) throws Exception {
 	try {
 
-	    File outdir = createDir(DOWNLOAD_DIR_I);
-	    String filename = videoPath + File.separator + uploadedFile.getFileName();
+	    File outdir = createDir(DIR_IMAGE_KEY);
+	    String pathFile = videoPath + File.separator + fileName;
 	    IContainer container = IContainer.make();
-	    if (container.open(filename, IContainer.Type.READ, null) < 0) {
-		throw new IllegalArgumentException("could not open file: " + filename);
+	    if (container.open(pathFile, IContainer.Type.READ, null) < 0) {
+		throw new IllegalArgumentException("could not open file: " + pathFile);
 	    }
 	    int numStreams = container.getNumStreams();
 	    int videoStreamId = -1;
@@ -110,14 +143,14 @@ public class UploadController {
 		}
 	    }
 	    if (videoStreamId == -1)
-		throw new RuntimeException("could not find video stream in container: " + filename);
+		throw new RuntimeException("could not find video stream in container: " + pathFile);
 
 	    if (videoCoder.open() < 0)
-		throw new RuntimeException("could not open video decoder for container: " + filename);
+		throw new RuntimeException("could not open video decoder for container: " + pathFile);
 
 	    IPacket packet = IPacket.make();
 	    // с 3-ей по 5-ую микросекунду
-	    long start = 6 * 1000 * 1000;
+	    long start = 6 * 1000 * 100;
 	    long end = 12 * 1000 * 1000;
 	    // с разницей в 100 милисекунд
 	    long step = 500 * 1000;
@@ -131,7 +164,7 @@ public class UploadController {
 			int bytesDecoded = videoCoder.decodeVideo(picture, packet, offset);
 			// Если что-то пошло не так
 			if (bytesDecoded < 0)
-			    throw new RuntimeException("got error decoding video in: " + filename);
+			    throw new RuntimeException("got error decoding video in: " + pathFile);
 			offset += bytesDecoded;
 
 			if (picture.isComplete()) {
@@ -139,9 +172,10 @@ public class UploadController {
 			    long timestamp = picture.getTimeStamp();
 			    if (timestamp > start) {
 				BufferedImage javaImage = Utils.videoPictureToImage(newPic);
-				String fileName = EditVideoName.editName(uploadedFile.getFileName()) + ".png";
-				ImageIO.write(javaImage, "PNG", new File(outdir, fileName));
-				start += step;
+				String nameImg = EditVideoName.editName(fileName) + ".png";
+				ImageIO.write(javaImage, "PNG", new File(outdir, nameImg));
+				break END;
+				/* start += step; */
 			    }
 			    if (timestamp > end) {
 				break END;
@@ -164,9 +198,8 @@ public class UploadController {
 	}
     }
 
-    private File createDir(String dirName) {
-	String rootPath = System.getProperty(SERVERHOME_NAME);
-	File dir = new File(rootPath + File.separator + DOWNLOAD_DIR + File.separator + dirName);
+    private File createDir(String dirKey) {
+	File dir = new File(ManagementResourses.getPath(dirKey));
 	if (!dir.exists()) {
 	    dir.mkdirs();
 	}

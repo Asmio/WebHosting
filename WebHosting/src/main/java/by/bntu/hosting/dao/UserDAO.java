@@ -16,5 +16,5 @@ public interface UserDAO {
 
     public User getUser(Integer id);
 
-    public void addDescription(User user);
+    public void updateUser(User user);
 }

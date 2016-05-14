@@ -44,6 +44,28 @@ a.navbar-brand{
 	margin-top: -5px;
 }
 
+.btn-add-video-webcam{
+	margin-top: -9px;
+	border-radius: 5px;
+}
+
+.btn-add-video-webcam > img {
+	height: 35px;
+}
+
+.my-navbar-ul > li {
+	position: relative;
+	display: block;
+	padding: 0px 10px;
+	padding-top: 15px;
+}
+
+.my-navbar-ul > li > a {
+	position: relative;
+	display: block;
+	padding: 0px 0px;
+}
+
 .navbar-default .navbar-nav > li > a {
     color: #f8f8f8;
     font-weight: bold;
@@ -168,7 +190,11 @@ a.navbar-brand{
 	margin-bottom: 5px;
 }
 
-.user-videodescription-cell{
+.user-videoname-cell > .user-videoname-save, .user-videoname-cancel {
+	margin-bottom: 5px;
+}
+
+.user-videodescription-cell, .user-videoname-cell{
 	text-align: center;
 }
 
@@ -177,11 +203,16 @@ a.navbar-brand{
 	margin: 5px 0px;
 }
 
-.user-description-cell, .user-videodescription-cell{
+.user-videoname-area{
+	display: block;
+	margin: 5px 0px;
+}
+
+.user-description-cell, .user-videodescription-cell, .user-videoname-cell{
 	display: none;
 }
 
-.user-description-cell > .user-description-save, .user-description-cancel, {
+.user-description-cell > .user-description-save, .user-description-cancel{
 	margin-bottom: 5px;
 }
 
@@ -229,6 +260,11 @@ a.navbar-brand{
 	cursor: pointer;
 }
 
+.user-content-cell:hover .user-hide-img-settings{
+	display: block;
+	cursor: pointer;
+}
+
 .user-content-cell-a{
 	position: relative;
 	overflow:hidden;
@@ -245,12 +281,22 @@ a.navbar-brand{
 }
 
 .user-content-img{
+	max-height: 156px;
+	width: 100%;
 	-moz-transition: all 1s ease-out;
 	-o-transition: all 1s ease-out;
  	-webkit-transition: all 1s ease-out;
 }
 
 .user-hide-img-delete{
+	position:absolute;
+	display:none;
+	right: 1%;
+	z-index: 1;
+	bottom: 2%;
+}
+
+.user-hide-img-settings{
 	position:absolute;
 	display:none;
 	right: 1%;
@@ -511,6 +557,7 @@ a.navbar-brand{
 }
 
 .videoplayer{
+	max-height: 566px;
 	background-color: black;
 	padding: 0px;
 }
@@ -620,6 +667,8 @@ a.navbar-brand{
 }
 
 .video-other-content-img{
+	max-height: 124px;
+	width: 100%;
 	-moz-transition: all 1s ease-out;
 	-o-transition: all 1s ease-out;
  	-webkit-transition: all 1s ease-out;
@@ -629,6 +678,18 @@ a.navbar-brand{
 	color: #23527c !important;
 	display: block;
 	font-weight: bold;
+}
+
+.change-pass-label{
+	padding-top: 5px;
+}
+
+.change-pass-input{
+	padding-left: 0px;
+}
+
+.change-pass-div{
+	padding-bottom: 8px;
 }
 
 footer{

@@ -46,6 +46,16 @@ function showVideoArea(){
 	$(descCell).animate({opacity: 'show'}, 500);
 }
 
+function showVideoNameArea(){
+	var parent = $(this).parent().eq(0);
+	var linkName = $(parent).find('.linkvideo-name').eq(0);
+	$(linkName).hide();
+	var nameCell = $(parent).find('.user-videoname-cell').eq(0);
+	var nameArea = $(parent).find('.user-videoname-area').eq(0);
+	$(nameArea).val($(linkName).text());
+	$(nameCell).animate({opacity: 'show'}, 500);
+}
+
 function cancelUserArea(){
 	$(".user-description-cell").animate({height: 'hide'}, 500);
 	$(".user-description-content").animate({height: 'show'}, 500);
@@ -58,6 +68,13 @@ function cancelVideoArea(){
 	$(descCell).animate({opacity: 'hide'}, 500);
 	$(descContent).show(1000);
 	$(descCell).find('.user-videodescription-area').eq(0).val('');
+}
+
+function cancelVideoNameArea(){
+	var nameCell = $(this).parent();
+	$(nameCell).animate({opacity: 'hide'}, 500);
+	var nameLink = $(this).parent().parent().find('.linkvideo-name').eq(0);
+	$(nameLink).show(1000);
 }
 
 function addUserDescription(){
@@ -103,11 +120,41 @@ function addVideoDescription(){
 	});
 }
 
+function addVideoName(){
+	var nameVideo = $(this).parent().find('.user-videoname-area').eq(0).val();
+	nameVideo = $.trim(nameVideo);
+	var nameCell = $(this).parent().eq(0);
+	var parentCell = $(nameCell).parent().eq(0);
+	var nameLink = $(parentCell).find('.linkvideo-name').eq(0);
+	if(nameVideo == ""){
+		$(nameCell).animate({opacity: 'hide'}, 500);
+		$(nameLink).show(1000);
+		return;
+	}
+	var contentCell = $(parentCell).parent().eq(0);
+	var id = $(contentCell).find('.idVideo').eq(0).val();
+	$.ajax({
+        url: 'setVideoName',
+        data: ({nameVideo : encodeURIComponent(nameVideo), id : id}),
+        success: function(data) {
+        	if (data == "true"){
+        		$(nameLink).text(nameVideo);
+        		$(this).parent().find('.user-videoname-area').eq(0).val('');
+        		$(nameCell).animate({opacity: 'hide'}, 500);
+        		$(nameLink).animate({height: 'show'}, 500);
+        	}
+        }
+	});
+}
+
 $(function() {
    $('.user-hide-img-delete').on('click', deleteVideo);
    $('.user-description-content').on('click', showUserArea);
    $('.user-description-cancel').on('click', cancelUserArea);
    $('.user-description-save').on('click', addUserDescription);
+   $('.user-hide-img-settings').on('click', showVideoNameArea);
+   $('.user-videoname-cancel').on('click', cancelVideoNameArea);
+   $('.user-videoname-save').on('click', addVideoName);
    $('.user-videodescription-content').on('click', showVideoArea);
    $('.user-videodescription-cancel').on('click', cancelVideoArea);
    $('.user-videodescription-save').on('click', addVideoDescription);

@@ -60,11 +60,18 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     @Transactional
-    public void addDescription(String description, Long id) {
+    public void updateDescription(String description, Long id) {
 	Video video = videoDAO.getVideo(id);
 	video.setDescription(description);
-	videoDAO.addDescription(video);
+	videoDAO.updateVideo(video);
+    }
 
+    @Override
+    @Transactional
+    public void updateName(String nameVideo, Long id) {
+	Video video = videoDAO.getVideo(id);
+	video.setName(nameVideo);
+	videoDAO.updateVideo(video);
     }
 
     @Override

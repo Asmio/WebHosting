@@ -51,10 +51,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void addDescription(String description, String login) {
+    public void updateDescription(String description, String login) {
 	User user = userDAO.getUser(login);
 	user.setDescription(description);
-	userDAO.addDescription(user);
+	userDAO.updateUser(user);
+    }
+
+    @Override
+    @Transactional
+    public void updatePassword(String password, String login) {
+	User user = userDAO.getUser(login);
+	user.setPassword(password);
+	user.setConfirmPassword(password);
+	userDAO.updateUser(user);
     }
 
 }

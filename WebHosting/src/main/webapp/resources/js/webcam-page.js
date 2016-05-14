@@ -60,8 +60,6 @@ else {
 function fileReady(fileName) {
 $('#recorder').hide();
 fileName2=fileName.replace('mp4','gif');
-$('#message').html('Видео сохранено в ваших видеозаписях .(<a title="Save" class="webcam-a-save" href="'+fileName+'">Скачать</a>)');
-$('#message').attr('title', 'Video saved to your videos.');
 var fileNameNoExtension=fileName.replace(".mp4", "");
 jwplayer("mediaplayer").setup({
 	width:320,
@@ -72,6 +70,14 @@ jwplayer("mediaplayer").setup({
 		file: fileNameNoExtension+'.vtt', 
 		kind: 'thumbnails'
 	}]
+});
+$.ajax({
+    url : 'webcam/downloadFromWebcam',
+    data: ({fileURL : fileName}),
+    async: false,
+    success : function(str){
+    	$('#message').html(str + '(<a title="Save" class="webcam-a-save" href="'+fileName+'">Скачать</a>)');
+    }
 });
 $('#mediaplayer').show();
 $('.webcam-player').show();

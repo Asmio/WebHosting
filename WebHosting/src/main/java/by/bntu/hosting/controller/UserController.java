@@ -1,5 +1,6 @@
 package by.bntu.hosting.controller;
 
+import java.io.File;
 import java.net.URLDecoder;
 import java.security.Principal;
 import java.util.List;
@@ -18,6 +19,7 @@ import by.bntu.hosting.model.Video;
 import by.bntu.hosting.service.UserService;
 import by.bntu.hosting.service.VideoService;
 import by.bntu.hosting.utils.EditVideoName;
+import by.bntu.hosting.utils.ManagementResourses;
 
 @Controller
 @RequestMapping(value = "user")
@@ -50,7 +52,7 @@ public class UserController {
 	try {
 	    description = URLDecoder.decode(description);
 	    description = description.trim();
-	    userService.addDescription(description, user.getName());
+	    userService.updateDescription(description, user.getName());
 	    return "true";
 	} catch (Exception e) {
 	    e.printStackTrace();
@@ -64,7 +66,35 @@ public class UserController {
 	try {
 	    description = URLDecoder.decode(description);
 	    description = description.trim();
-	    videoService.addDescription(description, id);
+	    videoService.updateDescription(description, id);
+	    return "true";
+	} catch (Exception e) {
+	    e.printStackTrace();
+	    return "false";
+	}
+    }
+
+    @RequestMapping(value = "setVideoName", method = RequestMethod.GET)
+    @ResponseBody
+    public String setVideoName(@RequestParam("nameVideo") String nameVideo, @RequestParam("id") Long id) {
+	try {
+	    nameVideo = URLDecoder.decode(nameVideo);
+	    nameVideo = nameVideo.trim();
+	    Video video = videoService.getVideo(id);
+	    String newName = EditVideoName.updateName(video.getName(), nameVideo);
+
+	    File fileVideo = new File(
+		    ManagementResourses.getPath("download.dir.video") + File.separator + video.getName());
+	    File newFileVideo = new File(ManagementResourses.getPath("download.dir.video") + File.separator + newName);
+	    fileVideo.renameTo(newFileVideo);
+
+	    File fileImage = new File(ManagementResourses.getPath("download.dir.image") + File.separator
+		    + EditVideoName.editName(video.getName()) + "." + ManagementResourses.getValue("image.type.png"));
+	    File newFileImage = new File(ManagementResourses.getPath("download.dir.image") + File.separator
+		    + EditVideoName.editName(newName) + "." + ManagementResourses.getValue("image.type.png"));
+	    fileImage.renameTo(newFileImage);
+
+	    videoService.updateName(newName, id);
 	    return "true";
 	} catch (Exception e) {
 	    e.printStackTrace();

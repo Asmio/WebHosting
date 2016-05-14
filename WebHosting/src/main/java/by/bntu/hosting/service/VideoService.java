@@ -22,5 +22,7 @@ public interface VideoService {
 
     public List<Video> listVideo(String userName, Integer firstResult, Integer maxResults);
 
-    public void addDescription(String description, Long id);
+    public void updateDescription(String description, Long id);
+
+    public void updateName(String nameVideo, Long id);
 }

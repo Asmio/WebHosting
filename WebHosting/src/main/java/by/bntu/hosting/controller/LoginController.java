@@ -1,5 +1,6 @@
 package by.bntu.hosting.controller;
 
+import java.security.Principal;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import by.bntu.hosting.model.User;
+import by.bntu.hosting.service.UserService;
+import by.bntu.hosting.utils.MDPasswordEncoder;
 
 @Controller
 public class LoginController {
@@ -20,6 +24,9 @@ public class LoginController {
     private User createNewUser() {
 	return new User();
     }
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     MessageSource messageSource;
@@ -33,6 +40,38 @@ public class LoginController {
 	model.setViewName("login");
 
 	return model;
+    }
+
+    @RequestMapping(value = "/password/change", method = RequestMethod.GET)
+    public String getPageChangePassword() {
+	return "changePassword";
+    }
+
+    @RequestMapping(value = "/password/changePassword", method = RequestMethod.GET, produces = {
+	    "text/html; charset=UTF-8" })
+    public @ResponseBody String changePassword(@RequestParam(value = "currentPas") String currentPas,
+	    @RequestParam(value = "newPas") String newPas, @RequestParam(value = "repeatPas") String repeatPas,
+	    Locale locale, Principal principalUser) {
+	MDPasswordEncoder encoder = new MDPasswordEncoder();
+	currentPas = encoder.encodeMD5(currentPas);
+	newPas = encoder.encodeMD5(newPas);
+	repeatPas = encoder.encodeMD5(repeatPas);
+
+	User user = userService.getUser(principalUser.getName());
+	if (user.getPassword().equals(currentPas)) {
+	    if (!currentPas.equals(newPas)) {
+		if (newPas.equals(repeatPas)) {
+		    userService.updatePassword(newPas, user.getUsername());
+		    return messageSource.getMessage("changePassword.success", null, locale);
+		} else {
+		    return messageSource.getMessage("changePassword.dontMatch", null, locale);
+		}
+	    } else {
+		return messageSource.getMessage("changePassword.passwordsSame", null, locale);
+	    }
+	} else {
+	    return messageSource.getMessage("changePassword.incorrectPassword", null, locale);
+	}
     }
 
 }

@@ -31,15 +31,13 @@ import org.springframework.web.servlet.ModelAndView;
 import by.bntu.hosting.model.Video;
 import by.bntu.hosting.service.VideoService;
 import by.bntu.hosting.utils.EditVideoName;
+import by.bntu.hosting.utils.ManagementResourses;
 
 @Controller
 public class VideoController {
 
-    private static final String SERVERHOME_NAME = "catalina.home";
-    private static final String DOWNLOAD_DIR = "hostingDownload";
-    private static final String DOWNLOAD_DIR_V = "video";
-    private static final String DOWNLOAD_DIR_I = "image";
-    private static final String VIDEO_TYPE_MP4 = "mp4";
+    private static final String DIR_VIDEO_KEY = "download.dir.video";
+    private static final String DIR_IMAGE_KEY = "download.dir.image";
 
     @Autowired
     VideoService videoService;
@@ -68,8 +66,9 @@ public class VideoController {
 	try {
 	    Video video = videoService.getVideo(idVideo);
 	    if (videoService.removeVideo(idVideo)) {
-		String pathFileVideo = getPathFile(DOWNLOAD_DIR_V, video.getName());
-		String pathFileImage = getPathFile(DOWNLOAD_DIR_I, EditVideoName.editName(video.getName()) + ".png");
+		String pathFileVideo = ManagementResourses.getPath(DIR_VIDEO_KEY) + File.separator + video.getName();
+		String pathFileImage = ManagementResourses.getPath(DIR_IMAGE_KEY) + File.separator
+			+ (EditVideoName.editName(video.getName()) + ".png");
 		File fileVideo = new File(pathFileVideo);
 		File fileImage = new File(pathFileImage);
 		fileVideo.delete();
@@ -89,8 +88,7 @@ public class VideoController {
     public void getVideo(@PathVariable Long id, HttpServletRequest request, HttpServletResponse response)
 	    throws IOException {
 
-	String videoPath = System.getProperty(SERVERHOME_NAME) + File.separator + DOWNLOAD_DIR + File.separator
-		+ DOWNLOAD_DIR_V;
+	String videoPath = ManagementResourses.getPath(DIR_VIDEO_KEY);
 
 	if (id == null) {
 	    response.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -121,7 +119,8 @@ public class VideoController {
     @RequestMapping(value = "/download/image", method = RequestMethod.GET)
     public ResponseEntity<byte[]> getImage(@RequestParam("fileId") Long fileId) throws IOException {
 	Video video = videoService.getVideo(fileId);
-	String pathFile = getPathFile(DOWNLOAD_DIR_I, EditVideoName.editName(video.getName()) + ".png");
+	String pathFile = ManagementResourses.getPath(DIR_IMAGE_KEY) + File.separator
+		+ (EditVideoName.editName(video.getName()) + ".png");
 	ByteArrayOutputStream out = null;
 	InputStream input = null;
 	try {
@@ -146,12 +145,6 @@ public class VideoController {
 	return new ResponseEntity<byte[]>(bytes, headers, HttpStatus.CREATED);
     }
 
-    public String getPathFile(String dir, String fileName) {
-	String rootPath = System.getProperty(SERVERHOME_NAME) + File.separator + DOWNLOAD_DIR + File.separator + dir
-		+ File.separator + fileName;
-	return rootPath;
-    }
-
     @RequestMapping(value = "/checkVideo", method = RequestMethod.GET, produces = { "text/html; charset=UTF-8" })
     @ResponseBody
     public String checkVideo(@RequestParam String nameVideo, Locale locale) {
@@ -163,7 +156,7 @@ public class VideoController {
 		    + messageSource.getMessage("upload.file.error.exist", null, locale);
 	} else {
 	    String asd = EditVideoName.getType(decodeName);
-	    if (!asd.equals(VIDEO_TYPE_MP4)) {
+	    if (!asd.equals(ManagementResourses.getValue("video.type.mp4"))) {
 		return "error/" + messageSource.getMessage("upload.file", null, locale) + " " + decodeName + " "
 			+ messageSource.getMessage("upload.file.error.wrongFormat", null, locale);
 	    }

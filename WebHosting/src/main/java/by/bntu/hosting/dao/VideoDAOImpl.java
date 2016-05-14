@@ -73,9 +73,8 @@ public class VideoDAOImpl implements VideoDAO {
     }
 
     @Override
-    public void addDescription(Video video) {
+    public void updateVideo(Video video) {
 	sessionFactory.getCurrentSession().saveOrUpdate(video);
-
     }
 
     @Override

@@ -2,6 +2,7 @@ package by.bntu.hosting.service;
 
 import java.util.List;
 
+import by.bntu.hosting.model.Comment;
 import by.bntu.hosting.model.Video;
 
 public interface VideoService {
@@ -22,7 +23,11 @@ public interface VideoService {
 
     public List<Video> listVideo(String userName, Integer firstResult, Integer maxResults);
 
+    public List<Video> listVideoFromSearch(String dataSearch);
+
     public void updateDescription(String description, Long id);
 
     public void updateName(String nameVideo, Long id);
+
+    public void addComment(Comment comment);
 }

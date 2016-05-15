@@ -14,9 +14,8 @@ public class EditVideoName {
 	return fileURL.substring(fileURL.lastIndexOf("/") + 1);
     }
 
-    public static String updateName(String oldName, String newName) {
-	String type = "." + EditVideoName.getType(oldName);
-	return newName + type;
+    public static String setType(String fileName, String key) {
+	return fileName + "." + ManagementResourses.getValue(key);
     }
 
 }

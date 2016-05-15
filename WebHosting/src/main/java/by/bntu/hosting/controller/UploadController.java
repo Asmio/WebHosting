@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +33,7 @@ import com.xuggle.xuggler.IStreamCoder;
 import com.xuggle.xuggler.IVideoPicture;
 import com.xuggle.xuggler.Utils;
 
+import by.bntu.hosting.model.Search;
 import by.bntu.hosting.model.UploadedFile;
 import by.bntu.hosting.model.Video;
 import by.bntu.hosting.service.VideoService;
@@ -49,6 +51,11 @@ public class UploadController {
 
     @Autowired
     VideoService videoService;
+
+    @ModelAttribute
+    private Search createNewSearch() {
+	return new Search();
+    }
 
     UploadedFile uploadedFile = null;
 
@@ -207,7 +214,7 @@ public class UploadController {
     }
 
     public void addVideoDB(String videoName, String userName) {
-	Video video = new Video(videoName, userName);
+	Video video = new Video(EditVideoName.editName(videoName), userName);
 	videoService.addVideo(video);
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import by.bntu.hosting.dao.VideoDAO;
+import by.bntu.hosting.model.Comment;
 import by.bntu.hosting.model.Video;
 
 @Service
@@ -78,6 +79,18 @@ public class VideoServiceImpl implements VideoService {
     @Transactional
     public List<Video> listVideo(String userName, Integer firstResult, Integer maxResults) {
 	return videoDAO.listVideo(userName, firstResult, maxResults);
+    }
+
+    @Override
+    @Transactional
+    public List<Video> listVideoFromSearch(String dataSearch) {
+	return videoDAO.listVideoFromSearch(dataSearch);
+    }
+
+    @Override
+    @Transactional
+    public void addComment(Comment comment) {
+	videoDAO.addComment(comment);
     }
 
 }

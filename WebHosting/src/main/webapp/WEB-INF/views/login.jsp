@@ -59,13 +59,13 @@
 					<div class="form-group">
 						<label for="user_login" class="col-sm-2 control-label"><spring:message code="logAndReg.login" /></label>
 						<div class="col-sm-10">
-							<input name="username"  class="form-control" id="user_login" placeholder="Email" /> 
+							<input name="username" type="email" required maxlength="35" class="form-control" id="user_login" placeholder="<spring:message code="logAndReg.login" />" /> 
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="user_password" class="col-sm-2 control-label"><spring:message code="logAndReg.password" /></label>
 					    <div class="col-sm-10">
-					    	<input name="password" type="password" class="form-control" id="user_password" placeholder="Password"/>
+					    	<input name="password" type="password" required maxlength="15" class="form-control" id="user_password" placeholder="<spring:message code="logAndReg.password" />"/>
 					  	</div>
 					  	<c:if test="${not empty error}">
 					  		${error}

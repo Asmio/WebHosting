@@ -30,19 +30,19 @@
 				<div class="col-md-12 col-sm-12 col-xs-12 change-pass-div">
 					<label for="current_password" class="col-md-4 col-sm-4 col-xs-4 change-pass-label"><spring:message code="changePassword.currentPassword" /></label>
 					<div class="col-md-8 col-sm-8 col-xs-8 change-pass-input">
-						<input type="password" class="form-control" id="current_password" placeholder="<spring:message code="changePassword.currentPassword" />" /> 
+						<input type="password" required maxlength="15" class="form-control" id="current_password" placeholder="<spring:message code="changePassword.currentPassword" />" /> 
 					</div>
 				</div>
 				<div class="col-md-12 col-sm-12 col-xs-12 change-pass-div">
 					<label for="new_password" class="col-md-4 col-sm-4 col-xs-4 change-pass-label"><spring:message code="changePassword.newPassword" /></label>
 				    <div class="col-md-8 col-sm-8 col-xs-8 change-pass-input">
-				    	<input type="password" class="form-control" id="new_password" placeholder="<spring:message code="changePassword.newPassword" />"/>
+				    	<input type="password" required maxlength="15" pattern="[a-zA-Z0-9]" title="a-z, A-Z, 0-9" class="form-control" id="new_password" placeholder="<spring:message code="changePassword.newPassword" />"/>
 				  	</div>
 				</div>
 				<div class="col-md-12 col-sm-12 col-xs-12 change-pass-div">
 					<label for="repeat_password" class="col-md-4 col-sm-4 col-xs-4 change-pass-label"><spring:message code="logAndReg.registr.repeatpassword" /></label>
 				    <div class="col-md-8 col-sm-8 col-xs-8 change-pass-input">
-				    	<input type="password" class="form-control" id="repeat_password" placeholder="<spring:message code="logAndReg.registr.repeatpassword" />"/>
+				    	<input type="password" required maxlength="15" pattern="[a-zA-Z0-9]" title="a-z, A-Z, 0-9" class="form-control" id="repeat_password" placeholder="<spring:message code="logAndReg.registr.repeatpassword" />"/>
 				  	</div>
 				</div>
 				<div class="col-md-12 col-sm-12 col-xs-12 message-password"></div>

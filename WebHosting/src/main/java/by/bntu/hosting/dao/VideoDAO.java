@@ -2,6 +2,7 @@ package by.bntu.hosting.dao;
 
 import java.util.List;
 
+import by.bntu.hosting.model.Comment;
 import by.bntu.hosting.model.Video;
 
 public interface VideoDAO {
@@ -22,6 +23,10 @@ public interface VideoDAO {
 
     public List<Video> listVideo(String userName, Integer firstResult, Integer maxResults);
 
+    public List<Video> listVideoFromSearch(String dataSearch);
+
     public void updateVideo(Video video);
+
+    public void addComment(Comment comment);
 
 }

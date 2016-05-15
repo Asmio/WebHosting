@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import by.bntu.hosting.model.Comment;
 import by.bntu.hosting.model.Video;
 
 @Repository
@@ -85,6 +86,20 @@ public class VideoDAOImpl implements VideoDAO {
 	query.setMaxResults(maxResults);
 	List<Video> list = query.list();
 	return list;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Video> listVideoFromSearch(String dataSearch) {
+	Query query = sessionFactory.getCurrentSession().createQuery("from Video where name LIKE :dataSearch");
+	query.setParameter("dataSearch", "%" + dataSearch + "%");
+	List<Video> list = query.list();
+	return list;
+    }
+
+    @Override
+    public void addComment(Comment comment) {
+	sessionFactory.getCurrentSession().saveOrUpdate(comment);
     }
 
 }

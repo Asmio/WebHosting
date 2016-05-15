@@ -569,6 +569,26 @@ a.navbar-brand{
 	border-radius: 5px;
 }
 
+.videoplayer-description-comment{
+	padding: 5px;
+}
+
+.videoplayer-description-comment > button{
+	float: right;
+	margin: 5px;
+	overflow: hidden;
+}
+
+.videoplayer-description-comment > textarea{
+	resize: none;
+	border-radius: 5px;
+	border: 1px solid #CDD4D3;
+	height: auto;
+	width: 83%;
+}
+
+
+
 .videoplayer-description-title{
 	font-family: candara;
 	padding: 0px;

@@ -59,21 +59,21 @@
 					<div class="form-group">
 						<form:label path="username" for="user_login" class="col-sm-2 control-label"><spring:message code="logAndReg.login" /></form:label>
 						<div class="col-sm-10">
-							<form:input path="username" class="form-control" id="user_login" placeholder="Email" /> 
+							<form:input path="username" type="email" maxlength="35" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="a-z, A-Z, @, 0-9" class="form-control" id="user_login" placeholder="" /> 
 						</div>
 						<form:errors path="username"></form:errors>
 					</div>
 					<div class="form-group">
 						<form:label path="password" for="user_password" class="col-sm-2 control-label"><spring:message code="logAndReg.password" /></form:label>
 					    <div class="col-sm-10">
-					    	<form:input type="password" path="password" class="form-control" id="user_password" placeholder="Password"/>
+					    	<form:input type="password" maxlength="15" pattern="[a-zA-Z0-9]{1,}" title="a-z, A-Z, 0-9" path="password" class="form-control" id="user_password" placeholder=""/>
 					  	</div>
 					  	<form:errors path="password"></form:errors> 
 					</div>
 					<div class="form-group">
 						<form:label path="confirmPassword" for="repeat_password" class="col-sm-2 control-label"><spring:message code="logAndReg.registr.repeatpassword" /></form:label>
 					    <div class="col-sm-10">
-					    	<form:input type="password" path="confirmPassword" class="form-control" id="repeat_password" placeholder="Repeat password"/>
+					    	<form:input type="password" maxlength="15" pattern="[a-zA-Z0-9]{1,}" title="a-z, A-Z, 0-9" path="confirmPassword" class="form-control" id="repeat_password" placeholder=""/>
 					  	</div>
 					  	<form:errors path="confirmPassword"></form:errors> 
 					</div>

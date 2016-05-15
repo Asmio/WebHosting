@@ -1,5 +1,6 @@
 package by.bntu.hosting.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import by.bntu.hosting.model.Search;
 import by.bntu.hosting.model.User;
 import by.bntu.hosting.service.UserService;
 import by.bntu.hosting.validator.SignupValidator;
@@ -32,6 +34,11 @@ public class SignupController {
 	return new User();
     }
 
+    @ModelAttribute
+    private Search createNewSearch() {
+	return new Search();
+    }
+
     @RequestMapping(value = "/signup")
     public String signup() {
 	return "signup";
@@ -39,7 +46,7 @@ public class SignupController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String signup(@ModelAttribute("user") User user, BindingResult bindingResult, Locale locale,
-	    RedirectAttributes redirectAttributes) {
+	    RedirectAttributes redirectAttributes) throws UnsupportedEncodingException {
 	signupValidator.setLocale(locale);
 	signupValidator.validate(user, bindingResult);
 	if (bindingResult.hasErrors()) {

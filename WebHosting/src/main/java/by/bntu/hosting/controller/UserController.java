@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import by.bntu.hosting.model.Search;
 import by.bntu.hosting.model.User;
 import by.bntu.hosting.model.Video;
 import by.bntu.hosting.service.UserService;
@@ -25,11 +27,21 @@ import by.bntu.hosting.utils.ManagementResourses;
 @RequestMapping(value = "user")
 public class UserController {
 
+    private static final String DIR_VIDEO_KEY = "download.dir.video";
+    private static final String DIR_IMAGE_KEY = "download.dir.image";
+    private static final String MP4_KEY = "video.type.mp4";
+    private static final String PNG_KEY = "image.type.png";
+
     @Autowired
     VideoService videoService;
 
     @Autowired
     UserService userService;
+
+    @ModelAttribute
+    private Search createNewSearch() {
+	return new Search();
+    }
 
     @RequestMapping(value = "{userName:.+}", method = RequestMethod.GET)
     public ModelAndView accessDenied(@PathVariable String userName) {
@@ -37,9 +49,6 @@ public class UserController {
 	model.setViewName("user");
 	User user = userService.getUser(userName);
 	List<Video> list = videoService.listVideo(user.getUsername());
-	for (Video video : list) {
-	    video.setName(EditVideoName.editName(video.getName()));
-	}
 	model.addObject("user", user);
 	model.addObject("videoListSize", list.size());
 	model.addObject("videoList", list);
@@ -81,20 +90,20 @@ public class UserController {
 	    nameVideo = URLDecoder.decode(nameVideo);
 	    nameVideo = nameVideo.trim();
 	    Video video = videoService.getVideo(id);
-	    String newName = EditVideoName.updateName(video.getName(), nameVideo);
 
-	    File fileVideo = new File(
-		    ManagementResourses.getPath("download.dir.video") + File.separator + video.getName());
-	    File newFileVideo = new File(ManagementResourses.getPath("download.dir.video") + File.separator + newName);
+	    File fileVideo = new File(ManagementResourses.getPath(DIR_VIDEO_KEY) + File.separator
+		    + EditVideoName.setType(video.getName(), MP4_KEY));
+	    File newFileVideo = new File(ManagementResourses.getPath(DIR_VIDEO_KEY) + File.separator
+		    + EditVideoName.setType(nameVideo, MP4_KEY));
 	    fileVideo.renameTo(newFileVideo);
 
-	    File fileImage = new File(ManagementResourses.getPath("download.dir.image") + File.separator
-		    + EditVideoName.editName(video.getName()) + "." + ManagementResourses.getValue("image.type.png"));
-	    File newFileImage = new File(ManagementResourses.getPath("download.dir.image") + File.separator
-		    + EditVideoName.editName(newName) + "." + ManagementResourses.getValue("image.type.png"));
+	    File fileImage = new File(ManagementResourses.getPath(DIR_IMAGE_KEY) + File.separator
+		    + EditVideoName.setType(video.getName(), PNG_KEY));
+	    File newFileImage = new File(ManagementResourses.getPath(DIR_IMAGE_KEY) + File.separator
+		    + EditVideoName.setType(nameVideo, PNG_KEY));
 	    fileImage.renameTo(newFileImage);
 
-	    videoService.updateName(newName, id);
+	    videoService.updateName(nameVideo, id);
 	    return "true";
 	} catch (Exception e) {
 	    e.printStackTrace();

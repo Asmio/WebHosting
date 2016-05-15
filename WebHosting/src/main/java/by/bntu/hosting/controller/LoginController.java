@@ -1,5 +1,6 @@
 package by.bntu.hosting.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.Locale;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import by.bntu.hosting.model.Search;
 import by.bntu.hosting.model.User;
 import by.bntu.hosting.service.UserService;
 import by.bntu.hosting.utils.MDPasswordEncoder;
@@ -30,6 +32,11 @@ public class LoginController {
 
     @Autowired
     MessageSource messageSource;
+
+    @ModelAttribute
+    private Search createNewSearch() {
+	return new Search();
+    }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login(@RequestParam(value = "error", required = false) String error, Locale locale) {
@@ -51,7 +58,7 @@ public class LoginController {
 	    "text/html; charset=UTF-8" })
     public @ResponseBody String changePassword(@RequestParam(value = "currentPas") String currentPas,
 	    @RequestParam(value = "newPas") String newPas, @RequestParam(value = "repeatPas") String repeatPas,
-	    Locale locale, Principal principalUser) {
+	    Locale locale, Principal principalUser) throws UnsupportedEncodingException {
 	MDPasswordEncoder encoder = new MDPasswordEncoder();
 	currentPas = encoder.encodeMD5(currentPas);
 	newPas = encoder.encodeMD5(newPas);

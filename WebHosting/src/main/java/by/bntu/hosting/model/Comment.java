@@ -24,6 +24,9 @@ public class Comment {
     @Column(name = "username")
     private String userName;
 
+    @Column(name = "datePublication")
+    private String datePublication;
+
     public Comment() {
 
     }
@@ -32,6 +35,22 @@ public class Comment {
 	this.value = value;
 	this.idVideo = idVideo;
 	this.userName = userName;
+    }
+
+    public Long getId() {
+	return id;
+    }
+
+    public void setId(Long id) {
+	this.id = id;
+    }
+
+    public String getDatePublication() {
+	return datePublication;
+    }
+
+    public void setDatePublication(String datePublication) {
+	this.datePublication = datePublication;
     }
 
     public String getValue() {

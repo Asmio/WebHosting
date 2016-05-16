@@ -587,6 +587,38 @@ a.navbar-brand{
 	width: 83%;
 }
 
+.comment-div{
+	padding: 5px;
+	margin-top: 10px;
+	background: white;
+	border-radius: 8px;
+}
+
+.comment-name, .comment-div-time{
+	text-align: right;
+}
+
+.comment-name{
+	font-family: comic sans ms;
+	text-align: right;
+	color: #868686;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.comment-img-delete{
+	position: absolute;
+	display: none;
+	right: 0%;
+	z-index: 1;
+}
+
+.comment-div:hover .comment-img-delete{
+	display: block;
+	cursor: pointer;
+}
+
 
 
 .videoplayer-description-title{

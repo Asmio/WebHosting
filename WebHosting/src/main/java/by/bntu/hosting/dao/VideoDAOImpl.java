@@ -79,6 +79,7 @@ public class VideoDAOImpl implements VideoDAO {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Video> listVideo(String userName, Integer firstResult, Integer maxResults) {
 	Query query = sessionFactory.getCurrentSession().createQuery("from Video where username = :username");
 	query.setString("username", userName);
@@ -100,6 +101,27 @@ public class VideoDAOImpl implements VideoDAO {
     @Override
     public void addComment(Comment comment) {
 	sessionFactory.getCurrentSession().saveOrUpdate(comment);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Comment> listComments(Long idVideo) {
+	Query query = sessionFactory.getCurrentSession()
+		.createQuery("from Comment where idVideo = :idVideo ORDER BY id DESC");
+	query.setLong("idVideo", idVideo);
+	List<Comment> list = query.list();
+	return list;
+    }
+
+    @Override
+    public Boolean removeComment(Long id) {
+	Comment comment = (Comment) sessionFactory.getCurrentSession().load(Comment.class, id);
+	if (null != comment) {
+	    sessionFactory.getCurrentSession().delete(comment);
+	    return true;
+	} else {
+	    return false;
+	}
     }
 
 }

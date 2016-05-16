@@ -30,4 +30,8 @@ public interface VideoService {
     public void updateName(String nameVideo, Long id);
 
     public void addComment(Comment comment);
+
+    public List<Comment> listComments(Long idVideo);
+
+    public Boolean removeComment(Long id);
 }

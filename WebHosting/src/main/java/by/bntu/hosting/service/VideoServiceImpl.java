@@ -93,4 +93,16 @@ public class VideoServiceImpl implements VideoService {
 	videoDAO.addComment(comment);
     }
 
+    @Override
+    @Transactional
+    public List<Comment> listComments(Long idVideo) {
+	return videoDAO.listComments(idVideo);
+    }
+
+    @Override
+    @Transactional
+    public Boolean removeComment(Long id) {
+	return videoDAO.removeComment(id);
+    }
+
 }

@@ -53,6 +53,22 @@
 								<button class="send-comment col-md-2 col-sm-2 col-xs-2" value="${video.id}">Добавить</button>
 							</div>
 						</sec:authorize>
+						<div class="comments">
+							<c:forEach items="${comments}" var="comments">
+								<div class="comment-div col-md-8 col-sm-8 col-xs-8">
+									<c:if test="${pageContext.request.userPrincipal.name == video.username || pageContext.request.userPrincipal.name == comments.userName}">
+										<span class="comment-img-delete">
+											<img src="${pageContext.request.contextPath}/resources/img/delete.png">
+											<input class="idVideo" data-prop="${comments.id}" type="hidden" value="${comments.id}">
+										</span>
+									</c:if>
+									<img class="col-md-2 col-sm-2 col-xs-2" src="${pageContext.request.contextPath}/resources/img/comment.png">		
+									<a class="comment-name col-md-4 col-md-offset-6 col-sm-4 col-sm-offset-6 col-xs-4 col-xs-offset-6" href="${pageContext.request.contextPath}/user/${comments.userName}" title="${comments.userName}">${comments.userName}</a>
+									<div class="col-md-10 col-sm-10 col-xs-10">${comments.value}</div>
+									<div class="comment-div-time col-md-10 col-sm-10 col-xs-10">${comments.datePublication}</div>
+								</div>
+							</c:forEach>
+						</div>
 					</div>
 					<div class="col-md-4 col-sm-4 col-xs-4">
 						<div class="col-md-12 col-sm-12 col-xs-12 video-other-content">

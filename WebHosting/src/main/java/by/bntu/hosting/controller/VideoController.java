@@ -62,19 +62,36 @@ public class VideoController {
 	model.setViewName("video");
 	Video video = videoService.getVideo(id);
 	model.addObject("video", video);
+	List<Comment> comments = videoService.listComments(id);
+	model.addObject("comments", comments);
 	List<Video> list = videoService.listVideo(video.getUsername(), 0, 4);
 	model.addObject("videoList", list);
 	return model;
     }
 
     @RequestMapping(value = "/video/addComment", method = RequestMethod.GET)
-    @ResponseBody
-    public boolean addComment(@RequestParam("comment") String value, @RequestParam("id") Long id, Principal user) {
+    public @ResponseBody List<Comment> addComment(@RequestParam("comment") String value, @RequestParam("id") Long id,
+	    Principal user) {
 	try {
 	    value = URLDecoder.decode(value).trim();
 	    Comment comment = new Comment(value, id, user.getName());
 	    videoService.addComment(comment);
-	    return true;
+	    List<Comment> comments = videoService.listComments(id);
+	    return comments;
+	} catch (Exception e) {
+	    e.printStackTrace();
+	    return null;
+	}
+    }
+
+    @RequestMapping(value = "/video/deleteComment", method = RequestMethod.GET)
+    public @ResponseBody boolean deleteComment(@RequestParam("id") Long id) {
+	try {
+	    if (videoService.removeComment(id)) {
+		return true;
+	    } else {
+		return false;
+	    }
 	} catch (Exception e) {
 	    e.printStackTrace();
 	    return false;

@@ -20,4 +20,6 @@ public interface UserService {
 
     public void updatePassword(String password, String login);
 
+    public void updateResolve(String username, int enabled);
+
 }

@@ -57,6 +57,13 @@
 			<version>${spring-security-version}</version>
 		</dependency>
 		
+		<!-- Email -->
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>mail</artifactId>
+		    <version>1.4</version>
+		</dependency>
+		
 		<!-- File upload -->
 		
 		<dependency>

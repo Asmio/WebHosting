@@ -186,6 +186,10 @@ a.navbar-brand{
 	font-family: comic sans ms;
 }
 
+.block-button{
+	overflow: hidden;
+}
+
 .user-videodescription-cell > .user-videodescription-save, .user-videodescription-cancel {
 	margin-bottom: 5px;
 }
@@ -652,6 +656,10 @@ a.navbar-brand{
 	box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.55);
 	margin-top: 5px;
 	border-radius: 5px;
+}
+
+.webcam-content a{
+	color: blue;
 }
 
 #recorder{

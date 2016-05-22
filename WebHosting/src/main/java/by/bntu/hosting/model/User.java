@@ -22,6 +22,9 @@ public class User {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "enabled")
+    private int enabled;
+
     public User() {
 
     }
@@ -61,6 +64,14 @@ public class User {
 
     public void setDescription(String description) {
 	this.description = description;
+    }
+
+    public int getEnabled() {
+	return enabled;
+    }
+
+    public void setEnabled(int enabled) {
+	this.enabled = enabled;
     }
 
 }

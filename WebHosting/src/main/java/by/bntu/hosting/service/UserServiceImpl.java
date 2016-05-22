@@ -66,4 +66,12 @@ public class UserServiceImpl implements UserService {
 	userDAO.updateUser(user);
     }
 
+    @Override
+    @Transactional
+    public void updateResolve(String username, int enabled) {
+	User user = userDAO.getUser(username);
+	user.setEnabled(enabled);
+	userDAO.updateUser(user);
+    }
+
 }

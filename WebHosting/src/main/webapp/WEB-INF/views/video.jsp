@@ -56,7 +56,7 @@
 						<div class="comments">
 							<c:forEach items="${comments}" var="comments">
 								<div class="comment-div col-md-8 col-sm-8 col-xs-8">
-									<c:if test="${pageContext.request.userPrincipal.name == video.username || pageContext.request.userPrincipal.name == comments.userName}">
+									<c:if test="${pageContext.request.userPrincipal.name == video.username || pageContext.request.userPrincipal.name == comments.userName || pageContext.request.userPrincipal.name == 'admin'}">
 										<span class="comment-img-delete">
 											<img src="${pageContext.request.contextPath}/resources/img/delete.png">
 											<input class="idVideo" data-prop="${comments.id}" type="hidden" value="${comments.id}">

@@ -4,8 +4,10 @@ import java.io.File;
 import java.net.URLDecoder;
 import java.security.Principal;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +40,9 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    MessageSource messageSource;
+
     @ModelAttribute
     private Search createNewSearch() {
 	return new Search();
@@ -66,6 +71,23 @@ public class UserController {
 	} catch (Exception e) {
 	    e.printStackTrace();
 	    return "false";
+	}
+    }
+
+    @RequestMapping(value = "blockUser", method = RequestMethod.GET, produces = { "text/html; charset=UTF-8" })
+    @ResponseBody
+    public String blockUser(@RequestParam("username") String username, @RequestParam("enabled") int enabled,
+	    Principal user, Locale locale) {
+	if (user.getName().equals("admin")) {
+	    if (enabled == 1) {
+		userService.updateResolve(URLDecoder.decode(username), 0);
+		return messageSource.getMessage("user.releaseButton", null, locale);
+	    } else {
+		userService.updateResolve(URLDecoder.decode(username), 1);
+		return messageSource.getMessage("user.blockButton", null, locale);
+	    }
+	} else {
+	    return null;
 	}
     }
 

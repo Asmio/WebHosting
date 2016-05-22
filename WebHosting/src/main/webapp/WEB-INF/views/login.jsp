@@ -59,7 +59,7 @@
 					<div class="form-group">
 						<label for="user_login" class="col-sm-2 control-label"><spring:message code="logAndReg.login" /></label>
 						<div class="col-sm-10">
-							<input name="username" type="email" required maxlength="35" class="form-control" id="user_login" placeholder="<spring:message code="logAndReg.login" />" /> 
+							<input name="username" required maxlength="35" class="form-control" id="user_login" placeholder="<spring:message code="logAndReg.login" />" /> 
 						</div>
 					</div>
 					<div class="form-group">
@@ -80,8 +80,10 @@
 					 	<div class="col-sm-6">
 					 		<a href="${pageContext.request.contextPath}/signup" class="link-registr"><spring:message code="logAndReg.registr" /></a>
 					 	</div>
-					 	
-					  </div>
+					 	<%-- <div class="col-sm-6">
+					 		<a href="${pageContext.request.contextPath}/restorePassword" class="link-registr"><spring:message code="restorePassword.link" /></a>
+					 	</div> --%>
+					</div>
 					<div class="form-group">
 						<div class="col-sm-12">
 					    	<button type="submit" class="btn btn-default"><spring:message code="logAndReg.login.button" /></button>

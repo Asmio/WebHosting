@@ -27,12 +27,22 @@
 		<div class="content">
 			<c:set var="user" value="${user}"></c:set>	
 			<div class="container">
-				<div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 user-logo">
-					<h3><c:out value="${user.username}"></c:out></h3>
+				<div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 user-logo">		
+					<h3 class="col-md-10 col-sm-10 col-xs-10"><c:out value="${user.username}"></c:out></h3>
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<c:if test="${pageContext.request.userPrincipal.name != user.username}">
+							<c:if test="${user.enabled == 1}">
+								<button class="col-md-2 col-sm-2 col-xs-2 btn btn-default block-button" type="button" value="${user.enabled}" onclick="blockUser('${user.username}',${user.enabled})"><spring:message code="user.blockButton" /></button>
+							</c:if>
+							<c:if test="${user.enabled == 0}">
+								<button class="col-md-2 col-sm-2 col-xs-2 btn btn-default block-button" type="button" value="${user.enabled}" onclick="blockUser('${user.username}',${user.enabled})"><spring:message code="user.releaseButton" /></button>
+							</c:if>
+						</c:if>
+						</sec:authorize>
 				</div>
 				<div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 user-description">
 					<div class="col-md-6">
-						<c:if test="${pageContext.request.userPrincipal.name == user.username}">
+						<c:if test="${pageContext.request.userPrincipal.name == user.username || pageContext.request.userPrincipal.name == 'admin'}">
 							<c:choose>
 								<c:when test="${user.description == null || user.description == ''}">
 									<p class="user-description-content"><spring:message code="user.descriptionContent" /></p>
@@ -47,70 +57,72 @@
 								<button class="btn btn-default user-description-cancel" value=""><spring:message code="user.descriptionButton.cancel" /></button>
 							</div>
 						</c:if>
-						<c:if test="${pageContext.request.userPrincipal.name != user.username}">
+						<c:if test="${pageContext.request.userPrincipal.name != user.username && pageContext.request.userPrincipal.name != 'admin'}">
 							<p class="user-description-content2">${user.description}</p>
 						</c:if>
 						
 					</div>
 				</div>
-				<div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 video-list">
-					<c:if test="${pageContext.request.userPrincipal.name == user.username}">
-						<p class="video-list-title"><spring:message code="user.myVideo" />(${videoListSize})</p>
-					</c:if>
-					<c:if test="${pageContext.request.userPrincipal.name != user.username}">
-						<p class="video-list-title"><spring:message code="user.video" />(${videoListSize})</p>
-					</c:if>
-					<c:set var="count" value="0"></c:set>
-					<c:forEach items="${videoList}" var="video">
-		    			<div class="col-md-12 col-sm-12 col-xs-12 user-content-cell row">
-		    				<div class="col-md-4 col-sm-4 col-xs-4">
-			    				<div class="user-content-cell-a">
-					    			<a href="${pageContext.request.contextPath}/video/${video.id}">
-					    				<img class="user-content-img" src="${pageContext.request.contextPath}/download/image?fileId=${video.id}">
-					    				<img class="user-hide-img" src="${pageContext.request.contextPath}/resources/img/play.png">
-					    			</a>
-				    			</div>
-		    				</div>
-		    				<c:if test="${pageContext.request.userPrincipal.name == user.username}">
-		    					<span class="user-hide-img-settings">
-									<img src="${pageContext.request.contextPath}/resources/img/settings.png">
-								</span>
-			    				<span title="<spring:message code="user.video.delete" />" class="user-hide-img-delete">
-									<img src="${pageContext.request.contextPath}/resources/img/delete.png">
-									<input class="idVideo" data-prop="${video.id}" type="hidden" value="${video.id}">
-								</span>
-		    				</c:if>
-		    				<div class="col-md-8 col-sm-8 col-xs-8">
-		    					<a class="user-linkvideo-name linkvideo-name" href="${pageContext.request.contextPath}/video/${video.id}" title="${video.name}">${video.name}</a>
-			    				<c:if test="${pageContext.request.userPrincipal.name == user.username}">
-			    					<div class="user-videoname-cell col-md-12 col-sm-12 col-xs-12">
-										<textarea class="user-videoname-area col-md-12 col-sm-12 col-xs-12"></textarea>
-										<button class="btn btn-default user-videoname-save" value=""><spring:message code="user.descriptionButton.save" /></button>
-										<button class="btn btn-default user-videoname-cancel" value=""><spring:message code="user.descriptionButton.cancel" /></button>
-									</div>	
-			    					<c:choose>
-										<c:when test="${video.description == null || video.description == ''}">
-												<p class="user-videodescription-content"><spring:message code="user.video.descriptionContent" /></p>
-											</c:when>
-										<c:otherwise>
-												<p class="user-videodescription-content">${video.description}</p>
-										</c:otherwise>
-								    </c:choose>
-								    <div class="user-videodescription-cell col-md-12 col-sm-12 col-xs-12">
-										<textarea class="user-videodescription-area col-md-12 col-sm-12 col-xs-12" placeholder="<spring:message code="user.video.descriptionContent" />"></textarea>
-										<button class="btn btn-default user-videodescription-save" value=""><spring:message code="user.descriptionButton.save" /></button>
-										<button class="btn btn-default user-videodescription-cancel" value=""><spring:message code="user.descriptionButton.cancel" /></button>
-									</div>
+				<c:if test="${pageContext.request.userPrincipal.name != 'admin' || user.username != 'admin'}">
+					<div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 video-list">
+						<c:if test="${pageContext.request.userPrincipal.name == user.username}">
+							<p class="video-list-title"><spring:message code="user.myVideo" />(${videoListSize})</p>
+						</c:if>
+						<c:if test="${pageContext.request.userPrincipal.name != user.username}">
+							<p class="video-list-title"><spring:message code="user.video" />(${videoListSize})</p>
+						</c:if>
+						<c:set var="count" value="0"></c:set>
+						<c:forEach items="${videoList}" var="video">
+			    			<div class="col-md-12 col-sm-12 col-xs-12 user-content-cell row">
+			    				<div class="col-md-4 col-sm-4 col-xs-4">
+				    				<div class="user-content-cell-a">
+						    			<a href="${pageContext.request.contextPath}/video/${video.id}">
+						    				<img class="user-content-img" src="${pageContext.request.contextPath}/download/image?fileId=${video.id}">
+						    				<img class="user-hide-img" src="${pageContext.request.contextPath}/resources/img/play.png">
+						    			</a>
+					    			</div>
+			    				</div>
+			    				<c:if test="${pageContext.request.userPrincipal.name == user.username || pageContext.request.userPrincipal.name == 'admin'}">
+			    					<span class="user-hide-img-settings">
+										<img src="${pageContext.request.contextPath}/resources/img/settings.png">
+									</span>
+				    				<span title="<spring:message code="user.video.delete" />" class="user-hide-img-delete">
+										<img src="${pageContext.request.contextPath}/resources/img/delete.png">
+										<input class="idVideo" data-prop="${video.id}" type="hidden" value="${video.id}">
+									</span>
 			    				</c:if>
-			    				<c:if test="${pageContext.request.userPrincipal.name != user.username}">
-			    					<div class="col-md-12 col-sm-12 col-xs-12">
-			    						<p class="user-videodescription-content2">${video.description}</p>
-			    					</div>
-								</c:if>
-							</div>
-		    			</div>
-				    </c:forEach>
-				</div>
+			    				<div class="col-md-8 col-sm-8 col-xs-8">
+			    					<a class="user-linkvideo-name linkvideo-name" href="${pageContext.request.contextPath}/video/${video.id}" title="${video.name}">${video.name}</a>
+				    				<c:if test="${pageContext.request.userPrincipal.name == user.username  || pageContext.request.userPrincipal.name == 'admin'}">
+				    					<div class="user-videoname-cell col-md-12 col-sm-12 col-xs-12">
+											<textarea class="user-videoname-area col-md-12 col-sm-12 col-xs-12"></textarea>
+											<button class="btn btn-default user-videoname-save" value=""><spring:message code="user.descriptionButton.save" /></button>
+											<button class="btn btn-default user-videoname-cancel" value=""><spring:message code="user.descriptionButton.cancel" /></button>
+										</div>	
+				    					<c:choose>
+											<c:when test="${video.description == null || video.description == ''}">
+													<p class="user-videodescription-content"><spring:message code="user.video.descriptionContent" /></p>
+												</c:when>
+											<c:otherwise>
+													<p class="user-videodescription-content">${video.description}</p>
+											</c:otherwise>
+									    </c:choose>
+									    <div class="user-videodescription-cell col-md-12 col-sm-12 col-xs-12">
+											<textarea class="user-videodescription-area col-md-12 col-sm-12 col-xs-12" placeholder="<spring:message code="user.video.descriptionContent" />"></textarea>
+											<button class="btn btn-default user-videodescription-save" value=""><spring:message code="user.descriptionButton.save" /></button>
+											<button class="btn btn-default user-videodescription-cancel" value=""><spring:message code="user.descriptionButton.cancel" /></button>
+										</div>
+				    				</c:if>
+				    				<c:if test="${pageContext.request.userPrincipal.name != user.username && pageContext.request.userPrincipal.name != 'admin'}">
+				    					<div class="col-md-12 col-sm-12 col-xs-12">
+				    						<p class="user-videodescription-content2">${video.description}</p>
+				    					</div>
+									</c:if>
+								</div>
+			    			</div>
+					    </c:forEach>
+					</div>
+				</c:if>
 			</div>
 		</div>
 		<footer>

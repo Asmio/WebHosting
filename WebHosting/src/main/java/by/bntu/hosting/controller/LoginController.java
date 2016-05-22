@@ -18,6 +18,7 @@ import by.bntu.hosting.model.Search;
 import by.bntu.hosting.model.User;
 import by.bntu.hosting.service.UserService;
 import by.bntu.hosting.utils.MDPasswordEncoder;
+import by.bntu.hosting.utils.Sender;
 
 @Controller
 public class LoginController {
@@ -47,6 +48,12 @@ public class LoginController {
 	model.setViewName("login");
 
 	return model;
+    }
+
+    @RequestMapping(value = "/restorePassword", method = RequestMethod.GET)
+    public @ResponseBody void restorePassword() {
+	Sender sender = new Sender("gon4arikvadim@gmail.com", "jonsondj25");
+	sender.send("Тема", "Новый пароль", "gon4arikvadim@mail.ru");
     }
 
     @RequestMapping(value = "/password/change", method = RequestMethod.GET)

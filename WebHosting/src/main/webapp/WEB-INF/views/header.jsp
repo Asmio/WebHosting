@@ -24,12 +24,14 @@
 	      </form:form>
        		      
 	      <ul class="nav navbar-nav navbar-right my-navbar-ul">
-	      	<li>
-	      		<a href="${pageContext.request.contextPath}/webcam"><button type="button" class="btn-default navbar-left btn-add-video-webcam"><img  src="${pageContext.request.contextPath}/resources/img/webcam.png"></button></a>
-		    </li>
-	      	<li>
-	      		<a href="${pageContext.request.contextPath}/uploadpage"><button type="button" class="btn btn-default navbar-left btn-add-video"><spring:message code="main.header.button.addVideo" /></button></a>
-		    </li>
+	      	<sec:authorize access="hasRole('ROLE_USER')">
+		      	<li>
+		      		<a href="${pageContext.request.contextPath}/webcam"><button type="button" class="btn-default navbar-left btn-add-video-webcam"><img  src="${pageContext.request.contextPath}/resources/img/webcam.png"></button></a>
+			    </li>
+		      	<li>
+		      		<a href="${pageContext.request.contextPath}/uploadpage"><button type="button" class="btn btn-default navbar-left btn-add-video"><spring:message code="main.header.button.addVideo" /></button></a>
+			    </li>
+		    </sec:authorize>
 			<sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
 				<li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${pageContext.request.userPrincipal.name}<span class="caret"></span></a>

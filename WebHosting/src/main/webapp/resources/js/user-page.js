@@ -95,6 +95,18 @@ function addUserDescription(){
 	});
 }
 
+function blockUser(username,enabled){
+	$.ajax({
+        url: 'blockUser',
+        data: ({username : encodeURIComponent(username), enabled : enabled}),
+        success: function(data) {
+        	if (data != null){
+        		$(".block-button").text(data);
+        	}
+        }
+	});
+}
+
 function addVideoDescription(){
 	var description = $(this).parent().find('.user-videodescription-area').eq(0).val();
 	description = $.trim(description);

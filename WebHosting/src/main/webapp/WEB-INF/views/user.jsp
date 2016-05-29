@@ -52,7 +52,7 @@
 								</c:otherwise>
 						    </c:choose>
 						    <div class="user-description-cell">
-								<textarea class="user-description-area" rows="3" cols="62" placeholder="<spring:message code="user.descriptionContent" />"></textarea>
+								<textarea class="user-description-area" rows="3" cols="62" maxlength="100" onkeypress="return isNotMax(event)" placeholder="<spring:message code="user.descriptionContent" />"></textarea>
 								<button class="btn btn-default user-description-save" value=""><spring:message code="user.descriptionButton.save" /></button>
 								<button class="btn btn-default user-description-cancel" value=""><spring:message code="user.descriptionButton.cancel" /></button>
 							</div>
@@ -95,7 +95,7 @@
 			    					<a class="user-linkvideo-name linkvideo-name" href="${pageContext.request.contextPath}/video/${video.id}" title="${video.name}">${video.name}</a>
 				    				<c:if test="${pageContext.request.userPrincipal.name == user.username  || pageContext.request.userPrincipal.name == 'admin'}">
 				    					<div class="user-videoname-cell col-md-12 col-sm-12 col-xs-12">
-											<textarea class="user-videoname-area col-md-12 col-sm-12 col-xs-12"></textarea>
+											<textarea class="user-videoname-area col-md-12 col-sm-12 col-xs-12" maxlength="300" onkeypress="return isNotMax(event)"></textarea>
 											<button class="btn btn-default user-videoname-save" value=""><spring:message code="user.descriptionButton.save" /></button>
 											<button class="btn btn-default user-videoname-cancel" value=""><spring:message code="user.descriptionButton.cancel" /></button>
 										</div>	
@@ -108,7 +108,7 @@
 											</c:otherwise>
 									    </c:choose>
 									    <div class="user-videodescription-cell col-md-12 col-sm-12 col-xs-12">
-											<textarea class="user-videodescription-area col-md-12 col-sm-12 col-xs-12" placeholder="<spring:message code="user.video.descriptionContent" />"></textarea>
+											<textarea class="user-videodescription-area col-md-12 col-sm-12 col-xs-12" maxlength="300" onkeypress="return isNotMax(event)" placeholder="<spring:message code="user.video.descriptionContent" />"></textarea>
 											<button class="btn btn-default user-videodescription-save" value=""><spring:message code="user.descriptionButton.save" /></button>
 											<button class="btn btn-default user-videodescription-cancel" value=""><spring:message code="user.descriptionButton.cancel" /></button>
 										</div>

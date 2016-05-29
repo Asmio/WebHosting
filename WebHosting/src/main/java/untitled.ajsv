@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--AgileJ Ltd. (http://www.agilej.com)--><ajsv>
+    <diagram creationDate="2016-мая-29 20:10" licenseGrade="evaluation" licenseeName="anon" licenseeOrganization="unknown" populationMethod="manual" version="1.8.3.v20151019-2113">
+        <filterScript>
+
+// no filter script yet defined for this class diagram
+// use CTRL+SPACE for completion suggestions
+hide constructors
+
+</filterScript>
+        <class className="by.bntu.hosting.model.User" project="hosting" xLocation="91" yLocation="12"/>
+        <class className="by.bntu.hosting.model.Comment" project="hosting" xLocation="935" yLocation="12"/>
+        <class className="by.bntu.hosting.model.Video" project="hosting" xLocation="527" yLocation="12"/>
+        <class className="by.bntu.hosting.model.UploadedFile" project="hosting" xLocation="287" yLocation="452"/>
+        <class className="by.bntu.hosting.model.Search" project="hosting" xLocation="630" yLocation="464"/>
+    </diagram>
+</ajsv>

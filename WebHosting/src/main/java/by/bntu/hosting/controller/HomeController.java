@@ -53,7 +53,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/webcam", method = RequestMethod.GET)
-    public String test() {
+    public String webcamPage() {
 	return "webcam";
     }
 

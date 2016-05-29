@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--AgileJ Ltd. (http://www.agilej.com)--><ajsv>
+    <diagram creationDate="2016-мая-29 21:07" licenseGrade="evaluation" licenseeName="anon" licenseeOrganization="unknown" populationMethod="manual" version="1.8.3.v20151019-2113">
+        <filterScript>
+
+// no filter script yet defined for this class diagram
+// use CTRL+SPACE for completion suggestions
+hide all fields 
+hide call lines
+show all methods in largest
+
+</filterScript>
+        <class className="by.bntu.hosting.service.VideoServiceImpl" project="hosting" xLocation="284" yLocation="1036"/>
+        <class className="by.bntu.hosting.service.VideoService" project="hosting" xLocation="270" yLocation="284"/>
+        <class className="by.bntu.hosting.controller.VideoController" project="hosting" xLocation="1004" yLocation="121"/>
+        <class className="by.bntu.hosting.controller.UploadController" project="hosting" xLocation="1000" yLocation="628"/>
+        <class className="by.bntu.hosting.controller.LoginController" project="hosting" xLocation="-790" yLocation="-124"/>
+        <class className="by.bntu.hosting.controller.UserController" project="hosting" xLocation="220" yLocation="-122"/>
+        <class className="by.bntu.hosting.controller.SignupController" project="hosting" xLocation="-1077" yLocation="768"/>
+        <class className="by.bntu.hosting.service.UserServiceImpl" project="hosting" xLocation="-396" yLocation="1088"/>
+        <class className="by.bntu.hosting.service.UserService" project="hosting" xLocation="-256" yLocation="568"/>
+        <class className="by.bntu.hosting.controller.HomeController" project="hosting" xLocation="-1029" yLocation="268"/>
+    </diagram>
+</ajsv>

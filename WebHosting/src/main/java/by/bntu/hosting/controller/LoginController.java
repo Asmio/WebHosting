@@ -1,8 +1,10 @@
 package by.bntu.hosting.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.security.Principal;
 import java.util.Locale;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -50,10 +52,36 @@ public class LoginController {
 	return model;
     }
 
-    @RequestMapping(value = "/restorePassword", method = RequestMethod.GET)
-    public @ResponseBody void restorePassword() {
-	Sender sender = new Sender("gon4arikvadim@gmail.com", "jonsondj25");
-	sender.send("Тема", "Новый пароль", "gon4arikvadim@mail.ru");
+    @RequestMapping(value = "/restorePassword", method = RequestMethod.GET, produces = { "text/html; charset=UTF-8" })
+    public @ResponseBody String restorePassword(@RequestParam("username") String username, Locale locale) {
+	username = URLDecoder.decode(username);
+	try {
+	    User user = userService.getUser(username);
+	    if (user != null) {
+		if (user.getEnabled() == 0) {
+		    return messageSource.getMessage("logAndReg.restore.userBlocked", null, locale);
+		}
+		String alphabet = "0123456789qwertyuiopasdfghjklzxcvbnmWERTYUIOPASDFGHJKLZXCVBNM";
+		Random random = new Random();
+		String password = "";
+		for (int i = 0; i < 8; i++) {
+		    password = password + alphabet.charAt(random.nextInt(alphabet.length()));
+		}
+		Sender sender = new Sender("webhosting003@gmail.com", "webhosting1q2w3e");
+		sender.send(messageSource.getMessage("logAndReg.restore.theme", null, locale),
+			messageSource.getMessage("logAndReg.restore.theme", null, locale) + ": " + password, username);
+		MDPasswordEncoder encoder = new MDPasswordEncoder();
+		password = encoder.encodeMD5(password);
+		userService.updatePassword(password, username);
+		return messageSource.getMessage("logAndReg.restore.newPasswordSend", null, locale);
+	    } else {
+		return messageSource.getMessage("logAndReg.restore.userNotFound", null, locale);
+	    }
+
+	} catch (Exception e) {
+	    return messageSource.getMessage("logAndReg.restore.error", null, locale);
+	}
+
     }
 
     @RequestMapping(value = "/password/change", method = RequestMethod.GET)

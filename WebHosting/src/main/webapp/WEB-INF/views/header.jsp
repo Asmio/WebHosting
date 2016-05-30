@@ -18,7 +18,7 @@
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <form:form class="navbar-form navbar-left" method="GET" action="search" commandName="search" accept-charset="UTF-8" role="search">
 	        <div class="form-group">
-	          <form:input path="dataSearch" id="input-search" class="form-control" placeholder="..." />
+	          <form:input path="dataSearch" id="input-search" maxlength="100" class="form-control" placeholder="..." />
 	        </div>
 	        <form:button type="submit" class="btn btn-default btn-search"><img alt="" src="${pageContext.request.contextPath}/resources/img/search.png"></form:button>
 	      </form:form>

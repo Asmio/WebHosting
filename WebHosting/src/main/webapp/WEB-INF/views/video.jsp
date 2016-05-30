@@ -49,7 +49,7 @@
 						<sec:authorize access="hasRole('ROLE_USER')">
 							<div class="videoplayer-description videoplayer-description-comment col-md-8 col-sm-8 col-xs-8">
 								<img class="col-md-2 col-sm-2 col-xs-2" src="${pageContext.request.contextPath}/resources/img/comment.png">
-								<textarea class="form-control col-md-10 col-sm-10 col-xs-10" placeholder="<spring:message code="video.comment.text" />"></textarea>
+								<textarea id="comment-area" class="form-control col-md-10 col-sm-10 col-xs-10" maxlength="300" onkeypress="return isNotMax(event)" placeholder="<spring:message code="video.comment.text" />"></textarea>
 								<button class="send-comment col-md-2 col-sm-2 col-xs-2" value="${video.id}"><spring:message code="video.comment.addButton" /></button>
 							</div>
 						</sec:authorize>

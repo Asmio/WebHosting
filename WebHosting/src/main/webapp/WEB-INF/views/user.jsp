@@ -95,7 +95,7 @@
 			    					<a class="user-linkvideo-name linkvideo-name" href="${pageContext.request.contextPath}/video/${video.id}" title="${video.name}">${video.name}</a>
 				    				<c:if test="${pageContext.request.userPrincipal.name == user.username  || pageContext.request.userPrincipal.name == 'admin'}">
 				    					<div class="user-videoname-cell col-md-12 col-sm-12 col-xs-12">
-											<textarea class="user-videoname-area col-md-12 col-sm-12 col-xs-12" maxlength="300" onkeypress="return isNotMax(event)"></textarea>
+											<textarea class="user-videoname-area col-md-12 col-sm-12 col-xs-12" maxlength="100" onkeypress="return isNotMax(event)"></textarea>
 											<button class="btn btn-default user-videoname-save" value=""><spring:message code="user.descriptionButton.save" /></button>
 											<button class="btn btn-default user-videoname-cancel" value=""><spring:message code="user.descriptionButton.cancel" /></button>
 										</div>	

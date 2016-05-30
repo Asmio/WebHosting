@@ -13,7 +13,7 @@ $(function () {
     		$.ajax({
     			async: false,
                 url: 'checkVideo',
-                data: ({nameVideo : encodeURIComponent(data.files[0].name)}),
+                data: ({nameVideo : encodeURIComponent(data.files[0].name), fileSize : data.files[0].size}),
                 success: function(data) {
                 	var arr = data.split('/');
                 	if (arr[0] == 'error'){

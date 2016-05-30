@@ -44,6 +44,7 @@ public class VideoController {
     private static final String DIR_IMAGE_KEY = "download.dir.image";
     private static final String MP4_KEY = "video.type.mp4";
     private static final String PNG_KEY = "image.type.png";
+    private static final String FILE_MAX_SIZE_KEY = "video.size.max";
 
     @Autowired
     VideoService videoService;
@@ -186,7 +187,8 @@ public class VideoController {
 
     @RequestMapping(value = "/checkVideo", method = RequestMethod.GET, produces = { "text/html; charset=UTF-8" })
     @ResponseBody
-    public String checkVideo(@RequestParam String nameVideo, Locale locale) {
+    public String checkVideo(@RequestParam("nameVideo") String nameVideo, @RequestParam("fileSize") String fileSize,
+	    Locale locale) {
 
 	String decodeName = URLDecoder.decode(nameVideo);
 	Video video = videoService.getVideo(EditVideoName.editName(decodeName));
@@ -199,6 +201,10 @@ public class VideoController {
 		return "error/" + messageSource.getMessage("upload.file", null, locale) + " " + decodeName + " "
 			+ messageSource.getMessage("upload.file.error.wrongFormat", null, locale);
 	    }
+	}
+	if (Integer.parseInt(fileSize) > Integer.parseInt(ManagementResourses.getValue(FILE_MAX_SIZE_KEY))) {
+	    return "error/" + messageSource.getMessage("upload.file", null, locale) + " " + decodeName + " "
+		    + messageSource.getMessage("upload.file.error.size", null, locale);
 	}
 	return "ok/" + messageSource.getMessage("upload.file.processing", null, locale);
 

@@ -53,7 +53,7 @@
 							<div class="logo-specif"><spring:message code="upload.specifications" /></div>
 							<img src="${pageContext.request.contextPath}/resources/img/icon-specs.png">
 							<ul>
-								<li><spring:message code="upload.specifications.duration" /></li>
+								<%-- <li><spring:message code="upload.specifications.duration" /></li> --%>
 								<li><spring:message code="upload.specifications.size" /></li>
 								<li><spring:message code="upload.specifications.format" /></li>
 							</ul>

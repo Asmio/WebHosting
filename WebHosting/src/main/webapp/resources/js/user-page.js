@@ -95,13 +95,19 @@ function addUserDescription(){
 	});
 }
 
-function blockUser(username,enabled){
+function blockUser(username){
+	var enabled = $("#block-button").val();
 	$.ajax({
         url: 'blockUser',
         data: ({username : encodeURIComponent(username), enabled : enabled}),
         success: function(data) {
         	if (data != null){
-        		$(".block-button").text(data);
+        		$("#block-button").text(data);
+        		if(enabled == 1){
+        			$("#block-button").val(0);
+        		} else {
+        			$("#block-button").val(1);
+        		}	
         	}
         }
 	});
@@ -154,6 +160,10 @@ function addVideoName(){
         		$(this).parent().find('.user-videoname-area').eq(0).val('');
         		$(nameCell).animate({opacity: 'hide'}, 500);
         		$(nameLink).animate({height: 'show'}, 500);
+        	} else if(data == "false"){
+        		
+        	} else {
+        		alert(data);
         	}
         }
 	});

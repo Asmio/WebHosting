@@ -14,6 +14,7 @@
 	<link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
 	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/jwplayer/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/login-page.js"></script>
 	<!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>

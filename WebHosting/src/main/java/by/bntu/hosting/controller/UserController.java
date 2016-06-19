@@ -105,12 +105,16 @@ public class UserController {
 	}
     }
 
-    @RequestMapping(value = "setVideoName", method = RequestMethod.GET)
+    @RequestMapping(value = "setVideoName", method = RequestMethod.GET, produces = { "text/html; charset=UTF-8" })
     @ResponseBody
-    public String setVideoName(@RequestParam("nameVideo") String nameVideo, @RequestParam("id") Long id) {
+    public String setVideoName(@RequestParam("nameVideo") String nameVideo, @RequestParam("id") Long id,
+	    Locale locale) {
 	try {
 	    nameVideo = URLDecoder.decode(nameVideo);
 	    nameVideo = nameVideo.trim();
+	    if (videoService.getVideo(nameVideo) != null) {
+		return messageSource.getMessage("user.video.exist", null, locale);
+	    }
 	    Video video = videoService.getVideo(id);
 
 	    File fileVideo = new File(ManagementResourses.getPath(DIR_VIDEO_KEY) + File.separator

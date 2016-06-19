@@ -32,10 +32,10 @@
 					<sec:authorize access="hasRole('ROLE_ADMIN')">
 						<c:if test="${pageContext.request.userPrincipal.name != user.username}">
 							<c:if test="${user.enabled == 1}">
-								<button class="col-md-2 col-sm-2 col-xs-2 btn btn-default block-button" type="button" value="${user.enabled}" onclick="blockUser('${user.username}',${user.enabled})"><spring:message code="user.blockButton" /></button>
+								<button id="block-button" class="col-md-2 col-sm-2 col-xs-2 btn btn-default block-button" type="button" value="${user.enabled}" onclick="blockUser('${user.username}')"><spring:message code="user.blockButton" /></button>
 							</c:if>
 							<c:if test="${user.enabled == 0}">
-								<button class="col-md-2 col-sm-2 col-xs-2 btn btn-default block-button" type="button" value="${user.enabled}" onclick="blockUser('${user.username}',${user.enabled})"><spring:message code="user.releaseButton" /></button>
+								<button id="block-button" class="col-md-2 col-sm-2 col-xs-2 btn btn-default block-button" type="button" value="${user.enabled}" onclick="blockUser('${user.username}')"><spring:message code="user.releaseButton" /></button>
 							</c:if>
 						</c:if>
 						</sec:authorize>
@@ -44,7 +44,7 @@
 					<div class="col-md-6">
 						<c:if test="${pageContext.request.userPrincipal.name == user.username || pageContext.request.userPrincipal.name == 'admin'}">
 							<c:choose>
-								<c:when test="${user.description == null || user.description == ''}">
+								<c:when test="${(user.description == null || user.description == '') && pageContext.request.userPrincipal.name != 'admin'}">
 									<p class="user-description-content"><spring:message code="user.descriptionContent" /></p>
 								</c:when>
 								<c:otherwise>
@@ -100,11 +100,11 @@
 											<button class="btn btn-default user-videoname-cancel" value=""><spring:message code="user.descriptionButton.cancel" /></button>
 										</div>	
 				    					<c:choose>
-											<c:when test="${video.description == null || video.description == ''}">
-													<p class="user-videodescription-content"><spring:message code="user.video.descriptionContent" /></p>
-												</c:when>
+											<c:when test="${(video.description == null || video.description == '') && pageContext.request.userPrincipal.name != 'admin'}">
+												<p class="user-videodescription-content"><spring:message code="user.video.descriptionContent" /></p>
+											</c:when>
 											<c:otherwise>
-													<p class="user-videodescription-content">${video.description}</p>
+												<p class="user-videodescription-content">${video.description}</p>
 											</c:otherwise>
 									    </c:choose>
 									    <div class="user-videodescription-cell col-md-12 col-sm-12 col-xs-12">

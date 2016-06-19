@@ -14,7 +14,7 @@
 	<title>Upload</title>
 	<link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-latest.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/vendor/jquery.ui.widget.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.iframe-transport.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.fileupload.js"></script>

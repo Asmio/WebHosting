@@ -1,0 +1,108 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 14.10.2014, 23:44:25
+    Author     : Admin
+*/
+
+body{
+     background-image:url(fon4.png);
+}
+
+/*div {
+    width: 1210px;
+     background-image:url(fon5.png);
+      margin:auto; // ПО ЦЕНТРУ
+}*/
+
+
+
+#header {
+    width: 1210px;
+    background-color: #990099;
+    color:white;
+    text-align:center;
+    padding:5px;  
+    margin:auto; // ПО ЦЕНТРУ
+}
+
+#forNavSec{
+   width: 1210px; 
+   margin:auto; // ПО ЦЕНТРУ
+}
+
+#nav {
+    line-height:30px;
+    background-color:#eeeeee;
+    width:400px;
+    height:600px;
+    float:left;
+    /*padding:5px;*/
+  
+  
+    /*margin:auto;  ??*/
+}
+#section {
+    background-color: aliceblue ;
+    width:800px;
+    float:left;
+    /*padding:10px;*/ 
+}
+#footer {
+    width: 1210px;
+    background-color:  #990099;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px; 
+    margin:auto; // ПО ЦЕНТРУ
+}
+
+
+
+
+
+
+
+
+
+
+
+   a {
+    color: yellow; /* Цвет обычной ссылки #008000 */ 
+    text-decoration: none; /* Убираем подчеркивание у ссылок */
+   }
+   a:visited {
+    color: aqua; /* Цвет посещённой ссылки #800080*/
+   } 
+   a:hover {
+    color: white; /* Цвет ссылки при наведении на нее курсора мыши #ff3333  blue*/  
+    text-decoration: underline; /* Добавляем подчеркивание */
+   }
+
+
+h2 {
+    
+     color: blue; 
+    text-align:center;
+}
+
+table{
+   /*align:center;*/
+   margin: auto;
+}
+
+.foto{
+        text-align: center;
+}
+
+
+.centerImage { /*точка обозначает класс*/
+   display:block; 
+   background:#E8E8E8; 
+   margin:auto;
+  
+}

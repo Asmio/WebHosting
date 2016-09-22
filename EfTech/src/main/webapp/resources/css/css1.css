@@ -1,0 +1,61 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 14.10.2014, 23:44:25
+    Author     : Admin
+*/
+a {
+    color: #008000; /* Цвет обычной ссылки */ 
+    text-decoration: none; /* Убираем подчеркивание у ссылок */
+}
+a:visited {
+    color: #800080; /* Цвет посещённой ссылки */
+} 
+a:hover {
+    color: blue; /* Цвет ссылки при наведении на нее курсора мыши #ff3333 */  
+    text-decoration: underline; /* Добавляем подчеркивание */
+}
+
+body{
+    background-image:url(fon4.png);
+}
+
+div{
+    width: 1200px;
+    background-image:url(fon5.png);
+    margin:auto; // ПО ЦЕНТРУ
+}
+h2 {
+
+    color: blue; 
+    text-align:center;
+}
+
+table{
+    /*align:center;*/
+    margin: auto;
+}
+
+.foto{
+    text-align: center;
+}
+
+
+.centerImage { /*точка обозначает класс*/
+    display:block; 
+    background:#E8E8E8; 
+    margin:auto;
+
+}
+
+.error {
+    font-size: small;
+    color: red;
+}
+
+.href {
+    font-size: x-large;
+}

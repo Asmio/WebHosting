@@ -1,0 +1,40 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+
+	<authentication-manager>
+		<authentication-provider>
+			<user-service>
+				<user name="Admin" password="1111" authorities="ROLE_ADMIN" />
+				<user name="Admin_info" password="2222" authorities="ROLE_USER_INFO" />
+				<user name="Admin_price" password="3333" authorities="ROLE_USER_PRICE" />
+				<user name="Admin_pict" password="4444" authorities="ROLE_USER_PICT" />
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
+                
+<!--    <http use-expressions="false">-->
+    <!--<http >-->
+    <http auto-config="true">
+        <access-denied-handler error-page="/403" />
+        <intercept-url pattern="/admin*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER_INFO', 'ROLE_USER_PRICE', 'ROLE_USER_PICT')" /> 
+        <intercept-url pattern="/admin/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER_INFO', 'ROLE_USER_PRICE', 'ROLE_USER_PICT')" />  
+        <form-login login-page="/login" 
+                    username-parameter="j_username" 
+                    password-parameter="j_password" 
+                    login-processing-url="/j_spring_security_check"
+                    authentication-failure-url="/login?error=true"  />
+        
+        <logout logout-url="/j_spring_security_logout" logout-success-url="/" />
+        
+        <remember-me key="remMeKey"/>
+        <csrf disabled="true" />
+    </http>
+    
+     <!--4.2.4  In Spring Security I stoped. -->       
+
+
+</beans:beans>

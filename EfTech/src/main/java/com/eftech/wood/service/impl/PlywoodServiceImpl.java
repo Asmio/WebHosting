@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.eftech.wood.entity.Plywood;
+import com.eftech.wood.helper.Filter;
 import com.eftech.wood.repository.PlywoodRepository;
 import com.eftech.wood.service.PlywoodService;
 
@@ -37,6 +38,30 @@ public class PlywoodServiceImpl implements PlywoodService {
     @Override
     public void delete(Plywood plywood) {
 	plywoodRepository.delete(plywood);
+    }
+
+    @Override
+    public List<Plywood> findAllByFilter(Filter filter) {
+	return plywoodRepository.findAllByFilter(filter.getMinThickness(), filter.getMaxThickness(),
+		filter.getMinLength(), filter.getMaxLength(), filter.getMinWeight(), filter.getMaxWeight(),
+		filter.getMinPrice(), filter.getMaxPrice(), filter.getWater_resistance(),
+		filter.getSanded_or_unsanded());
+    }
+
+    @Override
+    public int getMaxValue(String field) {
+	switch (field) {
+	case "thickness":
+	    return plywoodRepository.getMaxThickness();
+	case "length":
+	    return plywoodRepository.getMaxLegth();
+	case "weight":
+	    return plywoodRepository.getMaxWeight();
+	case "price":
+	    return plywoodRepository.getMaxPrice();
+	default:
+	    return 0;
+	}
     }
 
 }

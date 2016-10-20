@@ -1,6 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="cs" lang="cs">
@@ -87,7 +89,7 @@
 			<div id="user">
 				<h2> <sec:authentication property="principal.username" /> <span>( )</span>
 				</h2>
-				<a href="${pageContext.request.contextPath}/j_spring_security_logout">logout</a>
+				<a href="${pageContext.request.contextPath}/j_spring_security_logout"><spring:message code="logout"/></a>
 			</div>
 			<!-- /#user -->
 		</div>
@@ -98,8 +100,8 @@
 			<!-- breadcrumbs -->
 			<div class="breadcrumbs">
 				<ul>
-					<li class="home"><a href="">Homepage</a></li>
-					<li>Admin Page</li>
+					<li class="home"><a href="${pageContext.request.contextPath}/admin"><spring:message code="main.home"/></a></li>
+					<li><spring:message code="products.particle_board"/></li>
 				</ul>
 			</div>
 			<!-- /breadcrumbs -->
@@ -107,7 +109,7 @@
 			<div class="box">
 				<div class="headlines">
 					<h2>
-						<span>Particle Board</span>
+						<span><spring:message code="products.particle_board"/></span>
 					</h2>
 					<a href="#help" class="help"></a>
 				</div>
@@ -116,15 +118,15 @@
 					<table class="tab tab-drag">
 						<tr class="top nodrop nodrag">
 							<td class="dragHandle">&nbsp;</td>
-							<th>Изображение</th>
+							<th><spring:message code="products.picture"/></th>
 							<th>id</th>
-							<th>Толщина</th>
-							<th>Длина</th>
-							<th>Вес</th>	
-                            <th>Ламинированный</th>
-                            <th>Описание станка</th>                   
-							<th>Цена</th>
-							<th class="action">Action</th>
+							<th><spring:message code="products.thickness"/></th>
+							<th><spring:message code="products.length"/></th>
+							<th><spring:message code="products.weight"/></th>	
+                            <th><spring:message code="products.laminated"/></th> 
+                            <th><spring:message code="products.description_bench"/></th>                   
+							<th><spring:message code="products.price"/></th>
+							<th class="action"><spring:message code="action"/></th>
 						</tr>
 						<c:forEach items="${list}" var="list">
 							<tr>
@@ -159,7 +161,7 @@
 
 					<!-- box-action -->
 					<div class="tab-action">
-						<a href="${pageContext.request.contextPath}/admin/add.html" class="btn-default"><span>Добавить
+						<a href="${pageContext.request.contextPath}/admin/add.html" class="btn-default"><span><span><spring:message code="add"/>
 								</span></a>
 					</div>
 
@@ -175,8 +177,8 @@
 
 			<!-- mainmenu -->
 			<ul id="floatMenu" class="mainmenu">
-				<li><a href="${pageContext.request.contextPath}/admin/plywood.html" class="link">Plywood</a></li>
-				<li><a href="${pageContext.request.contextPath}/admin/particleboard.html" class="link">Particle Board</a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/plywood.html" class="link"><spring:message code="products.plywood"/></a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/particleboard.html" class="link"><spring:message code="products.particle_board"/></a></li>
 			</ul>
 			<!-- /.mainmenu -->
 
@@ -185,7 +187,7 @@
 		<!-- #footer -->
 		<div id="footer">
 			<p>
-				© 2010 Great Admin | <a href="index.html">Top</a>
+				© 2010 Great Admin
 			</p>
 		</div>
 		<!-- /#footer -->

@@ -1,6 +1,8 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
 
 
@@ -16,43 +18,49 @@
         <meta name="keywords" content="Wood, Particleboard , Plywood">
         <meta name="robots" content="all">
 
-        <title>Изделия из дерева</title>
+		
+        <title><spring:message code="main.title"/></title>
 
         <!-- Bootstrap Core CSS -->
-        <link rel="stylesheet" href="resources/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/bootstrap.min.css">
         
         <!-- Customizable CSS -->
-        <link rel="stylesheet" href="resources/assets/css/main.css">
-        <link rel="stylesheet" href="resources/assets/css/green.css">
-        <link rel="stylesheet" href="resources/assets/css/owl.carousel.css">
-        <link rel="stylesheet" href="resources/assets/css/owl.transitions.css">
-        <link rel="stylesheet" href="resources/assets/css/animate.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/main.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/green.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/owl.carousel.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/owl.transitions.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/animate.min.css">
 
         <!-- Demo Purpose Only. Should be removed in production -->
-        <link rel="stylesheet" href="resources/assets/css/config.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/config.css">
 
-        <link href="resources/assets/css/green.css" rel="alternate stylesheet" title="Green color">
-        <link href="resources/assets/css/blue.css" rel="alternate stylesheet" title="Blue color">
-        <link href="resources/assets/css/red.css" rel="alternate stylesheet" title="Red color">
-        <link href="resources/assets/css/orange.css" rel="alternate stylesheet" title="Orange color">
-        <link href="resources/assets/css/navy.css" rel="alternate stylesheet" title="Navy color">
-        <link href="resources/assets/css/dark-green.css" rel="alternate stylesheet" title="Darkgreen color">
+        <link href="${pageContext.request.contextPath}/resources/assets/css/green.css" rel="alternate stylesheet" title="Green color">
+        <link href="${pageContext.request.contextPath}/resources/assets/css/blue.css" rel="alternate stylesheet" title="Blue color">
+        <link href="${pageContext.request.contextPath}/resources/assets/css/red.css" rel="alternate stylesheet" title="Red color">
+        <link href="${pageContext.request.contextPath}/resources/assets/css/orange.css" rel="alternate stylesheet" title="Orange color">
+        <link href="${pageContext.request.contextPath}/resources/assets/css/navy.css" rel="alternate stylesheet" title="Navy color">
+        <link href="${pageContext.request.contextPath}/resources/assets/css/dark-green.css" rel="alternate stylesheet" title="Darkgreen color">
         <!-- Demo Purpose Only. Should be removed in production : END -->
 
         <!-- Fonts -->
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800' rel='stylesheet' type='text/css'>
         
         <!-- Icons/Glyphs -->
-        <link rel="stylesheet" href="resources/assets/css/font-awesome.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/font-awesome.min.css">
         
         <!-- Favicon -->
-        <link rel="shortcut icon" href="resources/assets/images/favicon.ico">
+        <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/assets/images/favicon.ico">
 
         <!-- HTML5 elements and media queries Support for IE8 : HTML5 shim and Respond.js -->
         <!--[if lt IE 9]>
             <script src="resources/assets/js/html5shiv.js"></script>
             <script src="resources/assets/js/respond.min.js"></script>
         <![endif]-->
+        <script type="text/javascript">
+	        function updateCheckbox(id){
+	        	document.getElementById(id).setAttribute("checked", "checked");
+	        }
+        </script>
     </head>
 <body>
     
@@ -70,11 +78,10 @@
         
 <!-- ============================================================= HEADER : END ============================================================= -->       <div id="top-banner-and-menu">
     <div class="container">
-        
         <div class="col-xs-12 col-sm-4 col-md-3 sidemenu-holder">
             <!-- ================================== TOP NAVIGATION ================================== -->
 <div class="side-menu animate-dropdown">
-    <div class="head"><i class="fa fa-list"></i> Разделы</div>        
+    <div class="head"><i class="fa fa-list"></i> <spring:message code="main.sections"/></div>        
     <nav class="yamm megamenu-horizontal" role="navigation">
         <ul class="nav">
 <!--            <li class="dropdown menu-item">
@@ -155,7 +162,7 @@
     </div>
 
     <div class="dropdown-banner-holder">
-        <a href="#"><img alt="" src="resources/assets/images/banners/banner-side.png" /></a>
+        <a href="#"><img alt="" src="${pageContext.request.contextPath}/resources/assets/images/banners/banner-side.png" /></a>
     </div>
 </div>
  ================================== MEGAMENU VERTICAL ==================================     
@@ -166,8 +173,8 @@
         
             
             <!--<li><a href="vmc.htm">IPhone 5</a></li>-->
-            <li><a href="plywood.html">Фанера</a></li>
-            <li><a href="particleBoard.html">ДСП</a></li>
+            <li><a href="${pageContext.request.contextPath}/plywood.html"><spring:message code="products.plywood"/></a></li>
+            <li><a href="${pageContext.request.contextPath}/particleBoard.html"><spring:message code="products.particle_board"/></a></li>
             <!--<li><a href="vmc.htm">IPhone 7</a></li>-->
 <!--            <li><a href="#">Horizontal machine CNC</a></li>
             -->
@@ -181,49 +188,16 @@
             
 <div id="hero">
     <div id="owl-main" class="owl-carousel owl-inner-nav owl-ui-sm">
-        
-        <div class="item" style="background-image: url(resources/assets/images/sliders/plywood_1.jpg);">
-            <div class="container-fluid">
-                   <div class="caption vertical-center text-left">
-<!--                    <div class="button-holder fadeInDown-3">
-                        <a href="single-product.html" class="big le-button ">shop now</a>
-                    </div>-->
-                </div>
-            </div><!-- /.container-fluid -->
-        </div><!-- /.item -->
-        
-        <!--<div class="item" style="background-image: url(resources/assets/images/sliders/slider03.jpg);">-->
-        <div class="item" style="background-image: url(resources/assets/images/sliders/particleboard_1.jpg);">
-            <div class="container-fluid">
-                <div class="caption vertical-center text-left">
-<!--                    <div class="button-holder fadeInDown-3">
-                        <a href="single-product.html" class="big le-button ">shop now</a>
-                    </div>-->
-                </div>
-                <!-- /.caption -->
-            </div><!-- /.container-fluid -->
-        </div><!-- /.item -->
-        
-        <div class="item" style="background-image: url(resources/assets/images/sliders/plywood_3.jpg);">
-            <div class="container-fluid">
-                <div class="caption vertical-center text-left">
-<!--                    <div class="button-holder fadeInDown-3">
-                        <a href="single-product.html" class="big le-button ">shop now</a>
-                    </div>-->
-                </div><!-- /.caption -->
-            </div><!-- /.container-fluid -->
-        </div><!-- /.item -->
-        
-        <div class="item" style="background-image: url(resources/assets/images/sliders/particleboard_3.jpg);">
-            <div class="container-fluid">
-                <div class="caption vertical-center text-left">
-<!--                    <div class="button-holder fadeInDown-3">
-                        <a href="single-product.html" class="big le-button ">shop now</a>
-                    </div>-->
-                </div><!-- /.caption -->
-            </div><!-- /.container-fluid -->
-        </div><!-- /.item -->
-
+        <c:forEach items="${sliderList}" var="slider">
+        	<a href="${pageContext.request.contextPath}/single-product.html?product=Plywood&id=${slider.product_ID}">
+		        <div class="item" style="background-image: url(${pageContext.request.contextPath}/resources/assets/images/products/${slider.foto_1});">
+		            <div class="container-fluid">
+		                <div class="caption vertical-center text-left">
+		                </div>
+		            </div>
+		        </div>
+	        </a>
+        </c:forEach>
     </div><!-- /.owl-carousel -->
 </div>
             
@@ -242,7 +216,7 @@
                     <h1>New Life</h1>
                     <span class="tagline">Introducing New Category</span>
                 </div>
-                <img class="banner-image" alt="" src="resources/assets/images/blank.gif" data-echo="resources/assets/images/banners/banner-narrow-01.jpg" />
+                <img class="banner-image" alt="" src="${pageContext.request.contextPath}/resources/assets/images/blank.gif" data-echo="${pageContext.request.contextPath}/resources/assets/images/banners/banner-narrow-01.jpg" />
             </a>
         </div>
         <div class="col-xs-12 col-lg-6 no-margin text-right banner">
@@ -251,7 +225,7 @@
                     <h1>Time &amp; Style</h1>
                     <span class="tagline">Checkout new arrivals</span>
                 </div>
-                <img class="banner-image" alt="" src="resources/assets/images/blank.gif" data-echo="resources/assets/images/banners/banner-narrow-02.jpg" />
+                <img class="banner-image" alt="" src="${pageContext.request.contextPath}/resources/assets/images/blank.gif" data-echo="${pageContext.request.contextPath}/resources/assets/images/banners/banner-narrow-02.jpg" />
             </a>
         </div>
     </div> /.container 
@@ -275,7 +249,7 @@
                             <div class="product-item">
                                 <div class="ribbon red"><span>sale</span></div> 
                                 <div class="image">
-                                    <img alt="" src="resources/assets/images/blank.gif" data-echo="resources/assets/images/products/product-01.jpg" />
+                                    <img alt="" src="${pageContext.request.contextPath}/resources/assets/images/blank.gif" data-echo="${pageContext.request.contextPath}/resources/assets/images/products/product-01.jpg" />
                                 </div>
                                 <div class="body">
                                     <div class="label-discount green">-50% sale</div>
@@ -304,7 +278,7 @@
                             <div class="product-item">
                                 <div class="ribbon blue"><span>new!</span></div> 
                                 <div class="image">
-                                    <img alt="" src="resources/assets/images/blank.gif" data-echo="resources/assets/images/products/product-02.jpg" />
+                                    <img alt="" src="${pageContext.request.contextPath}/resources/assets/images/blank.gif" data-echo="${pageContext.request.contextPath}/resources/assets/images/products/product-02.jpg" />
                                 </div>
                                 <div class="body">
                                     <div class="label-discount clear"></div>
@@ -353,11 +327,11 @@
         <div class="product-grid-holder medium">
             <div class="col-xs-12 col-md-7 no-margin">
                 <div class="row no-margin">
-					<c:forEach items="${list}" var="list">
+					<c:forEach items="${sliderList}" var="list">
 	                    <div class="col-xs-12 col-sm-4 no-margin product-item-holder size-medium hover">
 	                        <div class="product-item">
 	                            <div class="image">
-	                                <img alt="" src="resources/assets/images/blank.gif" data-echo="resources/assets/images/products/${list.foto_1}" />
+	                                <img alt="" src="${pageContext.request.contextPath}/resources/assets/images/blank.gif" data-echo="${pageContext.request.contextPath}/resources/assets/images/products/${list.foto_1}" />
 	                            </div>
 	                            <div class="body">
 	                                <div class="label-discount clear"></div>
@@ -387,242 +361,104 @@
 </section> --%>
 <!-- ========================================= BEST SELLERS : END ========================================= -->
 <!-- ========================================= RECENTLY VIEWED ========================================= -->
-<!--<section id="recently-reviewd" class="wow fadeInUp">
+<section id="recently-reviewd" class="wow fadeInUp">
     <div class="container">
         <div class="carousel-holder hover">
             
             <div class="title-nav">
-                <h2 class="h1">Recently Viewed</h2>
+                <h2 class="h1"><spring:message code="main.recently_uploaded"/></h2>
                 <div class="nav-holder">
                     <a href="#prev" data-target="#owl-recently-viewed" class="slider-prev btn-prev fa fa-angle-left"></a>
                     <a href="#next" data-target="#owl-recently-viewed" class="slider-next btn-next fa fa-angle-right"></a>
                 </div>
-            </div> /.title-nav 
+            </div>
 
             <div id="owl-recently-viewed" class="owl-carousel product-grid-holder">
-                <div class="no-margin carousel-item product-item-holder size-small hover">
-                    <div class="product-item">
-                        <div class="ribbon red"><span>sale</span></div> 
-                        <div class="image">
-                            <img alt="" src="resources/assets/images/blank.gif" data-echo="resources/assets/images/products/product-11.jpg" />
-                        </div>
-                        <div class="body">
-                            <div class="title">
-                                <a href="single-product.html">LC-70UD1U 70" class aquos 4K ultra HD</a>
-                            </div>
-                            <div class="brand">Sharp</div>
-                        </div>
-                        <div class="prices">
-                            <div class="price-current text-right">$1199.00</div>
-                        </div>
-                        <div class="hover-area">
-                            <div class="add-cart-button">
-                                <a href="single-product.html" class="le-button">Add to Cart</a>
-                            </div>
-                            <div class="wish-compare">
-                                <a class="btn-add-to-wishlist" href="#">Add to Wishlist</a>
-                                <a class="btn-add-to-compare" href="#">Compare</a>
-                            </div>
-                        </div>
-                    </div> /.product-item 
-                </div> /.product-item-holder 
-
-                <div class="no-margin carousel-item product-item-holder size-small hover">
-                    <div class="product-item">
-                        <div class="ribbon blue"><span>new!</span></div> 
-                        <div class="image">
-                            <img alt="" src="resources/assets/images/blank.gif" data-echo="resources/assets/images/products/product-12.jpg" />
-                        </div>
-                        <div class="body">
-                            <div class="title">
-                                <a href="single-product.html">cinemizer OLED 3D virtual reality TV Video</a>
-                            </div>
-                            <div class="brand">zeiss</div>
-                        </div>
-                        <div class="prices">
-                            <div class="price-current text-right">$1199.00</div>
-                        </div>
-                        <div class="hover-area">
-                            <div class="add-cart-button">
-                                <a href="single-product.html" class="le-button">Add to cart</a>
-                            </div>
-                            <div class="wish-compare">
-                                <a class="btn-add-to-wishlist" href="#">Add to Wishlist</a>
-                                <a class="btn-add-to-compare" href="#">Compare</a>
-                            </div>
-                        </div>
-                    </div> /.product-item 
-                </div> /.product-item-holder 
-
-                <div class=" no-margin carousel-item product-item-holder size-small hover">
-                    <div class="product-item">
-
-                        <div class="image">
-                            <img alt="" src="resources/assets/images/blank.gif" data-echo="resources/assets/images/products/product-13.jpg" />
-                        </div>
-                        <div class="body">
-                            <div class="title">
-                                <a href="single-product.html">s2340T23" full HD multi-Touch Monitor</a>
-                            </div>
-                            <div class="brand">dell</div>
-                        </div>
-                        <div class="prices">
-                            <div class="price-current text-right">$1199.00</div>
-                        </div>
-                        <div class="hover-area">
-                            <div class="add-cart-button">
-                                <a href="single-product.html" class="le-button">Add to cart</a>
-                            </div>
-                            <div class="wish-compare">
-                                <a class="btn-add-to-wishlist" href="#">Add to Wishlist</a>
-                                <a class="btn-add-to-compare" href="#">Compare</a>
-                            </div>
-                        </div>
-                    </div> /.product-item 
-                </div> /.product-item-holder 
-
-                <div class=" no-margin carousel-item product-item-holder size-small hover">
-                    <div class="product-item">
-                        <div class="ribbon blue"><span>new!</span></div> 
-                        <div class="image">
-                            <img alt="" src="resources/assets/images/blank.gif" data-echo="resources/assets/images/products/product-14.jpg" />
-                        </div>
-                        <div class="body">
-                            <div class="title">
-                                <a href="single-product.html">kardon BDS 7772/120 integrated 3D</a>
-                            </div>
-                            <div class="brand">harman</div>
-                        </div>
-                        <div class="prices">
-                            <div class="price-current text-right">$1199.00</div>
-                        </div>
-                        <div class="hover-area">
-                            <div class="add-cart-button">
-                                <a href="single-product.html" class="le-button">Add to cart</a>
-                            </div>
-                            <div class="wish-compare">
-                                <a class="btn-add-to-wishlist" href="#">Add to Wishlist</a>
-                                <a class="btn-add-to-compare" href="#">Compare</a>
-                            </div>
-                        </div>
-                    </div> /.product-item 
-                </div> /.product-item-holder 
-
-                <div class=" no-margin carousel-item product-item-holder size-small hover">
-                    <div class="product-item">
-                        <div class="ribbon green"><span>bestseller</span></div> 
-                        <div class="image">
-                            <img alt="" src="resources/assets/images/blank.gif" data-echo="resources/assets/images/products/product-15.jpg" />
-                        </div>
-                        <div class="body">
-                            <div class="title">
-                                <a href="single-product.html">netbook acer travel B113-E-10072</a>
-                            </div>
-                            <div class="brand">acer</div>
-                        </div>
-                        <div class="prices">
-                            <div class="price-current text-right">$1199.00</div>
-                        </div>
-                        <div class="hover-area">
-                            <div class="add-cart-button">
-                                <a href="single-product.html" class="le-button">Add to cart</a>
-                            </div>
-                            <div class="wish-compare">
-                                <a class="btn-add-to-wishlist" href="#">Add to Wishlist</a>
-                                <a class="btn-add-to-compare" href="#">Compare</a>
-                            </div>
-                        </div>
-                    </div> /.product-item 
-                </div> /.product-item-holder 
-
-                <div class=" no-margin carousel-item product-item-holder size-small hover">
-                    <div class="product-item">
-
-                        <div class="image">
-                            <img alt="" src="resources/assets/images/blank.gif" data-echo="resources/assets/images/products/product-16.jpg" />
-                        </div>
-                        <div class="body">
-                            <div class="title">
-                                <a href="single-product.html">iPod touch 5th generation,64GB, blue</a>
-                            </div>
-                            <div class="brand">apple</div>
-                        </div>
-                        <div class="prices">
-                            <div class="price-current text-right">$1199.00</div>
-                        </div>
-                        <div class="hover-area">
-                            <div class="add-cart-button">
-                                <a href="single-product.html" class="le-button">Add to cart</a>
-                            </div>
-                            <div class="wish-compare">
-                                <a class="btn-add-to-wishlist" href="#">Add to Wishlist</a>
-                                <a class="btn-add-to-compare" href="#">Compare</a>
-                            </div>
-                        </div>
-                    </div> /.product-item 
-                </div> /.product-item-holder 
-
-                <div class=" no-margin carousel-item product-item-holder size-small hover">
-                    <div class="product-item">
-
-                        <div class="image">
-                            <img alt="" src="resources/assets/images/blank.gif" data-echo="resources/assets/images/products/product-13.jpg" />
-                        </div>
-                        <div class="body">
-                            <div class="title">
-                                <a href="single-product.html">s2340T23" full HD multi-Touch Monitor</a>
-                            </div>
-                            <div class="brand">dell</div>
-                        </div>
-                        <div class="prices">
-                            <div class="price-current text-right">$1199.00</div>
-                        </div>
-                        <div class="hover-area">
-                            <div class="add-cart-button">
-                                <a href="single-product.html" class="le-button">Add to cart</a>
-                            </div>
-                            <div class="wish-compare">
-                                <a class="btn-add-to-wishlist" href="#">Add to Wishlist</a>
-                                <a class="btn-add-to-compare" href="#">Compare</a>
-                            </div>
-                        </div>
-                    </div> /.product-item 
-                </div> /.product-item-holder 
-
-                <div class=" no-margin carousel-item product-item-holder size-small hover">
-                    <div class="product-item">
-                        <div class="ribbon blue"><span>new!</span></div> 
-                        <div class="image">
-                            <img alt="" src="resources/assets/images/blank.gif" data-echo="resources/assets/images/products/product-14.jpg" />
-                        </div>
-                        <div class="body">
-                            <div class="title">
-                                <a href="single-product.html">kardon BDS 7772/120 integrated 3D</a>
-                            </div>
-                            <div class="brand">harman</div>
-                        </div>
-                        <div class="prices">
-                            <div class="price-current text-right">$1199.00</div>
-                        </div>
-                        <div class="hover-area">
-                            <div class="add-cart-button">
-                                <a href="single-product.html" class="le-button">Add to cart</a>
-                            </div>
-                            <div class="wish-compare">
-                                <a class="btn-add-to-wishlist" href="#">Add to Wishlist</a>
-                                <a class="btn-add-to-compare" href="#">Compare</a>
-                            </div>
-                        </div>
-                    </div> /.product-item 
-                </div> /.product-item-holder 
-            </div> /#recently-carousel 
-
-        </div> /.carousel-holder 
-    </div> /.container 
-</section> /#recently-reviewd -->
+                <c:forEach items="${recentlyUplPl}" var="item">
+	                <div class="no-margin carousel-item product-item-holder size-small hover">
+	                    <div class="product-item">
+	                        <div class="ribbon red"><span>NEW</span></div> 
+	                        <div class="image">
+		                        <a href="${pageContext.request.contextPath}/single-product.html?product=Plywood&id=${item.product_ID}">
+		                            <img alt="" class="img_products" src="${pageContext.request.contextPath}/resources/assets/images/products/${item.foto_1}" />
+		                        </a>
+	                        </div>
+	                        <div class="body">
+	                            <div class="title">
+	                                <a href="${pageContext.request.contextPath}/single-product.html?product=Plywood&id=${item.product_ID}">${item}</a>
+	                            </div>
+	                        </div>
+	                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+		                        <div class="prices">
+		                            <div class="price-current text-right">${item.price}$</div>
+		                        </div>
+	                        </sec:authorize>
+	                        <div class="hover-area">
+	                        	<sec:authorize access="hasRole('ROLE_ADMIN')">
+		                            <div class="add-cart-button">
+		                                <a onclick="addToCart('Plywood', '${item.product_ID}')" class="le-button img-update-cart"><spring:message code="main.add_to_cart"/></a>
+						            </div>
+	                            </sec:authorize>
+	                            <div class="wish-compare">
+	                            	<label class="btn-add-to-compare"><spring:message code="main.compare"/> <input id="${item.product_ID}" onclick="updateCompareList('Plywood', '${item.product_ID}')" type="checkbox"/></label>                 	
+	                                <c:forEach  items="${compareList.listPlywood}" var="compItem">
+                               			<c:if test="${compItem.product_ID == item.product_ID}">
+                               				<script>
+                               					updateCheckbox("${item.product_ID}");
+                               				</script>
+                                		</c:if>
+                               		</c:forEach>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+                </c:forEach>
+                <c:forEach items="${recentlyUplPB}" var="item">
+	                <div class="no-margin carousel-item product-item-holder size-small hover">
+	                    <div class="product-item">
+	                        <div class="ribbon red"><span>NEW</span></div> 
+	                        <div class="image">
+		                        <a href="${pageContext.request.contextPath}/single-product.html?product=ParticleBoard&id=${item.product_ID}">
+		                            <img alt="" class="img_products" src="${pageContext.request.contextPath}/resources/assets/images/products/${item.foto_1}" />
+		                        </a>
+	                        </div>
+	                        <div class="body">
+	                            <div class="title">
+	                                <a href="${pageContext.request.contextPath}/single-product.html?product=ParticleBoard&id=${item.product_ID}">${item}</a>
+	                            </div>
+	                        </div>
+	                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+		                        <div class="prices">
+		                            <div class="price-current text-right">${item.price}$</div>
+		                        </div>
+	                        </sec:authorize>
+	                        <div class="hover-area">
+	                        	<sec:authorize access="hasRole('ROLE_ADMIN')">
+		                            <div class="add-cart-button">
+		                                <a onclick="addToCart('ParticleBoard', '${item.product_ID}')" class="le-button img-update-cart"><spring:message code="main.add_to_cart"/></a>
+						            </div>
+	                            </sec:authorize>
+	                            <div class="wish-compare">
+	                            	<label class="btn-add-to-compare"><spring:message code="main.compare"/> <input id="${item.product_ID}" onclick="updateCompareList('ParticleBoard', '${item.product_ID}')" type="checkbox"/></label>                 	
+	                                <c:forEach  items="${compareList.listParticleBoard}" var="compItem">
+                               			<c:if test="${compItem.product_ID == item.product_ID}">
+                               				<script>
+                               					updateCheckbox("${item.product_ID}");
+                               				</script>
+                                		</c:if>
+                               		</c:forEach>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+                </c:forEach>
+            </div>
+        </div>
+    </div> 
+</section>
 <!-- ========================================= RECENTLY VIEWED : END ========================================= -->
 <!-- ========================================= TOP BRANDS ========================================= -->
-<section id="top-brands" class="wow fadeInUp">
+<!-- <section id="top-brands" class="wow fadeInUp">
     <div class="container">
         <div class="carousel-holder" >
             
@@ -633,33 +469,33 @@
                     <a href="#next" data-target="#owl-brands" class="slider-next btn-next fa fa-angle-right"></a>
                 </div>
             </div> 
-            <!--/.title-nav--> 
+            /.title-nav 
             
             <div id="owl-brands" class="owl-carousel brands-carousel">
                 
                 <div class="carousel-item">
-                    <!--<a href="#">-->
-                        <img alt="" src="resources/assets/images/brands/brand_iphone5.png" />
-                    <!--</a>-->
+                    <a href="#">
+                        <img alt="" src="${pageContext.request.contextPath}/resources/assets/images/brands/brand_iphone5.png" />
+                    </a>
                 </div> 
-                <!--/.carousel-item--> 
+                /.carousel-item 
                 
                 <div class="carousel-item">
-                    <!--<a href="#">-->
-                        <img alt="" src="resources/assets/images/brands/brand_iphone6.png" />
-                    <!--</a>-->
+                    <a href="#">
+                        <img alt="" src="${pageContext.request.contextPath}/resources/assets/images/brands/brand_iphone6.png" />
+                    </a>
                 </div> 
 
 
                
             </div> 
-            <!--/.brands-caresoul--> 
+            /.brands-caresoul 
 
         </div> 
-        <!--/.carousel-holder--> 
+        /.carousel-holder 
     </div> 
-    <!--/.container--> 
-</section> 
+    /.container 
+</section>  -->
 <!--/#top-brands--> 
 <!-- ========================================= TOP BRANDS : END ========================================= -->       <!-- ============================================================= FOOTER ============================================================= -->
 
@@ -670,26 +506,27 @@
     <!-- For demo purposes â can be removed on production : End -->
 
     <!-- JavaScripts placed at the end of the document so the pages load faster -->
-    <script src="resources/assets/js/jquery-1.10.2.min.js"></script>
-    <script src="resources/assets/js/jquery-migrate-1.2.1.js"></script>
-    <script src="resources/assets/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/jquery-migrate-1.2.1.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/bootstrap.min.js"></script>
     <script src="http://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script>
-    <script src="resources/assets/js/gmap3.min.js"></script>
-    <script src="resources/assets/js/bootstrap-hover-dropdown.min.js"></script>
-    <script src="resources/assets/js/owl.carousel.min.js"></script>
-    <script src="resources/assets/js/css_browser_selector.min.js"></script>
-    <script src="resources/assets/js/echo.min.js"></script>
-    <script src="resources/assets/js/jquery.easing-1.3.min.js"></script>
-    <script src="resources/assets/js/bootstrap-slider.min.js"></script>
-    <script src="resources/assets/js/jquery.raty.min.js"></script>
-    <script src="resources/assets/js/jquery.prettyPhoto.min.js"></script>
-    <script src="resources/assets/js/jquery.customSelect.min.js"></script>
-    <script src="resources/assets/js/wow.min.js"></script>
-    <script src="resources/assets/js/scripts.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/gmap3.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/bootstrap-hover-dropdown.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/owl.carousel.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/css_browser_selector.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/echo.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/jquery.easing-1.3.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/bootstrap-slider.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/jquery.raty.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/jquery.prettyPhoto.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/jquery.customSelect.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/wow.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/scripts.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/js.js"></script>
 
     <!-- For demo purposes â can be removed on production -->
     
-    <script src="resources/assets/switchstylesheet/switchstylesheet.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/switchstylesheet/switchstylesheet.js"></script>
     
     <script>
         $(document).ready(function(){ 

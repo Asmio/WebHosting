@@ -146,4 +146,11 @@ public class ParticleBoard implements Serializable {
 	return "Particle Board '" + this.product_ID + "'";
     }
 
+    public String getFullInfo() {
+	return "Particle Board '" + this.product_ID + "', thickness: " + this.thickness + ", length: " + this.length
+		+ ", weight: " + this.weight + ", laminated: " + this.laminated + ", foto: " + this.foto_1 + ","
+		+ this.foto_2 + "," + this.foto_3 + "," + this.foto_4 + ", description bench: "
+		+ this.description_bench;
+    }
+
 }

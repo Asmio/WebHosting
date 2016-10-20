@@ -157,4 +157,11 @@ public class Plywood implements Serializable {
 	return "Plywood '" + this.product_ID + "'";
     }
 
+    public String getFullInfo() {
+	return "Plywood '" + this.product_ID + "', thickness: " + this.thickness + ", length: " + this.length
+		+ ", weight: " + this.weight + ", water resistance: " + this.water_resistance + ", sanded or unsanded: "
+		+ this.sanded_or_unsanded + ", foto: " + this.foto_1 + "," + this.foto_2 + "," + this.foto_3 + ","
+		+ this.foto_4 + ", description bench: " + this.description_bench;
+    }
+
 }

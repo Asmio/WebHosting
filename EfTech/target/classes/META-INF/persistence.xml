@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-	<persistence-unit name="EfTech">
+	<persistence-unit name="EfTech" transaction-type="RESOURCE_LOCAL">
 		<class>com.eftech.wood.entity.ParticleBoard</class>
 		<class>com.eftech.wood.entity.Plywood</class>
+		<class>com.eftech.wood.entity.Cart</class>
+		<class>com.eftech.wood.entity.Indent</class>
+		<class>com.eftech.wood.entity.EmailRecipient</class>
+		<class>com.eftech.wood.entity.Actions</class>
+		<class>com.eftech.wood.entity.Errors</class>
 	</persistence-unit>
 </persistence>

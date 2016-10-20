@@ -1,7 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="cs" lang="cs">
@@ -89,7 +91,7 @@
 			<div id="user">
 				<h2> <sec:authentication property="principal.username" /><span>( )</span>
 				</h2>
-				<a href="${pageContext.request.contextPath}/j_spring_security_logout">logout</a>
+				<a href="${pageContext.request.contextPath}/j_spring_security_logout"><spring:message code="logout"/></a>
 			</div>
 			<!-- /#user -->
 		</div>
@@ -100,8 +102,8 @@
 			<!-- breadcrumbs -->
 			<div class="breadcrumbs">
 				<ul>
-					<li class="home"><a href="">Homepage</a></li>
-					<li>Admin Page</li>
+					<li class="home"><a href="${pageContext.request.contextPath}/admin"><spring:message code="main.home"/></a></li>
+					<li><a href=""><spring:message code="edit"/></a></li>
 				</ul>
 			</div>
 			<!-- /breadcrumbs -->		
@@ -109,21 +111,21 @@
 				<div class="box_add_edit_product">
 					<c:set var="pr" value="<%=session.getAttribute(\"product\")%>"></c:set>
 					<p><c:out value="${resultEditMessage}"></c:out></p>
-					<form:form class="formBox" method="post" commandName="editProduct" action="edit${pr}">
+					<form:form class="formBox" method="post" commandName="editProduct" action="${pageContext.request.contextPath}/admin/edit${pr}">
 						<div class="form-group">
 							<label for="product_ID">ID</label>
 							<form:input readonly="true" class="form-control" type="text" id="product_ID" path="product_ID"/>
 						</div>
 						<c:if test="${pr == \"Plywood\"}">
 							<div class="form-group">
-								<label for="water_resistance">Водонепроницаемый</label>
+								<label for="water_resistance"><spring:message code="products.water_resistance"/></label>
 								<form:select class="form-control" id="water_resistance" path="water_resistance">
 									<form:option value="FK"></form:option>
 									<form:option value="-"></form:option>
 								</form:select>
 							</div>
 							<div class="form-group">
-								<label for="sanded_or_unsanded">Шлифованный или нет</label>
+								<label for="sanded_or_unsanded"><spring:message code="products.sanded_or_unsanded"/></label>
 							<form:select class="form-control" id="sanded_or_unsanded" path="sanded_or_unsanded">
 								<form:option value="sanded"></form:option>
 								<form:option value="unsanded"></form:option>
@@ -132,47 +134,47 @@
 						</c:if>
 						<c:if test="${pr == \"ParticleBoard\"}">
 							<div class="form-group">
-								<label for="laminated">Ламинированный</label>
+								<label for="laminated"><spring:message code="products.laminated"/></label>
 								<form:input type="number" class="form-control" id="laminated" path="laminated"/>
 							</div>
 						</c:if>
 						<div class="form-group">
-							<label for="thickness">Толщина</label>
+							<label for="thickness"><spring:message code="products.thickness"/></label>
 							<form:input type="number" class="form-control" id="thickness" path="thickness"/>
 						</div>
 						<div class="form-group">
-							<label for="length">Длина</label>
+							<label for="length"><spring:message code="products.length"/></label>
 							<form:input type="number" class="form-control" id="length" path="length"/>
 						</div>
 						<div class="form-group">
-							<label for="weight">Вес</label>
+							<label for="weight"><spring:message code="products.weight"/></label>
 							<form:input type="number" class="form-control" id="weight" path="weight"/>
 						</div>
 						<div class="form-group">
-							<label for="foto_1">Фото 1</label>
+							<label for="foto_1"><spring:message code="products.foto"/> 1</label>
 							<form:input class="form-control" id="foto_1" path="foto_1"/>
 						</div>
 						<div class="form-group">
-							<label for="foto_2">Фото 2</label>
+							<label for="foto_2"><spring:message code="products.foto"/> 2</label>
 							<form:input class="form-control" id="foto_2" path="foto_2"/>
 						</div>
 						<div class="form-group">
-							<label for="foto_3">Фото 3</label>
+							<label for="foto_3"><spring:message code="products.foto"/> 3</label>
 							<form:input class="form-control" id="foto_3" path="foto_3"/>
 						</div>
 						<div class="form-group">
-							<label for="foto_4">Фото 4</label>
+							<label for="foto_4"><spring:message code="products.foto"/> 4</label>
 							<form:input class="form-control" id="foto_4" path="foto_4"/>
 						</div>
 						<div class="form-group">
-							<label for="description_bench">Описание станка</label>
+							<label for="description_bench"><spring:message code="products.description_bench"/></label>
 							<form:textarea rows="3" class="form-control" id="description_bench" path="description_bench"/>
 						</div>
 						<div class="form-group">
-							<label for="price">Цена</label>
+							<label for="price"><spring:message code="products.price"/></label>
 							<form:input type="number" class="form-control" id="price" path="price"/>
 						</div>
-						<input type="submit" value="Сохранить" class="button" id="upload"></input>
+						<input type="submit" value="<spring:message code="save"/>" class="button" id="upload"></input>
 					</form:form>
 				</div>
 				<!-- /box-content -->
@@ -185,8 +187,8 @@
 
 			<!-- mainmenu -->
 			<ul id="floatMenu" class="mainmenu">
-				<li><a href="${pageContext.request.contextPath}/admin/plywood.html" class="link">Plywood</a></li>
-				<li><a href="${pageContext.request.contextPath}/admin/particleboard.html" class="link">ParticleBoard</a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/plywood.html" class="link"><spring:message code="products.plywood"/></a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/particleboard.html" class="link"><spring:message code="products.particle_board"/></a></li>
 			</ul>
 			<!-- /.mainmenu -->
 
@@ -195,7 +197,7 @@
 		<!-- #footer -->
 		<div id="footer">
 			<p>
-				© 2010 Great Admin | <a href="index.html">Top</a>
+				© 2010 Great Admin
 			</p>
 		</div>
 		<!-- /#footer -->

@@ -1,4 +1,6 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <footer id="footer" class="color-bg">
@@ -224,7 +226,7 @@
 <div class="contact-info">
     <div class="footer-logo">
         <!--<img alt="logo_vmccnc" src="resources/assets/images/vmc_hmc.jpg" width="233" height="54"/>-->
-        <img alt="vmc_and_hmc" src="resources/assets/images/logo_wood.png" width="233" height="54"/>
+        <img alt="" src="${pageContext.request.contextPath}/resources/assets/images/logo_wood.png" width="233" height="54"/>
 <!--        <svg width="233px" height="54px" viewBox="0 0 233 54" version="1.1" xmlns="http://www.w3.org/2000/svg">
             <path fill="#f9f9f9" d=" M 0.00 0.00 L 233.00 0.00 L 233.00 54.00 L 0.00 54.00 L 0.00 0.00 Z" />
             <path class="logo-svg" d=" M 104.82 6.46 C 107.74 5.13 110.66 3.80 113.58 2.46 C 113.59 18.71 113.59 34.95 113.59 51.20 C 110.65 51.20 107.71 51.20 104.78 51.20 C 104.84 50.67 104.96 49.62 105.02 49.09 C 100.02 53.56 91.66 52.69 87.37 47.67 C 84.80 44.83 83.96 40.97 83.20 37.33 C 75.63 37.37 68.05 37.26 60.47 37.40 C 61.41 39.88 62.49 42.75 65.24 43.71 C 69.03 45.31 73.10 43.58 75.89 40.91 C 77.67 42.73 79.47 44.54 81.22 46.40 C 75.60 52.47 65.66 53.95 58.77 49.23 C 53.06 45.18 51.58 37.52 52.30 30.95 C 52.75 25.29 55.84 19.51 61.29 17.27 C 66.83 15.00 73.85 15.40 78.54 19.37 C 81.58 21.92 82.87 25.85 83.50 29.64 C 84.32 24.24 87.32 18.69 92.71 16.75 C 96.83 15.07 101.64 15.89 104.93 18.89 C 104.77 14.75 104.83 10.60 104.82 6.46 Z" />
@@ -247,7 +249,7 @@
         </svg>   -->
     </div><!-- /.footer-logo -->
     
-    <p class="regular-bold"> Plywood and Particleboard</p>
+    <p class="regular-bold"> <spring:message code="products.plywood"/> & <spring:message code="products.particle_board"/></p>
     
     <p>
  +375 (29) 873-51-00 <br>
@@ -327,9 +329,15 @@
         <div class="container">
             <div class="col-xs-12 col-sm-6 no-margin">
                 <div class="copyright">
-                    &copy; <a href="indexmc.htm">Media Center</a> - all rights reserved
+                    &copy; <a href="${pageContext.request.contextPath}/indexmc.htm">Media Center</a> - all rights reserved
                 </div><!-- /.copyright -->
             </div>
+            <ul class="nav navbar-nav navbar-right icons">
+            	<c:set var="parametersURL" value="${pageContext.request.queryString}"/>
+				<li><a href="?${parametersURL.substring(0, parametersURL.indexOf('&lang='))}&lang=ru"><img src="${pageContext.request.contextPath}/resources/assets/images/Russia.png"></a></li>
+				<li><a href="?${parametersURL.substring(0, parametersURL.indexOf('&lang='))}&lang=en"><img src="${pageContext.request.contextPath}/resources/assets/images/United-Kingdom.png"></a></li>
+			
+			</ul>
             <div class="col-xs-12 col-sm-6 no-margin">
 <!--                <div class="payment-methods ">
                     <ul>

@@ -707,6 +707,9 @@ img[src="assets/images/blank.gif"] {
   background: url("../images/ajax.gif") no-repeat scroll center center #ffffff;
   width: 100%;
 }
+.wrapper{
+	min-height: 530px;
+}
 /*===================================================================================*/
 /*	Top Navbar
 /*===================================================================================*/
@@ -970,6 +973,9 @@ header .top-cart-row .top-cart-holder .total-price-basket {
   margin: 0;
   width: 21.5%!important;
 }
+.ul-menu{
+	margin-bottom: 0;
+}
 .sidemenu-holder .side-menu .head {
   padding: 17px;
   color: #fff;
@@ -1055,6 +1061,9 @@ header .top-cart-row .top-cart-holder .total-price-basket {
 }
 .sidemenu-holder .side-menu nav .nav > li:nth-child(2n) {
   background-color: #f9f9f9;
+}
+.input-number{
+  width: 49%;
 }
 /*===================================================================================*/
 /*  Megamenu
@@ -1369,6 +1378,7 @@ header .top-cart-row .top-cart-holder .total-price-basket {
   border-right: 1px solid #e0e0e0;
   position: relative;
   text-transform: capitalize;
+  text-decoration: none;
 }
 .breadcrumb-nav-holder .breadcrumb-item > a.dropdown-toggle:after {
   content: "\f0da";
@@ -1767,6 +1777,10 @@ header .top-cart-row .top-cart-holder .total-price-basket {
 .le-button.big {
   padding: 15px 34px;
 }
+.compare{
+	text-align: right;
+	padding-right: 8%;
+}
 .btn-add-to-compare {
   color: #3d3d3d;
   font-size: 12px;
@@ -1784,6 +1798,10 @@ header .top-cart-row .top-cart-holder .total-price-basket {
 }
 .box-bye-compare .wish-compare{
   float: left;
+}
+.pdf-image{
+	position: absolute;
+	right: 15px;
 }
 .product-grid-holder .box-description{
   padding-bottom: 15px;
@@ -1862,6 +1880,9 @@ header .top-cart-row .top-cart-holder .total-price-basket {
 .le-dropdown.open {
   border-radius: 5px 5px  0 0!important;
 }
+.row_all_product{
+	margin-bottom: 15px;
+}
 .le-dropdown .dropdown-menu {
   top: 96%!important;
   right: 0!important;
@@ -1869,6 +1890,9 @@ header .top-cart-row .top-cart-holder .total-price-basket {
   padding: 0;
   border: 1px solid #e0e0e0 !important;
   border-radius: 0 0 5px 5px!important;
+}
+.noLink {
+  pointer-events: none;
 }
 .le-dropdown .dropdown-menu li:first-child a,
 .le-dropdown .dropdown-menu li:last-child a {
@@ -1956,6 +1980,9 @@ header .top-cart-row .top-cart-holder .total-price-basket {
   right: 0;
   margin: 0 auto;
   background-color: #e0e0e0;
+}
+.img-update-cart{
+	cursor: pointer;
 }
 .carousel-holder .title-nav .nav-holder a {
   color: #e0e0e0;
@@ -2457,7 +2484,7 @@ header .top-cart-row .top-cart-holder .total-price-basket {
   display: block;
 }
 .product-grid-holder .row:nth-child(n+2) .product-item-holder {
-  border-top: 0;
+  
 }
 .field_product{
 	font-weight:600;
@@ -2479,7 +2506,6 @@ header .top-cart-row .top-cart-holder .total-price-basket {
   background-color: #fff;
   min-height: 401px;
   border: 1px solid #ececec;
-  border-right: 0;
   position: relative;
 }
 .product-grid-holder .product-item-holder:last-child {
@@ -2522,7 +2548,10 @@ header .top-cart-row .top-cart-holder .total-price-basket {
   padding: 16px 0px 0 0;
 }
 .product-grid-holder .product-item-holder.size-medium .img_products {
-  width: 194px;
+  
+}
+.img_products{
+width: 194px;
   height: 194px;
 }
 .product-grid-holder .product-item-holder.size-medium .body .title {
@@ -2542,7 +2571,7 @@ header .top-cart-row .top-cart-holder .total-price-basket {
 }
 .product-grid-holder .product-item-holder.size-small .body {
   margin: 0 15px;
-  min-height: 71px;
+/*   min-height: 71px; */
 }
 .product-grid-holder .product-item-holder.size-small .body .title {
   margin: 9px 0 0 0;
@@ -3205,6 +3234,7 @@ header .top-cart-row .top-cart-holder .total-price-basket {
   background-color: #f9f9f9;
   top: 0;
   font-family: fontawesome;
+  cursor: pointer;
 }
 .le-quantity .minus:hover,
 .le-quantity .plus:hover {
@@ -4381,6 +4411,12 @@ header .top-cart-row .top-cart-holder .total-price-basket {
   border-radius: 0 5px 5px 0;
   padding: 19px 31px 20px 31px;
   margin: 0 0 0 -5px;
+}
+.table_image{
+	max-width: 230px;
+}
+.table-container{
+	overflow-x: auto;	
 }
 /*===================================================================================*/
 /*  Track your Order Page

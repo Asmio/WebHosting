@@ -1,13 +1,15 @@
 package com.eftech.wood.controllers;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.Locale;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +21,16 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.eftech.wood.entity.Actions;
+import com.eftech.wood.entity.EmailRecipient;
+import com.eftech.wood.entity.Errors;
 import com.eftech.wood.entity.ParticleBoard;
 import com.eftech.wood.entity.Plywood;
 import com.eftech.wood.entity.UploadedFile;
+import com.eftech.wood.service.ActionsService;
+import com.eftech.wood.service.EmailRecipientService;
+import com.eftech.wood.service.ErrorsService;
+import com.eftech.wood.service.FileService;
 import com.eftech.wood.service.ParticleBoardService;
 import com.eftech.wood.service.PlywoodService;
 
@@ -38,61 +47,114 @@ public class ControllerAdmin {
     @Autowired
     private ParticleBoardService particleBoardService;
 
+    @Autowired
+    private FileService fileService;
+
+    @Autowired
+    private EmailRecipientService emailRecipientService;
+
+    @Autowired
+    private ActionsService actionsService;
+
+    @Autowired
+    private ErrorsService errorsService;
+
+    @Autowired
+    private ServletContext servletContext;
+
+    @Autowired
+    private MessageSource messageSource;
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView admin(HttpSession session) {
-	ModelAndView mv = new ModelAndView("admin_pl");
-
-	List<Plywood> list = plywoodService.findAll();
-	mv.addObject("list", list);
-	session.setAttribute("product", PRODUCT_PLYWOOD);
+	ModelAndView mv = new ModelAndView("admin");
+	try {
+	    mv.addObject("emailRecipients", emailRecipientService.findAll());
+	} catch (Exception e) {
+	    errorsService.save(new Errors("Show admin page", e.getMessage()));
+	}
 	return mv;
+    }
+
+    @RequestMapping(value = "/changeEmailRecipient", method = RequestMethod.POST)
+    public ModelAndView changeEmailRecipient(@RequestParam(value = "oldEmail") String oldEmail,
+	    @RequestParam(value = "newEmail") String newEmail, HttpSession session, HttpServletRequest request,
+	    RedirectAttributes redirectAttributes, Locale locale, Principal principal) {
+	ModelAndView modelAndView = new ModelAndView("");
+	try {
+	    EmailRecipient emailRecipient = emailRecipientService.findOne(oldEmail);
+	    emailRecipient.setEmail(newEmail);
+	    emailRecipientService.save(emailRecipient);
+	    Actions actions = new Actions(principal.getName(),
+		    "Change email recipient: " + oldEmail + " -> " + newEmail);
+	    actionsService.save(actions);
+	} catch (Exception e) {
+	    errorsService.save(new Errors("Change email sender", e.getMessage()));
+	}
+	RedirectView redirectView = new RedirectView(request.getContextPath() + "/admin");
+	redirectAttributes.addFlashAttribute("emailRecipients", emailRecipientService.findAll());
+	modelAndView.setView(redirectView);
+	return modelAndView;
     }
 
     @RequestMapping(value = "/plywood", method = RequestMethod.GET)
     public ModelAndView plywood(HttpSession session) {
 	ModelAndView mv = new ModelAndView("admin_pl");
-
-	List<Plywood> list = plywoodService.findAll();
-	mv.addObject("list", list);
-	session.setAttribute("product", PRODUCT_PLYWOOD);
+	try {
+	    List<Plywood> list = plywoodService.findAll();
+	    mv.addObject("list", list);
+	    session.setAttribute("product", PRODUCT_PLYWOOD);
+	} catch (Exception e) {
+	    errorsService.save(new Errors("Show admin product page", e.getMessage()));
+	}
 	return mv;
     }
 
     @RequestMapping(value = "/particleboard", method = RequestMethod.GET)
     public ModelAndView particleBoard(HttpSession session) {
 	ModelAndView mv = new ModelAndView("admin_pb");
-
-	List<ParticleBoard> list = particleBoardService.findAll();
-	mv.addObject("list", list);
-	session.setAttribute("product", PRODUCT_PARTICLE_BOARD);
+	try {
+	    List<ParticleBoard> list = particleBoardService.findAll();
+	    mv.addObject("list", list);
+	    session.setAttribute("product", PRODUCT_PARTICLE_BOARD);
+	} catch (Exception e) {
+	    errorsService.save(new Errors("Show admin product page", e.getMessage()));
+	}
 	return mv;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView add(HttpSession session) {
 	ModelAndView mv = new ModelAndView("add_product");
-	if (session.getAttribute("product").equals(PRODUCT_PLYWOOD)) {
-	    mv.addObject("newProduct", new Plywood());
-	} else {
-	    if (session.getAttribute("product").equals(PRODUCT_PARTICLE_BOARD)) {
-		mv.addObject("newProduct", new ParticleBoard());
+	try {
+	    if (session.getAttribute("product").equals(PRODUCT_PLYWOOD)) {
+		mv.addObject("newProduct", new Plywood());
+	    } else {
+		if (session.getAttribute("product").equals(PRODUCT_PARTICLE_BOARD)) {
+		    mv.addObject("newProduct", new ParticleBoard());
+		}
 	    }
+	} catch (Exception e) {
+	    errorsService.save(new Errors("Show admin add product page", e.getMessage()));
 	}
 	return mv;
     }
 
     @RequestMapping(value = "/addProductPlywood", method = RequestMethod.POST)
     public ModelAndView addProductPlywood(@ModelAttribute(value = "newProduct") Plywood newProduct, HttpSession session,
-	    RedirectAttributes redirectAttributes) {
+	    RedirectAttributes redirectAttributes, Locale locale, Principal principal) {
 	ModelAndView modelAndView = new ModelAndView();
 	String resultAddMessage = "";
 	try {
 	    plywoodService.save(newProduct);
 	    RedirectView redirectView = new RedirectView("add");
 	    modelAndView.setView(redirectView);
-	    resultAddMessage = "Successfully";
+	    resultAddMessage = messageSource.getMessage("code_messages.successfully", null, locale);
+	    Actions actions = new Actions(principal.getName(), "Add product: " + newProduct.getFullInfo());
+	    actionsService.save(actions);
 	} catch (Exception e) {
 	    resultAddMessage = e.getMessage();
+	    errorsService.save(new Errors("Add product", e.getMessage()));
 	}
 	redirectAttributes.addFlashAttribute("resultAddMessage", resultAddMessage);
 	return modelAndView;
@@ -100,16 +162,19 @@ public class ControllerAdmin {
 
     @RequestMapping(value = "/addProductParticleBoard", method = RequestMethod.POST)
     public ModelAndView addProductParticleBoard(@ModelAttribute(value = "newProduct") ParticleBoard newProduct,
-	    HttpSession session, RedirectAttributes redirectAttributes) {
+	    HttpSession session, RedirectAttributes redirectAttributes, Locale locale, Principal principal) {
 	ModelAndView modelAndView = new ModelAndView();
 	String resultAddMessage = "";
 	try {
 	    particleBoardService.save(newProduct);
 	    RedirectView redirectView = new RedirectView("add");
 	    modelAndView.setView(redirectView);
-	    resultAddMessage = "Successfully";
+	    resultAddMessage = messageSource.getMessage("code_messages.successfully", null, locale);
+	    Actions actions = new Actions(principal.getName(), "Add product: " + newProduct.getFullInfo());
+	    actionsService.save(actions);
 	} catch (Exception e) {
 	    resultAddMessage = e.getMessage();
+	    errorsService.save(new Errors("Add product", e.getMessage()));
 	}
 	redirectAttributes.addFlashAttribute("resultAddMessage", resultAddMessage);
 	return modelAndView;
@@ -129,24 +194,29 @@ public class ControllerAdmin {
 		}
 	    }
 	} catch (Exception e) {
-	    e.printStackTrace();
+	    errorsService.save(new Errors("Show admin edit product page", e.getMessage()));
 	}
 	return modelAndView;
     }
 
     @RequestMapping(value = "/editPlywood", method = RequestMethod.POST)
     public ModelAndView editPlywood(@ModelAttribute(value = "editProduct") Plywood editProduct, HttpSession session,
-	    RedirectAttributes redirectAttributes) {
+	    RedirectAttributes redirectAttributes, Locale locale, Principal principal) {
 	ModelAndView modelAndView = new ModelAndView("");
 	String resultEditMessage = "";
 	try {
+	    Actions actions = new Actions(principal.getName(),
+		    "Edit product: " + plywoodService.findById(editProduct.getProduct_ID()).getFullInfo() + " -> "
+			    + editProduct.getFullInfo());
 	    plywoodService.save(editProduct);
 	    RedirectView redirectView = new RedirectView(
 		    "edit?product=" + PRODUCT_PLYWOOD + "&id=" + editProduct.getProduct_ID());
 	    modelAndView.setView(redirectView);
-	    resultEditMessage = "Successfully";
+	    resultEditMessage = messageSource.getMessage("code_messages.successfully", null, locale);
+	    actionsService.save(actions);
 	} catch (Exception e) {
 	    resultEditMessage = e.getMessage();
+	    errorsService.save(new Errors("Edit product", e.getMessage()));
 	}
 	redirectAttributes.addFlashAttribute("resultEditMessage", resultEditMessage);
 	return modelAndView;
@@ -154,17 +224,22 @@ public class ControllerAdmin {
 
     @RequestMapping(value = "/editParticleBoard", method = RequestMethod.POST)
     public ModelAndView editPlywood(@ModelAttribute(value = "editProduct") ParticleBoard editProduct,
-	    HttpSession session, RedirectAttributes redirectAttributes) {
+	    HttpSession session, RedirectAttributes redirectAttributes, Locale locale, Principal principal) {
 	ModelAndView modelAndView = new ModelAndView("");
 	String resultEditMessage = "";
 	try {
+	    Actions actions = new Actions(principal.getName(),
+		    "Edit product: " + particleBoardService.findById(editProduct.getProduct_ID()).getFullInfo() + " -> "
+			    + editProduct.getFullInfo());
 	    particleBoardService.save(editProduct);
 	    RedirectView redirectView = new RedirectView(
 		    "edit?product=" + PRODUCT_PARTICLE_BOARD + "&id=" + editProduct.getProduct_ID());
 	    modelAndView.setView(redirectView);
-	    resultEditMessage = "Successfully";
+	    resultEditMessage = messageSource.getMessage("code_messages.successfully", null, locale);
+	    actionsService.save(actions);
 	} catch (Exception e) {
 	    resultEditMessage = e.getMessage();
+	    errorsService.save(new Errors("Edit product", e.getMessage()));
 	}
 	redirectAttributes.addFlashAttribute("resultEditMessage", resultEditMessage);
 	return modelAndView;
@@ -172,7 +247,7 @@ public class ControllerAdmin {
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public ModelAndView delete(@RequestParam(value = "id") String id, @RequestParam(value = "product") String product,
-	    HttpSession session) {
+	    HttpSession session, Principal principal) {
 	ModelAndView modelAndView = new ModelAndView("");
 
 	if (product.equals(PRODUCT_PLYWOOD)) {
@@ -182,8 +257,10 @@ public class ControllerAdmin {
 
 		RedirectView redirectView = new RedirectView("plywood");
 		modelAndView.setView(redirectView);
+		Actions actions = new Actions(principal.getName(), "Delete product: " + plywood.getFullInfo());
+		actionsService.save(actions);
 	    } catch (Exception e) {
-		e.printStackTrace();
+		errorsService.save(new Errors("Delete product", e.getMessage()));
 	    }
 	} else {
 	    if (product.equals(PRODUCT_PARTICLE_BOARD)) {
@@ -193,8 +270,11 @@ public class ControllerAdmin {
 
 		    RedirectView redirectView = new RedirectView("particleboard");
 		    modelAndView.setView(redirectView);
+		    Actions actions = new Actions(principal.getName(),
+			    "Delete product: " + particleBoard.getFullInfo());
+		    actionsService.save(actions);
 		} catch (Exception e) {
-		    e.printStackTrace();
+		    errorsService.save(new Errors("Delete product", e.getMessage()));
 		}
 	    }
 	}
@@ -204,264 +284,72 @@ public class ControllerAdmin {
     @RequestMapping(value = "/uploadExcelPriceFile", method = RequestMethod.POST)
     @ResponseBody
     public ModelAndView uploadExcelPriceFile(@ModelAttribute("uploadFiles") UploadedFile uploadFile,
-	    HttpSession session, RedirectAttributes redirectAttributes) {
+	    HttpSession session, RedirectAttributes redirectAttributes, Principal principal) {
 
 	ModelAndView modelAndView = new ModelAndView("add");
 	String resultExcelPriceMessage = "";
-
-	List<MultipartFile> files = uploadFile.getFiles();
-	for (MultipartFile multipartFile : files) {
-	    try {
-		if (multipartFile.getSize() > 0) {
-		    XSSFWorkbook workBook = new XSSFWorkbook(multipartFile.getInputStream());
-		    XSSFSheet sheet = workBook.getSheetAt(0);
-		    XSSFRow row;
-		    String product = "";
-		    Plywood plywood = new Plywood();
-		    ParticleBoard particleBoard = new ParticleBoard();
-		    resultExcelPriceMessage += multipartFile.getOriginalFilename() + ": ";
-		    int rowType;
-		    for (int i = 0; i < sheet.getPhysicalNumberOfRows(); i++) {
-			try {
-			    row = sheet.getRow(i);
-			    product = String.valueOf(row.getCell(0).getRichStringCellValue());
-			    if (product.equals(PRODUCT_PLYWOOD)) {
-				rowType = row.getCell(1).getCellType();
-				switch (rowType) {
-				case 0:
-				    plywood = plywoodService
-					    .findById(String.valueOf(row.getCell(1).getNumericCellValue()));
-				    break;
-				case 1:
-				    plywood = plywoodService
-					    .findById(String.valueOf(row.getCell(1).getStringCellValue()));
-				    break;
-				default:
-				    throw new Exception("Incorrect cell type");
-				}
-				rowType = row.getCell(2).getCellType();
-				switch (rowType) {
-				case 0:
-				    plywood.setPrice((int) (row.getCell(2).getNumericCellValue()));
-				    break;
-				case 1:
-				    plywood.setPrice(Integer.parseInt(row.getCell(2).getStringCellValue()));
-				    break;
-				default:
-				    throw new Exception("Incorrect cell type");
-				}
-				plywoodService.save(plywood);
-				resultExcelPriceMessage += product + " " + "(row:" + (i + 1) + ")-updated;  ";
-			    } else {
-				if (product.equals(PRODUCT_PARTICLE_BOARD)) {
-				    rowType = row.getCell(1).getCellType();
-				    switch (rowType) {
-				    case 0:
-					particleBoard = particleBoardService
-						.findById(String.valueOf(row.getCell(1).getNumericCellValue()));
-					break;
-				    case 1:
-					particleBoard = particleBoardService
-						.findById(String.valueOf(row.getCell(1).getStringCellValue()));
-					break;
-				    default:
-					throw new Exception("Incorrect cell type");
-				    }
-				    rowType = row.getCell(2).getCellType();
-				    switch (rowType) {
-				    case 0:
-					particleBoard.setPrice((int) (row.getCell(2).getNumericCellValue()));
-					break;
-				    case 1:
-					particleBoard.setPrice(Integer.parseInt(row.getCell(2).getStringCellValue()));
-					break;
-				    default:
-					throw new Exception("Incorrect cell type");
-				    }
-				    particleBoardService.save(particleBoard);
-				    resultExcelPriceMessage += product + "(row:" + (i + 1) + ")-updated;  ";
-				}
-			    }
-			} catch (Exception e) {
-			    resultExcelPriceMessage += product + "(row:" + (i + 1) + ")-error: " + e.getMessage()
-				    + ";  ";
-			}
-		    }
-		    workBook.close();
-		} else {
-		    resultExcelPriceMessage += multipartFile.getOriginalFilename() + "-error: empty;  ";
-		}
-	    } catch (Exception e) {
-		resultExcelPriceMessage += multipartFile.getOriginalFilename() + "-error: " + e.getMessage() + ";  ";
-		e.printStackTrace();
+	try {
+	    List<MultipartFile> files = uploadFile.getFiles();
+	    for (MultipartFile multipartFile : files) {
+		resultExcelPriceMessage += fileService.uploadExcelPriceFile(multipartFile, plywoodService,
+			particleBoardService);
 	    }
+	    RedirectView redirectView = new RedirectView("add");
+	    redirectAttributes.addFlashAttribute("resultExcelPriceMessage", resultExcelPriceMessage);
+	    modelAndView.setView(redirectView);
+	    Actions actions = new Actions(principal.getName(), "Update price from file: " + resultExcelPriceMessage);
+	    actionsService.save(actions);
+	} catch (Exception e) {
+	    errorsService.save(new Errors("Upload price from file", e.getMessage()));
 	}
-	RedirectView redirectView = new RedirectView("add");
-	redirectAttributes.addFlashAttribute("resultExcelPriceMessage", resultExcelPriceMessage);
-	modelAndView.setView(redirectView);
 	return modelAndView;
     }
 
-    @SuppressWarnings("resource")
     @RequestMapping(value = "/uploadExcelInfoFile", method = RequestMethod.POST)
     @ResponseBody
     public ModelAndView uploadExcelInfoFile(@ModelAttribute("uploadFiles") UploadedFile uploadFile, HttpSession session,
-	    RedirectAttributes redirectAttributes) {
+	    RedirectAttributes redirectAttributes, Principal principal) {
 
 	ModelAndView modelAndView = new ModelAndView("add");
 	String resultExcelInfoMessage = "";
-	int rowType;
-
-	List<MultipartFile> files = uploadFile.getFiles();
-	for (MultipartFile multipartFile : files) {
-	    try {
-		if (multipartFile.getSize() > 0) {
-		    XSSFWorkbook workBook = new XSSFWorkbook(multipartFile.getInputStream());
-		    XSSFSheet sheet = workBook.getSheetAt(0);
-
-		    String product = String.valueOf(sheet.getRow(0).getCell(1).getRichStringCellValue());
-		    if (product.equals(PRODUCT_PLYWOOD)) {
-			Plywood plywood = new Plywood();
-			rowType = sheet.getRow(1).getCell(1).getCellType();
-			switch (rowType) {
-			case 0:
-			    plywood.setProduct_ID(String.valueOf(sheet.getRow(1).getCell(1).getNumericCellValue()));
-			    break;
-			case 1:
-			    plywood.setProduct_ID(sheet.getRow(1).getCell(1).getStringCellValue());
-			    break;
-			default:
-			    throw new Exception("Incorrect cell type");
-			}
-			plywood.setWater_resistance(String.valueOf(sheet.getRow(2).getCell(1).getStringCellValue()));
-			plywood.setSanded_or_unsanded(String.valueOf(sheet.getRow(3).getCell(1).getStringCellValue()));
-			rowType = sheet.getRow(4).getCell(1).getCellType();
-			switch (rowType) {
-			case 0:
-			    plywood.setThickness((int) (sheet.getRow(4).getCell(1).getNumericCellValue()));
-			    break;
-			case 1:
-			    plywood.setThickness(Integer.parseInt(sheet.getRow(4).getCell(1).getStringCellValue()));
-			    break;
-			default:
-			    throw new Exception("Incorrect cell type");
-			}
-			rowType = sheet.getRow(5).getCell(1).getCellType();
-			switch (rowType) {
-			case 0:
-			    plywood.setLength((int) (sheet.getRow(5).getCell(1).getNumericCellValue()));
-			    break;
-			case 1:
-			    plywood.setLength(Integer.parseInt(sheet.getRow(5).getCell(1).getStringCellValue()));
-			    break;
-			default:
-			    throw new Exception("Incorrect cell type");
-			}
-			rowType = sheet.getRow(6).getCell(1).getCellType();
-			switch (rowType) {
-			case 0:
-			    plywood.setWeight((int) (sheet.getRow(6).getCell(1).getNumericCellValue()));
-			    break;
-			case 1:
-			    plywood.setWeight(Integer.parseInt(sheet.getRow(6).getCell(1).getStringCellValue()));
-			    break;
-			default:
-			    throw new Exception("Incorrect cell type");
-			}
-			plywood.setFoto_1(String.valueOf(sheet.getRow(7).getCell(1).getStringCellValue()));
-			plywood.setFoto_2(String.valueOf(sheet.getRow(8).getCell(1).getStringCellValue()));
-			plywood.setFoto_3(String.valueOf(sheet.getRow(9).getCell(1).getStringCellValue()));
-			plywood.setFoto_4(String.valueOf(sheet.getRow(10).getCell(1).getStringCellValue()));
-			plywood.setDescription_bench(
-				String.valueOf(sheet.getRow(11).getCell(1).getRichStringCellValue()));
-
-			plywoodService.save(plywood);
-		    } else {
-			if (product.equals(PRODUCT_PARTICLE_BOARD)) {
-			    ParticleBoard particleBoard = new ParticleBoard();
-			    rowType = sheet.getRow(1).getCell(1).getCellType();
-			    switch (rowType) {
-			    case 0:
-				particleBoard.setProduct_ID(
-					String.valueOf(sheet.getRow(1).getCell(1).getNumericCellValue()));
-				break;
-			    case 1:
-				particleBoard.setProduct_ID(sheet.getRow(1).getCell(1).getStringCellValue());
-				break;
-			    default:
-				throw new Exception("Incorrect cell type");
-			    }
-			    rowType = sheet.getRow(2).getCell(1).getCellType();
-			    switch (rowType) {
-			    case 0:
-				particleBoard.setLaminated((int) (sheet.getRow(2).getCell(1).getNumericCellValue()));
-				break;
-			    case 1:
-				particleBoard.setLaminated(
-					Integer.parseInt(sheet.getRow(2).getCell(1).getStringCellValue()));
-				break;
-			    default:
-				throw new Exception("Incorrect cell type");
-			    }
-			    rowType = sheet.getRow(4).getCell(1).getCellType();
-			    switch (rowType) {
-			    case 0:
-				particleBoard.setThickness((int) (sheet.getRow(3).getCell(1).getNumericCellValue()));
-				break;
-			    case 1:
-				particleBoard.setThickness(
-					Integer.parseInt(sheet.getRow(3).getCell(1).getStringCellValue()));
-				break;
-			    default:
-				throw new Exception("Incorrect cell type");
-			    }
-			    rowType = sheet.getRow(5).getCell(1).getCellType();
-			    switch (rowType) {
-			    case 0:
-				particleBoard.setLength((int) (sheet.getRow(4).getCell(1).getNumericCellValue()));
-				break;
-			    case 1:
-				particleBoard
-					.setLength(Integer.parseInt(sheet.getRow(4).getCell(1).getStringCellValue()));
-				break;
-			    default:
-				throw new Exception("Incorrect cell type");
-			    }
-			    rowType = sheet.getRow(6).getCell(1).getCellType();
-			    switch (rowType) {
-			    case 0:
-				particleBoard.setWeight((int) (sheet.getRow(5).getCell(1).getNumericCellValue()));
-				break;
-			    case 1:
-				particleBoard
-					.setWeight(Integer.parseInt(sheet.getRow(5).getCell(1).getStringCellValue()));
-				break;
-			    default:
-				throw new Exception("Incorrect cell type");
-			    }
-			    particleBoard.setFoto_1(String.valueOf(sheet.getRow(6).getCell(1).getStringCellValue()));
-			    particleBoard.setFoto_2(String.valueOf(sheet.getRow(7).getCell(1).getStringCellValue()));
-			    particleBoard.setFoto_3(String.valueOf(sheet.getRow(8).getCell(1).getStringCellValue()));
-			    particleBoard.setFoto_4(String.valueOf(sheet.getRow(9).getCell(1).getStringCellValue()));
-			    particleBoard.setDescription_bench(
-				    String.valueOf(sheet.getRow(10).getCell(1).getStringCellValue()));
-
-			    particleBoardService.save(particleBoard);
-			}
-		    }
-		    workBook.close();
-		    resultExcelInfoMessage += multipartFile.getOriginalFilename() + "-successfully;  ";
-		} else {
-		    resultExcelInfoMessage += multipartFile.getOriginalFilename() + "-error: empty;  ";
-		}
-	    } catch (Exception e) {
-		resultExcelInfoMessage += multipartFile.getOriginalFilename() + "-error: " + e.getMessage() + ";  ";
-		e.printStackTrace();
+	try {
+	    List<MultipartFile> files = uploadFile.getFiles();
+	    for (MultipartFile multipartFile : files) {
+		resultExcelInfoMessage += fileService.uploadExcelInfoFile(multipartFile, plywoodService,
+			particleBoardService);
 	    }
+	    RedirectView redirectView = new RedirectView("add");
+	    redirectAttributes.addFlashAttribute("resultExcelInfoMessage", resultExcelInfoMessage);
+	    modelAndView.setView(redirectView);
+	    Actions actions = new Actions(principal.getName(), "Upload info from file: " + resultExcelInfoMessage);
+	    actionsService.save(actions);
+	} catch (Exception e) {
+	    errorsService.save(new Errors("Upload info from file", e.getMessage()));
 	}
-	RedirectView redirectView = new RedirectView("add");
-	redirectAttributes.addFlashAttribute("resultExcelInfoMessage", resultExcelInfoMessage);
-	modelAndView.setView(redirectView);
 	return modelAndView;
     }
+
+    @RequestMapping(value = "/uploadPhoto", method = RequestMethod.POST)
+    @ResponseBody
+    public ModelAndView uploadPhoto(@ModelAttribute("uploadFiles") UploadedFile uploadFile, HttpSession session,
+	    RedirectAttributes redirectAttributes, Principal principal) {
+
+	ModelAndView modelAndView = new ModelAndView("add");
+	String resultPhotoMessage = "";
+	try {
+	    List<MultipartFile> files = uploadFile.getFiles();
+	    for (MultipartFile multipartFile : files) {
+		resultPhotoMessage += fileService.uploadPhoto(multipartFile, servletContext);
+	    }
+	    RedirectView redirectView = new RedirectView("add");
+	    redirectAttributes.addFlashAttribute("resultPhotoMessage", resultPhotoMessage);
+	    modelAndView.setView(redirectView);
+	    Actions actions = new Actions(principal.getName(), "Upload photo: " + resultPhotoMessage);
+	    actionsService.save(actions);
+	} catch (Exception e) {
+	    errorsService.save(new Errors("Upload photo", e.getMessage()));
+	}
+	return modelAndView;
+    }
+
 }

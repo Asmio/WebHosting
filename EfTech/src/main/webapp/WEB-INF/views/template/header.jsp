@@ -1,14 +1,18 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <header>
+<script src="${pageContext.request.contextPath}/resources/assets/js/js.js"></script>
     <div class="container no-padding">
         
         <div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
             <!-- ============================================================= LOGO ============================================================= -->
 <div class="logo">
-    <a href="index.htm">
+    <a href="${pageContext.request.contextPath}/index.html">
         <!--<img alt="vmc_and_hmc" src="resources/assets/images/vmc_and_hmc.svg" width="233" height="54"/>-->
-        <img alt="vmc_and_hmc" src="resources/assets/images/logo_wood.png" width="233" height="54"/>
+        <img alt="" src="${pageContext.request.contextPath}/resources/assets/images/logo_wood.png" width="233" height="54"/>
         <!--<img alt="logo_vmccnc" src="resources/assets/images/logo_vmccnc.jpg" width="233" height="54"/>-->
         <!--<img alt="logo_vmccnc" src="resources/assets/images/vmc_hmc.jpg" width="233" height="54"/>-->
         <!--<object id="sp" type="image/svg+xml" data="assets/images/logo.svg" width="233" height="54"></object>-->
@@ -89,111 +93,63 @@
 
         <div class="col-xs-12 col-sm-12 col-md-3 top-cart-row no-margin">
             <div class="top-cart-row-container">
-    <div class="wishlist-compare-holder">
-<!--        <div class="wishlist ">
-            <a href="wishlist.htm"><i class="fa fa-heart"></i> wishlist <span class="value">${wishlistCart.numberOfItems}</span> </a>
-        </div>-->
-        <div class="compare">
-            <a href="compare.htm"><i class="fa fa-exchange"></i> сравнить <span class="value">${compareCart.numberOfItems}</span> </a>
-        
-        </div>
-    </div>
+				<div class="wishlist-compare-holder">
+			        <div class="compare">
+			            <a href="${pageContext.request.contextPath}/compare.html"><i class="fa fa-exchange"></i> <spring:message code="main.compare"/> <span class="compare-list-size">
+			            <c:if test="${compareList.total  > 0}">${compareList.total}</c:if>
+			            </span> </a>
+			        </div>
+			    </div>
 
     <!-- ============================================================= SHOPPING CART DROPDOWN ============================================================= -->
-    <div class="top-cart-holder dropdown animate-dropdown">
-        
-        <div class="basket">
-            
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <div class="basket-item-count">
-                    <span class="count">${cart.numberOfItems}</span>
-                    <img src="resources/assets/images/icon-cart.png" alt="" />
-                </div>
-
-                <div class="total-price-basket"> 
-                    <span class="lbl">ваша корзина:</span>
-                    <span class="total-price">
-                        <span class="sign">$</span><span class="value">${cart.subtotal}</span>
-                    </span>
-                </div>
-            </a>
-
-            <ul class="dropdown-menu">
-                
-<c:forEach var="hmc" items="${cart.items}">
-                <li>
-                    <div class="basket-item">
-                        <div class="row">
-                            <div class="col-xs-4 col-sm-4 no-margin text-center">
-                                <div class="thumb">
-                                    <img alt="" src="resources/assets/images/products/${hmc.product.photo1}" />
-                                </div>
-                            </div>
-                            <div class="col-xs-8 col-sm-8 no-margin">
-                                <div class="title">${hmc.product.model}</div>
-                                <div class="price">${hmc.product.price} </div>
-                                <div class="price">${hmc.quantity} units</div>
-                            </div>
-                        </div>
-                        <!--<a class="close-btn" href="del-from-basket.htm?id=${hmc.product.id}&page=index"></a>-->
-                        <a class="close-btn" href="del-from-basket.htm?id=${hmc.product.id}"></a>
-                    </div>
-                </li>
-</c:forEach>
-<!--                <li>
-                    <div class="basket-item">
-                        <div class="row">
-                            <div class="col-xs-4 col-sm-4 no-margin text-center">
-                                <div class="thumb">
-                                    <img alt="" src="resources/assets/images/products/product-small-01.jpg" />
-                                </div>
-                            </div>
-                            <div class="col-xs-8 col-sm-8 no-margin">
-                                <div class="title">Blueberry</div>
-                                <div class="price">$270.00</div>
-                            </div>
-                        </div>
-                        <a class="close-btn" href="#"></a>
-                    </div>
-                </li>
-
-                <li>
-                    <div class="basket-item">
-                        <div class="row">
-                            <div class="col-xs-4 col-sm-4 no-margin text-center">
-                                <div class="thumb">
-                                    <img alt="" src="resources/assets/images/products/product-small-01.jpg" />
-                                </div>
-                            </div>
-                            <div class="col-xs-8 col-sm-8 no-margin">
-                                <div class="title">Blueberry</div>
-                                <div class="price">$270.00</div>
-                            </div>
-                        </div>
-                        <a class="close-btn" href="#"></a>
-                    </div>
-                </li>-->
-
-
-                <li class="checkout">
-                    <div class="basket-item">
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-6">
-                                <!--<a href="cart.html.html" class="le-button inverse">View cart</a>-->
-                                <a href="basket.htm" class="le-button inverse">View cart</a>
-                            </div>
-                            <div class="col-xs-12 col-sm-6">
-                                <a href="#" class="le-button">Checkout</a>
-                                <!--<a href="checkout.html" class="le-button">Checkout</a>-->
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-            </ul>
-        </div> 
-                    <!--/.basket--> 
-              </div>
+    <sec:authorize access="hasRole('ROLE_ADMIN')">
+	    <div class="top-cart-holder dropdown animate-dropdown">
+	        
+	        <div class="basket">
+	            
+	            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+	                <div class="basket-item-count">
+	                    <span class="count">${shoppingCart.numberOfItems}</span>
+	                    <img src="${pageContext.request.contextPath}/resources/assets/images/icon-cart.png" alt="" />
+	                </div>
+				
+	                <div class="total-price-basket"> 
+	                    <span class="lbl"><spring:message code="main.your_cart"/>:</span>
+	                    <c:set var="cartExist" value="<%=session.getAttribute(\"shoppingCart\") %>"></c:set>
+			        	<c:choose>
+			        		<c:when test="${cartExist == null }">
+			        			<img alt="update cart" class="img-update-cart" onclick="updateCart()" src="${pageContext.request.contextPath}/resources/assets/images/update.png">
+			        		</c:when>
+			        		<c:otherwise>
+			        		<span class="total-price">
+		                        <span class="value">${shoppingCart.total}</span><span class="sign">$</span>
+		                    </span>
+			        		</c:otherwise>
+			        	</c:choose>
+	                </div>
+	            </a>
+	
+	            <ul class="dropdown-menu">
+	                <li class="checkout">
+	                    <div class="basket-item">
+	                        <div class="row">
+	                            <div class="col-xs-12 col-sm-6">
+	                                <!--<a href="cart.html.html" class="le-button inverse">View cart</a>-->
+	                                <a href="${pageContext.request.contextPath}/cart.html" class="le-button inverse"><spring:message code="main.view_cart"/></a>
+	                            </div>
+	                            <div class="col-xs-12 col-sm-6">
+	                                <a href="${pageContext.request.contextPath}/cart/checkout.html" class="le-button"><spring:message code="main.checkout"/></a>
+	                                <!--<a href="checkout.html" class="le-button">Checkout</a>-->
+	                            </div>
+	                        </div>
+	                    </div>
+	                </li>
+	
+	            </ul>
+	        </div> 
+	                    <!--/.basket--> 
+	   </div>
+	</sec:authorize>
     
     <!-- /.top-cart-holder -->
 </div>
